@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Escala IA · 13/11 em Alphaville | Tiago Almeida</title>
+<meta name="description" content="Evento presencial de IA para empresas: agentes de IA nas tarefas repetitivas, atendimento automatizado, SDRs e social selling com IA. 13/11 em Alphaville.">
+<meta property="og:title" content="Escala IA · 13/11 em Alphaville">
+<meta property="og:description" content="IA não serve só pra gerar textinho bonito. Serve pra colocar dinheiro no caixa da sua empresa.">
+<meta property="og:image" content="https://eventos.v8.ia.br/escala-ia/img/hero.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/hero.jpg">
+<style>
+:root{
+  --bg:#06090A;--bg2:#0B1110;--card:#0E1513;--line:rgba(255,255,255,.09);
+  --green:#2EE68C;--green-l:#B8FFD9;--green-t:#7CF5B9;--ink:#F2F5F3;--dim:#A9B5AF;--red:#FF8A8A;
+  --sans:"Manrope","Helvetica Neue",Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.65 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;overflow-x:clip}
+img{max-width:100%;display:block}
+.wrap{width:min(1140px,100% - 2rem);margin-inline:auto}
+h1,h2,h3{margin:0;line-height:1.08;letter-spacing:-.03em;font-weight:800}
+h1{font-size:clamp(2.2rem,5.2vw,4rem)}
+h2{font-size:clamp(1.9rem,4vw,3rem)}
+h3{font-size:1.25rem;letter-spacing:-.015em}
+p{margin:0 0 1em}
+em{font-style:normal;background:linear-gradient(100deg,var(--green),var(--green-l));-webkit-background-clip:text;background-clip:text;color:transparent}
+.tag{display:inline-flex;align-items:center;gap:.6rem;padding:.55rem 1rem;border:1px solid rgba(46,230,140,.55);border-radius:999px;font:700 .78rem/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--green-t);background:rgba(6,9,10,.5)}
+.tag i{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border:0;cursor:pointer;background:var(--green);color:#06281A;font:800 1.02rem/1 var(--sans);padding:1.15rem 1.8rem;border-radius:14px;text-decoration:none;box-shadow:0 14px 34px -12px rgba(46,230,140,.65);transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 20px 40px -12px rgba(46,230,140,.75)}
+.btn:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,.x:focus-visible{outline:2px solid var(--green-l);outline-offset:3px}
+.micro{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;margin:1rem 0 0;padding:0;list-style:none;font-size:.9rem;color:var(--dim)}
+.micro li::before{content:"✓ ";color:var(--green)}
+.sec{padding:clamp(4rem,9vw,7rem) 0;position:relative}
+.head{max-width:740px;margin-bottom:clamp(2rem,5vw,3rem)}
+.head p{color:var(--dim);font-size:1.12rem;margin-top:1rem}
+.center{text-align:center;margin-inline:auto}
+.grid-bg::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 80% 10%,#000 10%,transparent 70%);mask-image:radial-gradient(ellipse 70% 60% at 80% 10%,#000 10%,transparent 70%)}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:40;background:rgba(6,9,10,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:.7rem 0}
+.logo{font:800 1.15rem/1 var(--sans);letter-spacing:.02em;color:var(--ink);text-decoration:none}
+.logo b{color:var(--green)}
+.nav .btn{padding:.8rem 1.2rem;font-size:.9rem;border-radius:12px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding:clamp(2.5rem,6vw,4.5rem) 0 clamp(3rem,6vw,4.5rem);background:radial-gradient(55% 60% at 85% 10%,rgba(46,230,140,.18),transparent 70%),var(--bg)}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+.hero .pre{display:block;margin:1.6rem 0 .6rem;font:700 clamp(1.15rem,2vw,1.45rem)/1.3 var(--sans);color:var(--dim);letter-spacing:-.01em}
+.hero .pre s{text-decoration-color:rgba(255,90,90,.85);text-decoration-thickness:3px}
+.hero .lead{font-size:1.15rem;color:var(--dim);margin:1.4rem 0 1.8rem;max-width:56ch}
+.hero .lead b{color:var(--ink)}
+.hero-ph{position:relative;margin:0;justify-self:end;width:100%;max-width:480px;aspect-ratio:4/5;border-radius:28px;overflow:hidden;border:1px solid rgba(46,230,140,.25);box-shadow:0 40px 80px -30px rgba(0,0,0,.8)}
+.hero-ph img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}
+.hero-ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(6,9,10,.85))}
+.badge{position:absolute;left:1rem;right:1rem;bottom:1rem;z-index:2;display:flex;justify-content:space-between;align-items:flex-end;gap:1rem}
+.badge b{display:block;font:800 2.2rem/1 var(--sans);letter-spacing:-.03em}
+.badge span{font:700 .72rem/1.2 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--green-t)}
+.badge .who{text-align:right;font-size:.9rem;color:var(--dim)}
+.badge .who strong{display:block;color:var(--ink);font-size:1rem}
+
+/* dores */
+.pains{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.pain{padding:1.8rem 1.6rem;border-radius:20px;background:var(--card);border:1px solid var(--line)}
+.pain .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(255,138,138,.12);color:var(--red);font:800 1.2rem/1 var(--sans);margin-bottom:1.1rem}
+.pain p{color:var(--dim);margin:.5rem 0 0;font-size:1rem}
+
+/* pilares */
+.pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.pillar{position:relative;padding:2rem 1.8rem;border-radius:22px;background:linear-gradient(180deg,rgba(46,230,140,.07),rgba(46,230,140,.02));border:1px solid rgba(46,230,140,.22);overflow:hidden}
+.pillar .n{display:inline-block;font:800 .8rem/1 var(--sans);letter-spacing:.16em;color:var(--green-t);margin-bottom:1rem}
+.pillar h3{font-size:1.4rem;margin-bottom:.6rem}
+.pillar p{color:var(--dim);margin:0}
+.pillar ul{margin:1rem 0 0;padding:0;list-style:none;display:grid;gap:.45rem;font-size:.97rem}
+.pillar li::before{content:"→ ";color:var(--green)}
+
+/* resultados */
+.results{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.result{padding:1.8rem 1.6rem;border-radius:20px;background:var(--card);border:1px solid var(--line);text-align:center}
+.result .ck{width:52px;height:52px;margin:0 auto 1rem;border-radius:14px;display:grid;place-items:center;background:var(--green);color:#06281A;font:800 1.4rem/1 var(--sans)}
+.result h3{font-size:1.15rem}
+
+/* antes e depois */
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:900px;margin-inline:auto}
+.vs>div{padding:2rem 1.8rem;border-radius:22px;border:1px solid var(--line);background:var(--card)}
+.vs h3{font-size:.85rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:1.2rem}
+.vs ul{margin:0;padding:0;list-style:none;display:grid;gap:.8rem}
+.vs li{display:flex;gap:.7rem}
+.vs .no h3{color:var(--red)}.vs .no li::before{content:"✕";color:var(--red);font-weight:800}
+.vs .no li{color:var(--dim)}
+.vs .yes{border-color:rgba(46,230,140,.45);background:rgba(46,230,140,.07)}
+.vs .yes h3{color:var(--green-t)}.vs .yes li::before{content:"✓";color:var(--green);font-weight:800}
+
+/* para quem */
+.fit{display:grid;grid-template-columns:1.1fr .9fr;gap:1rem}
+.fit>div{padding:2rem 1.8rem;border-radius:22px;border:1px solid var(--line)}
+.fit .yes{background:rgba(46,230,140,.07);border-color:rgba(46,230,140,.35)}
+.fit h3{margin-bottom:1.1rem}
+.fit ul{margin:0;padding:0;list-style:none;display:grid;gap:.8rem}
+.fit li{display:flex;gap:.7rem}
+.fit .yes li::before{content:"✓";color:var(--green);font-weight:800}
+.fit .no li::before{content:"✕";color:#6f7c76;font-weight:800}
+.fit .no li{color:var(--dim)}
+
+/* quem conduz */
+.host .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+.host-ph{border-radius:26px;overflow:hidden;border:1px solid var(--line);aspect-ratio:4/5}
+.host-ph img{width:100%;height:100%;object-fit:cover;object-position:55% 25%}
+.host p{color:var(--dim)}
+
+/* info */
+.info{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+.info div{padding:1.6rem;border-radius:20px;background:var(--card);border:1px solid var(--line)}
+.info span{display:block;font:700 .72rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--green-t);margin-bottom:.7rem}
+.info b{font:800 1.5rem/1.2 var(--sans);letter-spacing:-.02em}
+
+/* faq */
+.faq{max-width:800px;margin-inline:auto}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:1.3rem 2.5rem 1.3rem 0;font-weight:700;font-size:1.08rem;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:.3rem;top:50%;transform:translateY(-50%);color:var(--green);font-size:1.6rem;font-weight:400;transition:transform .2s}
+.faq details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+.faq details p{color:var(--dim);margin:0 0 1.3rem}
+
+/* final */
+.final{position:relative;overflow:hidden;background:radial-gradient(60% 70% at 50% 0%,rgba(46,230,140,.16),transparent 70%),var(--bg2);border-top:1px solid var(--line)}
+.final .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+.final-ph{border-radius:26px;overflow:hidden;aspect-ratio:4/5;max-width:380px;justify-self:end;border:1px solid rgba(46,230,140,.25)}
+.final-ph img{width:100%;height:100%;object-fit:cover;object-position:50% 12%}
+.final p{color:var(--dim);font-size:1.1rem;margin:1rem 0 1.8rem;max-width:52ch}
+.foot{padding:2rem 0 6rem;text-align:center;font-size:.85rem;color:#6f7c76;border-top:1px solid var(--line)}
+
+/* barra fixa mobile */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:45;display:none;padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom,0px));background:rgba(6,9,10,.94);backdrop-filter:blur(10px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .3s}
+.sticky.on{transform:none}
+.sticky .btn{width:100%}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:1rem;background:rgba(3,6,5,.85);backdrop-filter:blur(8px);overflow:auto}
+.modal.on{display:grid}
+.panel{position:relative;width:min(520px,100%);background:var(--bg2);border:1px solid rgba(46,230,140,.4);border-radius:24px;padding:2.2rem 1.8rem 1.8rem;box-shadow:0 40px 80px -20px #000}
+.x{position:absolute;right:.8rem;top:.6rem;background:none;border:0;color:var(--ink);font-size:1.8rem;line-height:1;cursor:pointer;padding:.3rem}
+.panel h3{font-size:1.6rem;margin-bottom:.4rem}
+.panel>p,.panel form>p{color:var(--dim);font-size:.95rem}
+label{display:block;margin:.9rem 0 .3rem;font-size:.86rem;font-weight:700}
+input,select{width:100%;padding:.9rem 1rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);border-radius:12px;color:var(--ink);font:400 1rem var(--sans)}
+input::placeholder{color:#6f7c76}
+select option{color:#000}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+form .btn{width:100%;margin-top:1.4rem}
+.privacy{font-size:.8rem;color:var(--dim);text-align:center;margin:.9rem 0 0}
+#err{color:var(--red);margin:.8rem 0 0;font-size:.92rem;min-height:1px}
+#ok{display:none;text-align:center}
+#ok .ck{width:64px;height:64px;margin:0 auto 1.2rem;border-radius:18px;display:grid;place-items:center;background:var(--green);color:#06281A;font:800 1.8rem/1 var(--sans)}
+#ok p{color:var(--dim)}
+
+@media (max-width:900px){
+  .hero .wrap,.host .wrap,.final .wrap{grid-template-columns:1fr}
+  .hero-ph{order:-1;justify-self:center;max-width:420px;aspect-ratio:4/4}
+  .pains,.results,.info{grid-template-columns:1fr}
+  .final-ph{display:none}
+  .sticky{display:block}
+}
+@media (max-width:640px){
+  .pillars,.vs,.fit{grid-template-columns:1fr}
+  .row2{grid-template-columns:1fr}
+  .nav .btn{padding:.7rem .9rem;font-size:.82rem}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.sticky{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="nav"><div class="wrap">
+  <a class="logo" href="#topo">ESCALA <b>IA</b></a>
+  <button class="btn" data-open>Garantir minha vaga</button>
+</div></header>
+
+<main id="topo">
+
+<!-- 1 · TOPO -->
+<section class="hero grid-bg"><div class="wrap">
+  <div>
+    <span class="tag"><i></i>Evento presencial · 13/11 · Alphaville</span>
+    <span class="pre">IA não serve só pra gerar <s>textinho bonito</s>.</span>
+    <h1>Serve pra colocar <em>dinheiro no caixa</em> da sua empresa.</h1>
+    <p class="lead">No <b>Escala IA</b>, você vai ver na prática como <b>agentes de IA</b> executam as tarefas manuais e repetitivas, como o <b>atendimento automatizado</b> vende por você e como <b>SDRs e social selling com IA</b> trazem mais oportunidades de venda para a sua empresa.</p>
+    <button class="btn" data-open data-cta="hero">Quero garantir minha vaga →</button>
+    <ul class="micro"><li>Para donos e gestores de empresa</li><li>13 de novembro</li><li>Alphaville · SP</li></ul>
+  </div>
+  <figure class="hero-ph">
+    <img src="img/hero.jpg" alt="Tiago Almeida" fetchpriority="high">
+    <figcaption class="badge"><div><b>13/11</b><span>Alphaville · SP</span></div><div class="who"><strong>Tiago Almeida</strong>Escala IA</div></figcaption>
+  </figure>
+</div></section>
+
+<!-- 2 · DOR -->
+<section class="sec"><div class="wrap">
+  <div class="head">
+    <span class="tag"><i></i>O problema</span>
+    <h2 style="margin-top:1.2rem">Sua empresa ainda depende de gente fazendo o que <em>uma IA já faz</em>?</h2>
+  </div>
+  <div class="pains">
+    <div class="pain"><div class="ic">!</div><h3>Tarefas manuais e repetitivas</h3><p>A equipe gasta horas em planilhas, cadastros e follow-ups, em vez de vender e atender bem.</p></div>
+    <div class="pain"><div class="ic">!</div><h3>Cliente esperando resposta</h3><p>Mensagem que demora a ser respondida no WhatsApp é venda indo para o concorrente.</p></div>
+    <div class="pain"><div class="ic">!</div><h3>Dono preso no operacional</h3><p>Se a empresa para quando você para, falta processo, e não esforço.</p></div>
+  </div>
+</div></section>
+
+<!-- 3 · O QUE VOCÊ VAI APRENDER -->
+<section class="sec grid-bg" style="background:var(--bg2)"><div class="wrap">
+  <div class="head">
+    <span class="tag"><i></i>O que você vai aprender</span>
+    <h2 style="margin-top:1.2rem">Quatro frentes para a IA <em>trabalhar pela sua empresa</em>.</h2>
+    <p>Nada de teoria sobre o futuro: aplicações de IA que geram receita e cortam custo no dia a dia do negócio.</p>
+  </div>
+  <div class="pillars">
+    <article class="pillar"><span class="n">01 · AGENTES DE IA</span><h3>Tarefas manuais e repetitivas no automático</h3><p>Como agentes de IA executam as rotinas que hoje consomem a sua equipe.</p><ul><li>Cadastros, planilhas e relatórios</li><li>Follow-ups e lembretes</li><li>Processos internos que se repetem todo dia</li></ul></article>
+    <article class="pillar"><span class="n">02 · ATENDIMENTO</span><h3>Atendimento automatizado que vende</h3><p>Como colocar a IA para responder, tirar dúvidas e qualificar clientes a qualquer hora.</p><ul><li>Resposta imediata no WhatsApp</li><li>Qualificação antes do vendedor entrar</li><li>Menos clientes perdidos por demora</li></ul></article>
+    <article class="pillar"><span class="n">03 · SDRS COM IA</span><h3>Prospecção e agendamento com IA</h3><p>Como usar SDRs com IA para abordar, qualificar e agendar reuniões para o seu time comercial.</p><ul><li>Abordagem e qualificação de leads</li><li>Agenda do comercial cheia</li><li>Vendedor focado em fechar</li></ul></article>
+    <article class="pillar"><span class="n">04 · SOCIAL SELLING</span><h3>Social selling com IA no perfil da empresa</h3><p>Como usar a IA no perfil da empresa para atrair e conversar com mais oportunidades de venda.</p><ul><li>Conteúdo e relacionamento com constância</li><li>Conversas que viram oportunidades</li><li>Mais demanda chegando pelo digital</li></ul></article>
+  </div>
+</div></section>
+
+<!-- 4 · RESULTADO -->
+<section class="sec"><div class="wrap">
+  <div class="head center" style="text-align:center">
+    <span class="tag"><i></i>Na prática</span>
+    <h2 style="margin-top:1.2rem">Quem aprende a usar as ferramentas certas consegue:</h2>
+  </div>
+  <div class="results">
+    <div class="result"><div class="ck">✓</div><h3>Vender mais com atendimento automatizado</h3></div>
+    <div class="result"><div class="ck">✓</div><h3>Enxugar custo operacional</h3></div>
+    <div class="result"><div class="ck">✓</div><h3>Tirar o dono da sobrecarga do dia a dia</h3></div>
+  </div>
+  <div class="vs" style="margin-top:3rem">
+    <div class="no"><h3>Sem IA</h3><ul><li>Atendimento manual e lento</li><li>Equipe presa em tarefas repetitivas</li><li>Prospecção irregular</li><li>Dono sobrecarregado</li></ul></div>
+    <div class="yes"><h3>Com IA</h3><ul><li>Atendimento imediato, a qualquer hora</li><li>Agentes executando as rotinas</li><li>SDRs com IA enchendo a agenda</li><li>Dono livre para crescer</li></ul></div>
+  </div>
+</div></section>
+
+<!-- 5 · PARA QUEM É -->
+<section class="sec" style="background:var(--bg2)"><div class="wrap">
+  <div class="head">
+    <span class="tag"><i></i>Para quem é</span>
+    <h2 style="margin-top:1.2rem">O Escala IA é <em>para você</em> se:</h2>
+  </div>
+  <div class="fit">
+    <div class="yes"><h3>É para você se…</h3><ul>
+      <li>É dono, sócio ou gestor de uma empresa em operação.</li>
+      <li>Quer vender mais sem inchar a equipe.</li>
+      <li>Quer reduzir custo operacional com processos automáticos.</li>
+      <li>Quer sair do operacional e voltar a pensar no crescimento.</li>
+    </ul></div>
+    <div class="no"><h3>Não é para você se…</h3><ul>
+      <li>Procura só um curso de prompts para escrever textos.</li>
+      <li>Ainda não tem um negócio funcionando.</li>
+      <li>Não pretende aplicar nada na empresa.</li>
+    </ul></div>
+  </div>
+</div></section>
+
+<!-- 6 · QUEM CONDUZ -->
+<section class="sec host"><div class="wrap">
+  <div class="host-ph"><img src="img/palco.jpg" alt="Tiago Almeida palestrando em evento" loading="lazy"></div>
+  <div>
+    <span class="tag"><i></i>Quem conduz</span>
+    <h2 style="margin-top:1.2rem">Tiago Almeida</h2>
+    <p style="margin-top:1.2rem;font-size:1.1rem">À frente do Escala IA, Tiago mostra como empresas aplicam inteligência artificial onde ela gera resultado: no atendimento, na operação e nas vendas.</p>
+    <p>A proposta é sair do discurso sobre IA e mostrar o que dá para colocar para rodar na sua empresa.</p>
+    <div class="info">
+      <div><span>Data</span><b>13/11</b></div>
+      <div><span>Local</span><b>Alphaville · SP</b></div>
+      <div><span>Formato</span><b>Presencial</b></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 7 · FAQ -->
+<section class="sec" style="background:var(--bg2)"><div class="wrap">
+  <div class="head center" style="text-align:center">
+    <span class="tag"><i></i>Dúvidas frequentes</span>
+    <h2 style="margin-top:1.2rem">Antes de garantir sua vaga</h2>
+  </div>
+  <div class="faq">
+    <details><summary>Preciso entender de tecnologia ou programação?</summary><p>Não. O conteúdo é pensado para donos e gestores de empresa, com foco em onde aplicar a IA no negócio, e não em programação.</p></details>
+    <details><summary>Serve para qualquer segmento?</summary><p>Serve para empresas que têm atendimento, vendas e processos repetitivos, o que inclui a maioria dos negócios em operação.</p></details>
+    <details><summary>Onde e quando acontece?</summary><p>No dia 13 de novembro, em Alphaville (SP), de forma presencial. Os detalhes de endereço e horário são enviados aos inscritos.</p></details>
+    <details><summary>Como recebo as informações depois de me inscrever?</summary><p>Pelo WhatsApp e pelo e-mail que você informar no formulário.</p></details>
+  </div>
+</div></section>
+
+<!-- 8 · CTA FINAL -->
+<section class="sec final grid-bg"><div class="wrap">
+  <div>
+    <span class="tag"><i></i>13/11 · Alphaville</span>
+    <h2 style="margin-top:1.2rem">Coloque a IA pra gerar <em>dinheiro no caixa</em>, não textinho bonito.</h2>
+    <p>Garanta sua vaga no Escala IA e saia sabendo como agentes, atendimento automatizado, SDRs e social selling com IA podem trabalhar pela sua empresa.</p>
+    <button class="btn" data-open data-cta="final">Quero garantir minha vaga →</button>
+    <ul class="micro"><li>Leva menos de 1 minuto</li><li>Seus dados ficam protegidos</li></ul>
+  </div>
+  <div class="final-ph"><img src="img/cta.jpg" alt="Tiago Almeida" loading="lazy"></div>
+</div></section>
+</main>
+
+<footer class="foot"><div class="wrap">ESCALA IA · Tiago Almeida · 13/11 · Alphaville · SP</div></footer>
+
+<div class="sticky" id="sticky"><button class="btn" data-open data-cta="sticky">Garantir minha vaga →</button></div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="ft">
+  <div class="panel" id="fp">
+    <button class="x" aria-label="Fechar" data-close>×</button>
+    <form id="form" novalidate>
+      <h3 id="ft">Garanta sua vaga no <em>Escala IA</em></h3>
+      <p>13/11 · Alphaville · SP. Preencha seus dados e receba as informações do evento.</p>
+      <label for="n">Nome</label><input id="n" required autocomplete="name" placeholder="Nome e sobrenome">
+      <div class="row2">
+        <div><label for="t">WhatsApp</label><input id="t" type="tel" required autocomplete="tel" inputmode="tel" placeholder="(11) 90000-0000"></div>
+        <div><label for="e">E-mail</label><input id="e" type="email" required autocomplete="email" inputmode="email" placeholder="voce@empresa.com"></div>
+      </div>
+      <label for="em">Empresa</label><input id="em" required autocomplete="organization" placeholder="Nome da empresa">
+      <div class="row2">
+        <div><label for="c">Seu cargo</label><select id="c" required><option value="">Selecione</option><option>Dono ou sócio</option><option>Diretor ou gestor</option><option>Colaborador</option><option>Outro</option></select></div>
+        <div><label for="fu">Funcionários</label><select id="fu" required><option value="">Selecione</option><option>Só eu</option><option>2 a 10</option><option>11 a 50</option><option>51 a 200</option><option>Mais de 200</option></select></div>
+      </div>
+      <p id="err" role="alert"></p>
+      <button class="btn" type="submit" id="sb">Garantir minha vaga →</button>
+      <p class="privacy">🔒 Seus dados são usados apenas para falar com você sobre o evento.</p>
+    </form>
+  </div>
+  <div class="panel" id="ok">
+    <button class="x" aria-label="Fechar" data-close>×</button>
+    <div class="ck">✓</div>
+    <h3>Inscrição recebida, <span id="nm"></span>!</h3>
+    <p style="margin-top:.8rem">Em breve você recebe no WhatsApp e no e-mail os detalhes do Escala IA: endereço, horário e próximos passos.</p>
+  </div>
+</div>
+
+<script>
+/* lead gravado no Supabase (tabela leads_escala_ia, só inserção) */
+const SUPABASE_URL='https://hmnhcinkmfwtutkbxejb.supabase.co';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtbmhjaW5rbWZ3dHV0a2J4ZWpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3ODM3ODcsImV4cCI6MjEwODM1OTc4N30.WRIigm-qiUAjfwYf7GjwTfJzjH_t8dWCWgFftRE07oo';
+const $=s=>document.querySelector(s),modal=$('#modal'),fp=$('#fp'),ok=$('#ok'),sticky=$('#sticky');
+const track=(ev,p={})=>{try{(window.dataLayer=window.dataLayer||[]).push({event:ev,...p});window.fbq&&fbq('trackCustom',ev,p)}catch(_){}};
+const qs=new URLSearchParams(location.search),utm={};['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid'].forEach(k=>{if(qs.get(k))utm[k]=qs.get(k)});
+let lastFocus=null;
+const open=src=>{lastFocus=document.activeElement;modal.classList.add('on');fp.style.display='';ok.style.display='none';document.body.style.overflow='hidden';setTimeout(()=>$('#n').focus(),50);track('lp_form_open',{cta:src})};
+const close=()=>{modal.classList.remove('on');document.body.style.overflow='';lastFocus&&lastFocus.focus()};
+document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>open(b.dataset.cta)));
+document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',close));
+modal.addEventListener('click',e=>{if(e.target===modal)close()});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('on'))close()});
+
+/* máscara de WhatsApp */
+$('#t').addEventListener('input',e=>{let v=e.target.value.replace(/\D/g,'').slice(0,11);
+  e.target.value=v.length>10?`(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`:v.length>6?`(${v.slice(0,2)}) ${v.slice(2,6)}-${v.slice(6)}`:v.length>2?`(${v.slice(0,2)}) ${v.slice(2)}`:v});
+
+/* barra fixa no mobile: aparece depois do topo e some no CTA final */
+let pastHero=false,atFinal=false;const upd=()=>sticky.classList.toggle('on',pastHero&&!atFinal);
+new IntersectionObserver(e=>{pastHero=!e[0].isIntersecting;upd()}).observe($('.hero'));
+new IntersectionObserver(e=>{atFinal=e[0].isIntersecting;upd()}).observe($('.final'));
+
+$('#form').addEventListener('submit',async e=>{e.preventDefault();
+  const d={nome:$('#n').value.trim(),whatsapp:$('#t').value.trim(),email:$('#e').value.trim(),empresa:$('#em').value.trim(),cargo:$('#c').value,funcionarios:$('#fu').value,page:location.pathname,...utm};
+  if(!d.nome||d.whatsapp.replace(/\D/g,'').length<10||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email)||!d.empresa||!d.cargo||!d.funcionarios){$('#err').textContent='Preencha todos os campos. O WhatsApp precisa ter DDD e o e-mail precisa ser válido.';return}
+  $('#err').textContent='';const sb=$('#sb');sb.disabled=true;sb.textContent='Enviando…';
+  try{const r=await fetch(SUPABASE_URL+'/rest/v1/leads_escala_ia',{method:'POST',headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(d)});if(!r.ok)throw new Error(r.status)}
+  catch(_){$('#err').textContent='Não conseguimos enviar agora. Tente de novo em instantes.';sb.disabled=false;sb.textContent='Garantir minha vaga →';track('lp_lead_error');return}
+  sb.disabled=false;sb.textContent='Garantir minha vaga →';track('lp_lead',{cargo:d.cargo,funcionarios:d.funcionarios});try{window.fbq&&fbq('track','Lead')}catch(_){}
+  $('#nm').textContent=d.nome.split(' ')[0];fp.style.display='none';ok.style.display='block'});
+</script>
+</body>
+</html>
