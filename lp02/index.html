@@ -85,28 +85,28 @@ body.lock{overflow:hidden}
 
 /* ===== QUIZ ===== */
 #quizScreen{min-height:100dvh;background:radial-gradient(900px 600px at 15% 0%,rgba(46,230,140,.12),transparent 60%),var(--bg);padding-block:16px 32px}
-.quiz-col{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
-.quiz-visual{position:relative;height:260px;border-radius:22px;overflow:hidden;border:1px solid var(--line)}
+.quiz-col{max-width:540px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.quiz-visual{position:relative;height:220px;border-radius:22px;overflow:hidden;border:1px solid var(--line)}
 .quiz-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
 .quiz-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,9,10,.35) 0%,rgba(6,9,10,0) 30%,rgba(6,9,10,.92) 100%)}
 .quiz-visual .brand{position:absolute;z-index:1;top:16px;left:18px}
 .quiz-visual .vc{position:absolute;z-index:1;left:20px;right:20px;bottom:16px;display:flex;flex-direction:column;gap:6px}
 .quiz-visual h1{font-size:clamp(22px,2.8vw,30px);font-weight:800}
-.quiz-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:34px;display:flex;flex-direction:column}
+.quiz-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px;display:flex;flex-direction:column}
 .qbar{display:flex;justify-content:space-between;font-size:12px;font-weight:800;letter-spacing:.14em;color:var(--muted)}
-.progress{height:6px;background:var(--line);border-radius:99px;margin:14px 0 30px;overflow:hidden}
+.progress{height:5px;background:var(--line);border-radius:99px;margin:10px 0 18px;overflow:hidden}
 .progress span{display:block;height:100%;width:20%;background:var(--green);border-radius:99px;transition:width .3s}
 .q{display:none}.q.active{display:block}
 .qnum{font-size:12px;font-weight:800;letter-spacing:.16em;color:var(--green);margin-bottom:10px}
-.q h2{font-size:clamp(24px,2.6vw,30px);font-weight:800}
-.q p{color:var(--muted);margin:10px 0 22px}
-.options{display:flex;flex-direction:column;gap:10px}
-.option{display:flex;align-items:center;gap:14px;text-align:left;font:inherit;font-size:16px;color:var(--text);background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:15px 18px;cursor:pointer;transition:border-color .15s,background .15s}
+.q h2{font-size:clamp(20px,2.2vw,24px);font-weight:800}
+.q p{color:var(--muted);margin:6px 0 14px;font-size:14px}
+.options{display:flex;flex-direction:column;gap:8px}
+.option{display:flex;align-items:center;gap:12px;text-align:left;font:inherit;font-size:15px;color:var(--text);background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:11px 14px;cursor:pointer;transition:border-color .15s,background .15s}
 .option:hover{border-color:#3A5A4C}
 .option .dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--dim);flex:none}
 .option.selected{border-color:var(--green);background:var(--green-bg)}
 .option.selected .dot{border-color:var(--green);background:radial-gradient(circle,var(--green) 45%,transparent 50%)}
-.hint{font-size:13px;color:var(--dim);margin-top:auto;padding-top:22px}
+.hint{font-size:12px;color:var(--dim);margin:0;padding-top:12px}
 #leadForm{display:none}#leadForm.active{display:flex;flex-direction:column;gap:14px}
 #leadForm h2{font-size:30px;font-weight:800}
 #leadForm>p{color:var(--muted);margin:0 0 6px}
@@ -115,8 +115,6 @@ body.lock{overflow:hidden}
 .field input{font:inherit;color:var(--text);background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
 .field input::placeholder{color:var(--dim)}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--muted)}
-.consent input{margin-top:3px;accent-color:var(--green);width:16px;height:16px;flex:none}
 .form-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
 .form-actions .btn-primary{flex:1}
 #formError{color:var(--red);font-size:14px;min-height:20px;margin:0}
@@ -311,23 +309,31 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
 @media (max-width:600px){
   .quiz-card{padding:24px 20px}
   .two{grid-template-columns:1fr}
-  .quiz-card{padding:18px 16px}
+  .quiz-card{padding:14px 14px 12px}
   .progress{margin:10px 0 16px}
-  .q h2{font-size:21px}
+  .q h2{font-size:18px}
   .q p{margin:6px 0 12px;font-size:14px}
   .options{gap:8px}
-  .option{padding:11px 14px;font-size:15px}
+  .option{padding:9px 12px;font-size:14px}
   .hint{display:none}
   #quizScreen{padding-block:0 24px}
   #quizScreen>.wrap{padding-left:0;padding-right:0}
   .quiz-col{gap:0}
   .quiz-visual{height:190px;border-radius:0 0 22px 22px;border:0}
+  #leadForm.active{gap:10px}
+  #leadForm h2{font-size:20px}
+  #leadForm>p{display:none}
+  .field{gap:4px}
+  .field label{font-size:13px}
+  .field input{padding:11px 13px}
+  .form-actions .btn{padding:13px 16px}
+  .privacy{font-size:11px}
   .quiz-visual .brand{top:12px;left:16px}
   .quiz-visual .brand .mark{width:32px;height:32px;font-size:12px}
   .quiz-visual .vc{left:16px;right:16px;bottom:14px}
   .quiz-visual .eyebrow{display:none}
   .quiz-visual h1{font-size:22px}
-  .quiz-card{margin:-8px 12px 0;position:relative}
+  .quiz-card{margin:-8px 14px 0;position:relative}
   .hero h1{font-size:28px;margin-top:6px}
   .hero .lead{font-size:15px;margin-top:10px;line-height:1.45}
   .hero-cta{margin-top:16px;padding:15px 20px}
@@ -403,11 +409,11 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
   .quiz-card{padding:14px 14px}
   .progress{margin:8px 0 12px}
   .qnum{margin-bottom:6px}
-  .q h2{font-size:19px}
+  .q h2{font-size:17px}
   .q p{display:none}
   .q h2{margin-bottom:12px}
   .options{gap:7px}
-  .option{padding:10px 12px;font-size:14.5px}
+  .option{padding:8px 12px;font-size:14px}
   .hero-photo{height:250px}
   .hero-txt{padding-top:150px}
   .hero h1{font-size:26px}
@@ -482,13 +488,12 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
             <div class="field"><label for="company">Empresa</label><input id="company" autocomplete="organization" placeholder="Nome da empresa"></div>
           </div>
           <div class="field"><label for="email">E-mail (opcional)</label><input id="email" type="email" autocomplete="email" placeholder="voce@empresa.com.br"></div>
-          <label class="consent"><input type="checkbox" id="consent"> Autorizo o contato sobre este evento e concordo com o tratamento dos meus dados para essa finalidade.</label>
           <p id="formError" role="alert"></p>
           <div class="form-actions">
             <button type="button" class="btn btn-ghost" id="backToQuiz">Voltar</button>
             <button type="submit" class="btn btn-primary" id="submitLead">Liberar meu acesso →</button>
           </div>
-          <p class="privacy">Seus dados serão usados apenas para contato sobre este evento.</p>
+          <p class="privacy">Ao continuar, você recebe contato da equipe sobre este evento. Seus dados não serão usados para outra finalidade.</p>
         </form>
       </div>
     </div>
@@ -815,9 +820,8 @@ document.getElementById('leadForm').addEventListener('submit',async e=>{
  if(name.length<2){err.textContent='Informe seu nome completo.';return;}
  if(phone.replace(/\D/g,'').length<10){err.textContent='Informe um WhatsApp válido com DDD.';return;}
  if(email&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){err.textContent='Confira o e-mail ou deixe em branco.';return;}
- if(!document.getElementById('consent').checked){err.textContent='Marque a autorização para continuar.';return;}
  err.textContent='';sb.disabled=true;sb.textContent='Liberando…';
- const row={tipo:'inscricao',nome:name,whatsapp:phone,email:email||null,empresa:company||null,consentimento:true,page:location.pathname,...utm};
+ const row={tipo:'inscricao',nome:name,whatsapp:phone,email:email||null,empresa:company||null,page:location.pathname,...utm};
  questions.forEach((q,i)=>{row[q.key]=answers[i]});
  try{await insertRow(row)}
  catch(_){err.textContent='Não conseguimos enviar agora. Tente de novo em instantes.';sb.disabled=false;sb.textContent='Liberar meu acesso →';track('lp_lead_error');return}
