@@ -48,6 +48,41 @@ section{padding-block:96px}
 .brand b{display:block;font-size:15px;letter-spacing:.04em}
 .brand small{display:block;font-size:11px;letter-spacing:.16em;color:var(--muted);font-weight:700}
 
+/* ===== ABERTURA: ponto → 4 feixes → 4 pilares → logo Escala IA ===== */
+body.lock{overflow:hidden}
+#pre{position:fixed;inset:0;z-index:100;background:radial-gradient(600px 500px at 50% 62%,rgba(46,230,140,.10),transparent 70%),#020504;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;transition:opacity .5s ease,visibility .5s}
+#pre.off{opacity:0;visibility:hidden}
+#pre .stage{width:min(78vw,360px);aspect-ratio:400/470;overflow:visible}
+#pre .px{position:absolute;width:5px;height:5px;background:var(--green);opacity:0;animation:px 2.6s ease-in-out infinite}
+@keyframes px{0%,100%{opacity:0}50%{opacity:.7}}
+#pre .seed{transform-box:fill-box;transform-origin:center;opacity:0;animation:seed .6s ease-out .1s forwards,seedOut .5s ease-in 2.05s forwards}
+@keyframes seed{0%{opacity:0;transform:scale(0)}60%{opacity:1;transform:scale(1.8)}100%{opacity:1;transform:scale(1)}}
+@keyframes seedOut{to{opacity:0;transform:scale(3)}}
+#pre .beam{transform-box:view-box;transform-origin:200px 440px;transform:scaleY(0);opacity:0;animation:beam .8s cubic-bezier(.2,.8,.2,1) forwards,beamOut .5s ease-in 1.95s forwards}
+#pre .b1{animation-delay:.55s,1.95s}#pre .b2{animation-delay:.63s,2s}#pre .b3{animation-delay:.71s,2.05s}#pre .b4{animation-delay:.79s,2.1s}
+@keyframes beam{0%{opacity:0;transform:scaleY(0)}30%{opacity:1}100%{opacity:1;transform:scaleY(1)}}
+@keyframes beamOut{to{opacity:0;transform:scaleY(0)}}
+#pre .ic{transform-box:fill-box;transform-origin:center;opacity:0;animation:icIn .45s cubic-bezier(.2,1.4,.4,1) forwards,icUnify .55s cubic-bezier(.6,0,.4,1) 1.95s forwards}
+#pre .ic1{animation-delay:1.2s,1.95s}#pre .ic2{animation-delay:1.3s,1.95s}#pre .ic3{animation-delay:1.4s,1.95s}#pre .ic4{animation-delay:1.5s,1.95s}
+@keyframes icIn{0%{opacity:0;transform:scale(0)}100%{opacity:1;transform:scale(1)}}
+@keyframes icUnify{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.25)}}
+#pre .frame{stroke-dasharray:480;stroke-dashoffset:480;fill-opacity:0;animation:frame .55s ease-out 2.35s forwards}
+@keyframes frame{to{stroke-dashoffset:0;fill-opacity:1}}
+#pre .bar{transform-box:fill-box;transform-origin:center bottom;transform:scaleY(0);animation:bar .4s cubic-bezier(.2,1.3,.4,1) forwards}
+#pre .bar1{animation-delay:2.5s}#pre .bar2{animation-delay:2.58s}#pre .bar3{animation-delay:2.66s}#pre .bar4{animation-delay:2.74s}
+@keyframes bar{to{transform:scaleY(1)}}
+#pre .flash{transform-box:fill-box;transform-origin:center;opacity:0;animation:flash .7s ease-out 2.45s forwards}
+@keyframes flash{0%{opacity:0;transform:scale(.6)}40%{opacity:.9}100%{opacity:0;transform:scale(1.6)}}
+#pre .word{text-align:center;opacity:0;transform:translateY(8px);animation:word .5s ease-out 2.85s forwards;margin-top:-18%}
+#pre .word b{display:block;font-size:clamp(26px,6vw,34px);font-weight:800;letter-spacing:.12em;color:var(--text)}
+#pre .word b span{color:var(--green)}
+#pre .word small{display:block;margin-top:8px;font-size:11px;font-weight:700;letter-spacing:.24em;color:var(--muted)}
+@keyframes word{to{opacity:1;transform:none}}
+#pre .skip{position:absolute;bottom:calc(20px + env(safe-area-inset-bottom,0px));font-size:11px;letter-spacing:.16em;color:var(--dim)}
+@media (prefers-reduced-motion:reduce){#pre{display:none}}
+/* marca: 4 barras subindo (os 4 pilares viram escala) */
+.mark svg{width:58%;height:58%}
+
 /* ===== QUIZ ===== */
 #quizScreen{min-height:100dvh;background:radial-gradient(900px 600px at 15% 0%,rgba(46,230,140,.12),transparent 60%),var(--bg);padding-block:16px 32px}
 .quiz-col{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
@@ -384,6 +419,38 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
 </style>
 </head>
 <body>
+<!-- ABERTURA: ponto → 4 feixes → 4 pilares → logo Escala IA (toque para pular) -->
+<div id="pre" role="presentation" aria-hidden="true">
+  <i class="px" style="left:12%;top:22%;animation-delay:0.2s"></i><i class="px" style="left:84%;top:18%;animation-delay:1.1s"></i><i class="px" style="left:20%;top:64%;animation-delay:0.7s"></i><i class="px" style="left:78%;top:58%;animation-delay:1.6s"></i><i class="px" style="left:8%;top:84%;animation-delay:1.3s"></i><i class="px" style="left:90%;top:80%;animation-delay:0.4s"></i><i class="px" style="left:30%;top:12%;animation-delay:1.9s"></i><i class="px" style="left:66%;top:90%;animation-delay:0.9s"></i><i class="px" style="left:50%;top:8%;animation-delay:2.2s"></i><i class="px" style="left:40%;top:78%;animation-delay:1.5s"></i>
+  <svg class="stage" viewBox="0 0 400 470">
+    <defs>
+      <linearGradient id="gBeam" x1="0" y1="440" x2="0" y2="150" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2EE68C" stop-opacity=".95"/><stop offset=".55" stop-color="#2EE68C" stop-opacity=".28"/><stop offset="1" stop-color="#2EE68C" stop-opacity=".12"/></linearGradient>
+      <linearGradient id="gEdge" x1="0" y1="440" x2="0" y2="150" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#B8FFD9"/><stop offset="1" stop-color="#2EE68C" stop-opacity=".5"/></linearGradient>
+      <radialGradient id="gSeed"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="#B8FFD9"/><stop offset="1" stop-color="#2EE68C" stop-opacity="0"/></radialGradient>
+      <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <g filter="url(#glow)"><polygon class="beam b1" points="200,440 69,150 121,150" fill="url(#gBeam)" stroke="url(#gEdge)" stroke-width="1.2"/><rect class="beam b1" x="69" y="146" width="52" height="5" rx="2" fill="#B8FFD9" opacity=".9"/><polygon class="beam b2" points="200,440 139,150 191,150" fill="url(#gBeam)" stroke="url(#gEdge)" stroke-width="1.2"/><rect class="beam b2" x="139" y="146" width="52" height="5" rx="2" fill="#B8FFD9" opacity=".9"/><polygon class="beam b3" points="200,440 209,150 261,150" fill="url(#gBeam)" stroke="url(#gEdge)" stroke-width="1.2"/><rect class="beam b3" x="209" y="146" width="52" height="5" rx="2" fill="#B8FFD9" opacity=".9"/><polygon class="beam b4" points="200,440 279,150 331,150" fill="url(#gBeam)" stroke="url(#gEdge)" stroke-width="1.2"/><rect class="beam b4" x="279" y="146" width="52" height="5" rx="2" fill="#B8FFD9" opacity=".9"/></g>
+    <circle class="seed" cx="200" cy="440" r="14" fill="url(#gSeed)"/>
+    <g transform="translate(95 114)"><g class="ic ic1" style="--dx:105px;--dy:136px"><circle r="31" fill="#04110B" stroke="#2EE68C" stroke-opacity=".55" stroke-width="1.5"/><g transform="translate(-19.2 -19.2) scale(1.6)" fill="none" stroke="#2EE68C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></g></g></g><g transform="translate(165 114)"><g class="ic ic2" style="--dx:35px;--dy:136px"><circle r="31" fill="#04110B" stroke="#2EE68C" stroke-opacity=".55" stroke-width="1.5"/><g transform="translate(-19.2 -19.2) scale(1.6)" fill="none" stroke="#2EE68C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"><path d="M20.5 12a8.5 8.5 0 1 1-2.6-6.1L20.5 8.5"/><path d="M20.5 3v5.5H15"/></g></g></g><g transform="translate(235 114)"><g class="ic ic3" style="--dx:-35px;--dy:136px"><circle r="31" fill="#04110B" stroke="#2EE68C" stroke-opacity=".55" stroke-width="1.5"/><g transform="translate(-19.2 -19.2) scale(1.6)" fill="none" stroke="#2EE68C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"><path d="M12 2.5l2.3 7.2 7.2 2.3-7.2 2.3L12 21.5l-2.3-7.2L2.5 12l7.2-2.3z"/></g></g></g><g transform="translate(305 114)"><g class="ic ic4" style="--dx:-105px;--dy:136px"><circle r="31" fill="#04110B" stroke="#2EE68C" stroke-opacity=".55" stroke-width="1.5"/><g transform="translate(-19.2 -19.2) scale(1.6)" fill="none" stroke="#2EE68C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"><path d="M3 17.5l6-6 4 4 8-8"/><path d="M14.5 7.5H21V14"/></g></g></g>
+    <circle class="flash" cx="200" cy="250" r="80" fill="url(#gSeed)"/>
+    <g filter="url(#glow)">
+      <rect class="frame" x="140" y="190" width="120" height="120" rx="28" fill="#06140E" stroke="#2EE68C" stroke-width="4"/>
+      <rect class="bar bar1" x="160" y="266" width="15" height="24" rx="3" fill="#2EE68C"/>
+      <rect class="bar bar2" x="181" y="250" width="15" height="40" rx="3" fill="#2EE68C"/>
+      <rect class="bar bar3" x="202" y="234" width="15" height="56" rx="3" fill="#2EE68C"/>
+      <rect class="bar bar4" x="223" y="214" width="15" height="76" rx="3" fill="#B8FFD9"/>
+    </g>
+  </svg>
+  <div class="word"><b>ESCALA <span>IA</span></b><small>ORGANIZAR · AUTOMATIZAR · IA · ESCALAR</small></div>
+  <span class="skip">TOQUE PARA PULAR</span>
+</div>
+<script>
+(function(){var pre=document.getElementById('pre');if(!pre)return;
+ if(matchMedia('(prefers-reduced-motion:reduce)').matches){pre.remove();return}
+ document.body.classList.add('lock');
+ var done=function(){if(pre.classList.contains('off'))return;pre.classList.add('off');document.body.classList.remove('lock');setTimeout(function(){pre.remove()},600)};
+ setTimeout(done,3900);pre.addEventListener('click',done);})();
+</script>
 
 <!-- ================= QUIZ ================= -->
 <main id="quizScreen">
@@ -391,7 +458,7 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
     <div class="quiz-col">
       <div class="quiz-visual">
         <img src="../escala-ia/img/hero.jpg" alt="Tiago Almeida" fetchpriority="high">
-        <a class="brand" href="#"><span class="mark">IA</span><span><b>ESCALA IA</b><small>13/11 · ALPHAVILLE · SP</small></span></a>
+        <a class="brand" href="#"><span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="14" width="3.6" height="7" rx="1" fill="#03140B"/><rect x="8.1" y="10.5" width="3.6" height="10.5" rx="1" fill="#03140B"/><rect x="13.2" y="7" width="3.6" height="14" rx="1" fill="#03140B"/><rect x="18.3" y="3" width="3.6" height="18" rx="1" fill="#03140B"/></svg></span><span><b>ESCALA IA</b><small>13/11 · ALPHAVILLE · SP</small></span></a>
         <div class="vc">
           <span class="eyebrow">Diagnóstico rápido · 1 minuto</span>
           <h1>Sua empresa deveria trabalhar para você. <span class="g">Não depender de você.</span></h1>
@@ -432,7 +499,7 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
 <div id="eventPage" class="hidden">
   <header class="nav">
     <div class="wrap">
-      <a class="brand" href="#topo"><span class="mark">IA</span><span><b>ESCALA IA</b><small>13/11 · ALPHAVILLE</small></span></a>
+      <a class="brand" href="#topo"><span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="14" width="3.6" height="7" rx="1" fill="#03140B"/><rect x="8.1" y="10.5" width="3.6" height="10.5" rx="1" fill="#03140B"/><rect x="13.2" y="7" width="3.6" height="14" rx="1" fill="#03140B"/><rect x="18.3" y="3" width="3.6" height="18" rx="1" fill="#03140B"/></svg></span><span><b>ESCALA IA</b><small>13/11 · ALPHAVILLE</small></span></a>
       <a class="btn btn-primary" href="#ingressos">Garantir ingresso</a>
     </div>
   </header>
