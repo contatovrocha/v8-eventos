@@ -50,10 +50,13 @@ section{padding-block:96px}
 
 /* ===== QUIZ ===== */
 #quizScreen{min-height:100dvh;background:radial-gradient(900px 600px at 15% 0%,rgba(46,230,140,.12),transparent 60%),var(--bg);padding-block:16px 32px}
-.quiz-col{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
-.quiz-intro{display:flex;flex-direction:column;gap:8px}
-.quiz-intro h1{font-size:clamp(24px,3vw,34px);font-weight:800}
-.quiz-intro p{margin:0;color:var(--muted);font-size:15px}
+.quiz-col{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.quiz-visual{position:relative;height:260px;border-radius:22px;overflow:hidden;border:1px solid var(--line)}
+.quiz-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.quiz-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,9,10,.35) 0%,rgba(6,9,10,0) 30%,rgba(6,9,10,.92) 100%)}
+.quiz-visual .brand{position:absolute;z-index:1;top:16px;left:18px}
+.quiz-visual .vc{position:absolute;z-index:1;left:20px;right:20px;bottom:16px;display:flex;flex-direction:column;gap:6px}
+.quiz-visual h1{font-size:clamp(22px,2.8vw,30px);font-weight:800}
 .quiz-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:34px;display:flex;flex-direction:column}
 .qbar{display:flex;justify-content:space-between;font-size:12px;font-weight:800;letter-spacing:.14em;color:var(--muted)}
 .progress{height:6px;background:var(--line);border-radius:99px;margin:14px 0 30px;overflow:hidden}
@@ -280,8 +283,16 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
   .options{gap:8px}
   .option{padding:11px 14px;font-size:15px}
   .hint{display:none}
-  .quiz-col{gap:14px}
-  .quiz-intro h1{font-size:23px}
+  #quizScreen{padding-block:0 24px}
+  #quizScreen>.wrap{padding-left:0;padding-right:0}
+  .quiz-col{gap:0}
+  .quiz-visual{height:190px;border-radius:0 0 22px 22px;border:0}
+  .quiz-visual .brand{top:12px;left:16px}
+  .quiz-visual .brand .mark{width:32px;height:32px;font-size:12px}
+  .quiz-visual .vc{left:16px;right:16px;bottom:14px}
+  .quiz-visual .eyebrow{display:none}
+  .quiz-visual h1{font-size:22px}
+  .quiz-card{margin:-8px 12px 0;position:relative}
   .hero h1{font-size:28px;margin-top:6px}
   .hero .lead{font-size:15px;margin-top:10px;line-height:1.45}
   .hero-cta{margin-top:16px;padding:15px 20px}
@@ -294,12 +305,66 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
   .myth .arrow{display:none}
   header.nav .brand small{display:none}
 }
+/* Celular enxuto: menos texto, letras menores, seções mais próximas */
+@media (max-width:600px){
+  section{padding-block:40px}
+  .hero{padding-block:0 40px}
+  .proof{padding-block:40px}
+  .sec-head{margin-bottom:20px;gap:8px}
+  h2{font-size:25px}
+  .lead{font-size:14px}
+  .eyebrow{font-size:10px}
+  .pain-grid{gap:24px}
+  .pain-grid .lead{display:none}
+  .pain-grid .quote{font-size:18px;margin-top:16px}
+  .phone{padding:12px;border-radius:20px}
+  .msg{font-size:13.5px}
+  .myths{gap:8px}
+  .myth{padding:14px 16px;font-size:14px}
+  .pillar{padding:16px;gap:6px;border-radius:14px}
+  .pillar h3{font-size:18px}
+  .pillar p{font-size:13px}
+  .pillar ul{display:none}
+  .mech-note{font-size:14px;margin-top:16px}
+  .benefits{gap:8px}
+  .benefit{padding:12px 14px;font-size:14px}
+  .fit-card{padding:18px}
+  .fit-card h3{font-size:18px;margin-bottom:12px}
+  .fit-card ul{gap:8px;font-size:14px}
+  .about-photo{min-height:280px;max-height:320px}
+  .about-txt{padding:28px 20px 32px;gap:12px}
+  .about-txt p{font-size:14px}
+  .about-txt p:nth-of-type(3){display:none}
+  .stat{padding:12px 14px}
+  .stat b{font-size:22px}
+  .stat span{font-size:12px}
+  .about-quote{font-size:16px}
+  .proof-photo{min-height:260px}
+  .proof-txt{padding:20px 18px 26px;gap:12px}
+  .proof-txt p{font-size:14px}
+  .proof-txt p:last-child{display:none}
+  .proof-list{font-size:14px;gap:6px}
+  .proof-pill b{font-size:24px}
+  .tickets{gap:12px}
+  .t-head{padding:16px 18px 12px}
+  .t-head h3{font-size:24px}
+  .t-body{padding:16px 18px;gap:12px}
+  .t-body>p{font-size:13px}
+  .t-body ul{font-size:13.5px;gap:7px}
+  .price .v{font-size:40px}
+  .final{padding-block:0 40px}
+  .final-photo{min-height:240px}
+  .final-txt{padding:24px 20px 30px;gap:12px}
+  .final-txt h2{font-size:25px}
+  .final-txt p{font-size:14px}
+  summary{font-size:14.5px;padding:14px 0}
+  details{padding:0 16px}
+  details p{font-size:14px;margin-bottom:14px}
+}
 /* Celulares baixos (ex.: 360×640, 375×667): mantém a primeira dobra sem rolar */
 @media (max-width:600px) and (max-height:700px){
-  #quizScreen{padding-block:10px 20px}
-  .quiz-col{gap:10px}
-  .quiz-intro{gap:4px}
-  .quiz-intro h1{font-size:20px}
+  .quiz-visual{height:160px}
+  .quiz-visual h1{font-size:19px}
   .quiz-card{padding:14px 14px}
   .progress{margin:8px 0 12px}
   .qnum{margin-bottom:6px}
@@ -324,10 +389,13 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
 <main id="quizScreen">
   <div class="wrap">
     <div class="quiz-col">
-      <a class="brand" href="#"><span class="mark">IA</span><span><b>ESCALA IA</b><small>13/11 · ALPHAVILLE · SP</small></span></a>
-      <div class="quiz-intro">
-        <span class="eyebrow">Diagnóstico rápido · 1 minuto</span>
-        <h1>Sua empresa deveria trabalhar para você. <span class="g">Não depender de você.</span></h1>
+      <div class="quiz-visual">
+        <img src="../escala-ia/img/hero.jpg" alt="Tiago Almeida" fetchpriority="high">
+        <a class="brand" href="#"><span class="mark">IA</span><span><b>ESCALA IA</b><small>13/11 · ALPHAVILLE · SP</small></span></a>
+        <div class="vc">
+          <span class="eyebrow">Diagnóstico rápido · 1 minuto</span>
+          <h1>Sua empresa deveria trabalhar para você. <span class="g">Não depender de você.</span></h1>
+        </div>
       </div>
       <div class="quiz-card">
         <div id="quizFlow">
