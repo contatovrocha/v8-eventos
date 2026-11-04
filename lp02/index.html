@@ -702,7 +702,7 @@ const insertRow=row=>fetch(SUPABASE_URL+'/rest/v1/leads_escala_ia',{method:'POST
 const track=(ev,p={})=>{try{(window.dataLayer=window.dataLayer||[]).push({event:ev,...p});window.fbq&&fbq('trackCustom',ev,p)}catch(_){}};
 const qs=new URLSearchParams(location.search),utm={};['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid'].forEach(k=>{if(qs.get(k))utm[k]=qs.get(k)});
 
-const LEAD_KEY='escala_ia_lead';
+const LEAD_KEY='escala_ia_lp02_lead'; /* chave própria: o cadastro da página /escala-ia/ não pula o quiz desta página */
 function loadLead(){try{return JSON.parse(localStorage.getItem(LEAD_KEY)||'null')}catch(e){return null}}
 function saveLead(l){try{localStorage.setItem(LEAD_KEY,JSON.stringify(l))}catch(e){}}
 
@@ -760,7 +760,9 @@ document.getElementById('leadForm').addEventListener('submit',async e=>{
 });
 
 /* Quem já se cadastrou neste navegador vai direto para a página */
-if(loadLead())showEventPage();
+/* ?quiz na URL sempre mostra o quiz (útil para testar) */
+if(qs.has('quiz')){try{localStorage.removeItem(LEAD_KEY)}catch(e){}}
+else if(loadLead())showEventPage();
 
 /* Página do evento: dados dinâmicos a partir do CONFIG */
 document.querySelectorAll('[data-horario]').forEach(el=>el.textContent=CONFIG.horario||'A confirmar');
