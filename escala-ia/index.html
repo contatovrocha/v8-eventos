@@ -180,6 +180,14 @@ s{text-decoration-color:#ff5a5ad9;text-decoration-thickness:.12em}
 .faq details p{color:var(--muted);font-size:14px;margin-bottom:0}
 .footer{padding:28px 0;text-align:center;color:#6F8079;font-size:11px}
 
+/* Valor e dados do evento na primeira dobra */
+.price-line{margin:16px 0 0;font-size:15px;color:var(--muted)}
+.price-line strong{color:var(--text);font-size:20px;letter-spacing:-.02em}
+.facts{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:#dbe7e1}
+.facts li{display:flex;align-items:center;gap:7px}
+.facts svg{width:17px;height:17px;flex:0 0 17px;stroke:var(--green);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sub-m,.quiz-brand-m{display:none}
+
 @keyframes fade{from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:900px){.tickets-grid{grid-template-columns:1fr;max-width:520px;margin:auto}}
 @media(max-width:800px){
@@ -197,6 +205,84 @@ s{text-decoration-color:#ff5a5ad9;text-decoration-thickness:.12em}
   .speaker-editorial-copy{padding:48px 24px 28px;background:#0B0F0E}
   .speaker-editorial-photo{min-height:340px;max-height:440px}
   .speaker-editorial-photo:before{background:linear-gradient(0deg,#0B0F0E66,transparent 45%)}
+
+  /* Padrão V8 · quiz no celular: foto do expert no topo + pergunta 1 com todas as opções sem rolar */
+  .quiz-head{display:none}
+  .quiz-layout{width:100%;gap:0;padding:0 0 32px}
+  .quiz-visual{min-height:0;height:190px;max-height:none;border-radius:0 0 22px 22px;border:0;border-bottom:1px solid #23392F}
+  .quiz-visual .photo{object-position:50% 18%}
+  .quiz-visual:after{background:linear-gradient(180deg,#02050466 0%,#02050400 30%,#020504e6 100%)}
+  .quiz-brand-m{display:flex;position:absolute;z-index:1;top:14px;left:18px}
+  .quiz-brand-m .brand-icon{width:30px;height:30px;font-size:11px}
+  .visual-copy{left:18px;right:18px;bottom:14px}
+  .visual-copy .eyebrow,.visual-copy p{display:none}
+  .visual-copy h1{font-size:23px;margin:0}
+  .quiz-card{margin:0 12px;margin-top:-6px;position:relative;padding:16px 16px 14px;border-radius:18px}
+  .progress{margin:8px 0 14px}
+  .qnum{margin-bottom:4px}
+  .q h2,.lead-form h2{font-size:20px;margin-bottom:0}
+  .q p{display:none}
+  .options{gap:7px;margin:12px 0 0}
+  .option{padding:11px 12px;font-size:15px;line-height:1.3}
+  .quiz-hint{display:none}
+  .lead-form>p{margin-bottom:6px}
+  .field{margin:10px 0}
+
+  /* Padrão V8 · página de vendas no celular: foto no topo atrás da headline */
+  .hero-event{position:relative;padding:0 0 40px}
+  .hero-grid{display:block}
+  .hero-photo{position:absolute;top:0;left:0;right:0;height:300px;min-height:0;max-height:none;border-radius:0;border:0;box-shadow:none}
+  .hero-photo .photo{object-position:50% 14%}
+  .hero-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#06090A33 0%,#06090A00 30%,#06090Acc 72%,#06090A 100%)}
+  .photo-tag{display:none}
+  .hero-grid>div:first-child{position:relative;z-index:1;padding-top:176px}
+  .hero-event .eyebrow{display:none}
+  .hero-event .pre{font-size:15px;margin:0 0 2px}
+  .hero-event h1{font-size:28px;margin-bottom:8px}
+
+  /* Celular enxuto: menos texto, letras menores, seções mais próximas */
+  .section{padding:40px 0}
+  .section-head{margin-bottom:20px}
+  .section-head h2,.split h2{font-size:25px;margin:8px 0}
+  .section-head p{font-size:14px}
+  .eyebrow{font-size:10px}
+  .cards{gap:10px}
+  .card{padding:16px;border-radius:14px}
+  .card-icon{width:32px;height:32px;font-size:16px;margin-bottom:10px;border-radius:9px}
+  .card h3{font-size:16px;margin-bottom:4px}
+  .card p{font-size:13px}
+  .card ul{display:none}
+  .card .n{margin-bottom:6px;font-size:10px}
+  .checklist{margin:14px 0;gap:9px;font-size:14px}
+  .split p{font-size:14px}
+  .step-card{padding:12px;gap:12px}
+  .step-number{width:32px;height:32px;flex-basis:32px}
+  .speaker-editorial-copy{padding:32px 20px 20px}
+  .speaker-editorial-copy h2{font-size:26px;margin:10px 0 14px}
+  .speaker-editorial-copy p{font-size:14px;line-height:1.6}
+  .speaker-editorial-copy p:last-child{display:none}
+  .speaker-editorial-photo{min-height:260px;max-height:300px}
+  .tickets-grid{gap:12px}
+  .ticket-banner{min-height:0;padding:16px 18px 14px}
+  .ticket-banner h3{font-size:26px}
+  .ticket-body{padding:16px 18px}
+  .ticket-desc{font-size:13px;margin-bottom:12px}
+  .ticket-list{gap:7px;padding-top:12px;margin-bottom:14px}
+  .ticket-list li{font-size:13px}
+  .ticket-price strong{font-size:40px}
+  .btn-ticket{margin-top:12px}
+  .final-box h2{font-size:25px}
+  .final-box p{font-size:14px}
+  .faq details{padding:13px 15px}
+  .faq summary{font-size:14px}
+  .hero-event p.sub-d{display:none}
+  .sub-m{display:block;font-size:15px!important;line-height:1.5;margin:0}
+  .hero-actions{margin-top:16px}
+  .hero-actions .btn{width:100%}
+  .hero-actions .btn-outline,.stats,.countdown{display:none!important}
+  .price-line{margin-top:12px;font-size:14px}
+  .price-line strong{font-size:18px}
+  .facts{margin-top:10px;gap:6px 14px;font-size:13px}
 }
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 </style>
@@ -210,7 +296,8 @@ s{text-decoration-color:#ff5a5ad9;text-decoration-thickness:.12em}
   </header>
   <main class="wrap quiz-layout">
     <section class="quiz-visual">
-      <img class="photo" src="img/palco-flows.jpg" alt="Tiago Almeida no palco apresentando automações com IA" fetchpriority="high">
+      <picture><source media="(max-width:800px)" srcset="img/hero.jpg"><img class="photo" src="img/palco-flows.jpg" alt="Tiago Almeida" fetchpriority="high"></picture>
+      <div class="brand quiz-brand-m"><span class="brand-icon">IA</span><span>ESCALA IA<small>13/11 · ALPHAVILLE</small></span></div>
       <div class="visual-copy">
         <div class="eyebrow">Diagnóstico rápido · 1 minuto</div>
         <h1>IA não serve só pra gerar <s>textinho bonito</s>.</h1>
@@ -256,8 +343,15 @@ s{text-decoration-color:#ff5a5ad9;text-decoration-thickness:.12em}
         <div class="eyebrow">Evento presencial para empresários · 13 de novembro de 2026</div>
         <span class="pre">IA não serve só pra gerar <s>textinho bonito</s>.</span>
         <h1>Serve pra colocar <em>dinheiro no caixa</em> da sua empresa.</h1>
-        <p>Veja na prática como <b>agentes de IA</b> executam tarefas manuais e repetitivas, como o <b>atendimento automatizado</b> vende por você e como <b>SDRs e social selling com IA</b> no perfil da empresa trazem mais oportunidades de venda.</p>
+        <p class="sub-d">Veja na prática como <b>agentes de IA</b> executam tarefas manuais e repetitivas, como o <b>atendimento automatizado</b> vende por você e como <b>SDRs e social selling com IA</b> no perfil da empresa trazem mais oportunidades de venda.</p>
+        <p class="sub-m">Agentes, atendimento e SDRs com IA para <b>vender mais e gastar menos</b>.</p>
         <div class="hero-actions"><a class="btn" href="#ingressos">Garantir meu ingresso →</a><a class="btn btn-outline" href="#conteudo">Ver o que vou aprender</a></div>
+        <p class="price-line">Ingressos a partir de <strong>R$ 197</strong></p>
+        <ul class="facts">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>13/11 · sexta-feira</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20c1-3.6 3.6-5.5 6.5-5.5s5.5 1.9 6.5 5.5"/></svg>Presencial</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span data-local></span></li>
+        </ul>
         <div class="stats">
           <div class="stat"><strong>13 NOV · 2026</strong><span>Sexta-feira</span></div>
           <div class="stat"><strong data-horario></strong><span>Horário</span></div>
