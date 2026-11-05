@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Plano LHN · 8ª Edição - Empresarial</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Layout: cabeçalho + barra de progresso geral, filtros e um quadro horizontal com um dia por coluna; o dia de hoje fica mais largo e destacado. */
+:root{--g1:#FBE9B5;--g2:#D9AC55;--g3:#94692A;--bg:#060606;--s:#0f0e0c;--s2:#16140f;--ln:#2a241a;--tx:#EFE8D8;--mu:#9a8f78}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--tx);font-family:Montserrat,system-ui,sans-serif;overflow:hidden;position:relative}
+body:before{content:"";position:fixed;left:50%;top:-55vh;width:130vh;height:130vh;transform:translateX(-50%);border-radius:50%;background:repeating-conic-gradient(from 270deg,rgba(217,172,85,.07) 0 6deg,transparent 6deg 12deg);-webkit-mask-image:radial-gradient(circle,#000 30%,transparent 70%);pointer-events:none}
+.app{position:relative;height:100%;display:flex;flex-direction:column;padding:22px max(28px,env(safe-area-inset-right)) 18px max(28px,env(safe-area-inset-left));gap:14px}
+.gold{background:linear-gradient(180deg,var(--g1),var(--g2) 55%,var(--g3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.top{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:18px}
+.logo{font-family:Cinzel,serif;font-weight:700;font-size:44px;letter-spacing:.06em;line-height:1}.logo i{font-style:normal;font-size:.45em;vertical-align:.55em;margin:0 .1em}
+.bt h1{font-family:Cinzel,serif;font-weight:700;font-size:22px;letter-spacing:.06em}
+.bt p{font-size:11px;letter-spacing:.3em;color:var(--mu);font-weight:600;margin-top:5px}
+.cd{display:flex;align-items:center;gap:20px}
+.cd .box{text-align:right}.cd .box b{display:block;font-family:Cinzel,serif;font-size:34px;line-height:1}.cd .box span{font-size:11px;letter-spacing:.28em;color:var(--mu);font-weight:600}
+.cd .ev{border:1px solid rgba(217,172,85,.6);padding:10px 16px;font-weight:700;font-size:13px;letter-spacing:.12em;background:rgba(217,172,85,.06);white-space:nowrap}
+.prog{padding:14px 20px 34px;background:linear-gradient(180deg,rgba(217,172,85,.06),rgba(217,172,85,.02));border:1px solid var(--ln)}
+.pl{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;gap:12px}
+.pl b{font-size:12px;letter-spacing:.3em;color:var(--mu)}.pl strong{font-family:Cinzel,serif;font-size:26px}.pl em{font-style:normal;font-size:13px;color:var(--mu);margin-left:10px}
+.track{position:relative}
+.bar{position:relative;height:12px;border-radius:99px;background:#1c1914;border:1px solid var(--ln)}
+.fill{position:absolute;inset:0 auto 0 0;border-radius:99px;background:linear-gradient(90deg,#94692A,#D9AC55,#FBE9B5);box-shadow:0 0 18px rgba(217,172,85,.6);transition:width .5s}
+.todayMark{position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--g1);box-shadow:0 0 10px var(--g1)}
+.tk{position:absolute;top:22px;transform:translateX(-50%);font-size:10px;letter-spacing:.12em;color:var(--mu);font-weight:700;white-space:nowrap;cursor:pointer;background:none;border:0;font-family:inherit;padding:2px 4px}
+.tk.on{color:var(--g1)}.tk.ev{color:var(--g2)}
+.filters{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{display:flex;align-items:center;gap:7px;font:600 12px Montserrat,sans-serif;padding:6px 12px;border:1px solid var(--ln);border-radius:99px;color:#d8cfbb;background:transparent;cursor:pointer}
+.chip i{width:18px;height:18px;border-radius:50%;background:var(--c);color:#120c04;font-style:normal;font-size:10px;font-weight:800;display:grid;place-items:center}
+.chip[aria-pressed="true"]{border-color:var(--g2);color:var(--g1);background:rgba(217,172,85,.08)}
+.sel{font:600 12px Montserrat,sans-serif;background:#0f0e0c;color:#d8cfbb;border:1px solid var(--ln);border-radius:99px;padding:6px 12px}
+.hint{font-size:12px;color:var(--mu)}
+.board{flex:1;min-height:0;display:flex;gap:10px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;padding-bottom:6px}
+.day{flex:1 1 0;min-width:190px;background:var(--s);border:1px solid var(--ln);display:flex;flex-direction:column;opacity:.6;transition:opacity .3s,flex .3s;scroll-snap-align:start}
+.day:hover{opacity:.9}
+.day header{padding:12px 12px 10px;border-bottom:1px solid var(--ln)}
+.dh{display:flex;align-items:baseline;gap:8px}.dh b{font-family:Cinzel,serif;font-size:19px}.dh span{font-size:12px;color:var(--mu);font-weight:600}
+.lbl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--g2);font-weight:700;margin-top:5px}
+.mini{height:5px;background:#1c1914;border-radius:99px;margin-top:9px;overflow:hidden}.mini i{display:block;height:100%;background:linear-gradient(90deg,#94692A,#D9AC55);transition:width .4s}
+.cnt{font-size:11px;color:var(--mu);margin-top:5px}
+.bd{margin-left:auto;font-size:10px;font-weight:800;letter-spacing:.16em;padding:3px 8px}
+.bd.now{background:var(--g2);color:#120c04}.bd.ev{border:1px solid var(--g2);color:var(--g1)}
+.cards{padding:9px;display:flex;flex-direction:column;gap:7px;overflow-y:auto;flex:1;min-height:0}
+.card{display:flex;gap:9px;padding:9px;background:var(--s2);border:1px solid #221e16;cursor:pointer;text-align:left;width:100%;font-family:inherit;color:inherit;transition:background .2s,border-color .2s}
+.card:hover{border-color:#4a3e28}
+.card:focus-visible,.chip:focus-visible,.tk:focus-visible{outline:2px solid var(--g2);outline-offset:2px}
+.ck{flex:none;width:19px;height:19px;border-radius:50%;border:1.6px solid #5b5240;display:grid;place-items:center;font-size:11px;font-weight:800;color:#120c04;margin-top:1px}
+.ct{min-width:0}
+.ct p{font-size:12.5px;line-height:1.3;font-weight:500}
+.ct small{display:block;font-size:11px;color:var(--mu);margin-top:3px;line-height:1.3}
+.meta{display:flex;align-items:center;gap:6px;margin-top:6px;flex-wrap:wrap}
+.who{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:#cfc5ae}.who i{width:17px;height:17px;border-radius:50%;background:var(--c);color:#120c04;font-style:normal;font-size:9.5px;font-weight:800;display:grid;place-items:center}
+.fr{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--g2);border:1px solid rgba(217,172,85,.3);padding:1px 6px}
+.card.done .ck{background:var(--g2);border-color:var(--g2)}.card.done p{text-decoration:line-through;color:var(--mu)}.card.done{opacity:.72}
+.card.recent{border-color:var(--g2);box-shadow:0 0 0 1px rgba(217,172,85,.35),0 0 22px rgba(217,172,85,.25)}
+.card.busy{opacity:.5;pointer-events:none}
+.day.hoje{flex:1.6 1 0;min-width:270px;opacity:1;border:1.5px solid var(--g2);box-shadow:0 0 0 1px rgba(217,172,85,.25),0 20px 60px -20px rgba(217,172,85,.45);background:linear-gradient(180deg,#17130b,#0f0e0c 40%)}
+.day.hoje .dh b{font-size:24px}.day.hoje .ct p{font-size:13.5px}.day.hoje .card{background:#1b1810;border-color:#3a3020}
+.day.evento{opacity:.85;border-color:rgba(217,172,85,.55)}
+.day.focus{opacity:1}
+.empty{font-size:12px;color:var(--mu);padding:8px}
+.foot{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.22em;color:var(--mu);gap:10px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--g2);color:#120c04;font-weight:700;font-size:13px;padding:10px 16px;z-index:9}
+.load{margin:auto;color:var(--mu)}
+@media (max-width:900px){
+  body{overflow:auto}
+  .app{height:auto;min-height:100%;padding:16px max(14px,env(safe-area-inset-right)) 16px max(14px,env(safe-area-inset-left))}
+  .logo{font-size:34px}.bt h1{font-size:16px}.cd .ev{display:none}.cd .box b{font-size:26px}
+  .board{height:72vh;flex:none}
+  .day{min-width:78vw}.day.hoje{min-width:84vw}
+  .hint{display:none}
+  .tk b{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div class="brand"><div class="logo gold">L<i>•</i>H<i>•</i>N</div><div class="bt"><h1>PLANO DE LANÇAMENTO</h1><p>8ª EDIÇÃO - EMPRESARIAL · TIAGO ALMEIDA</p></div></div>
+    <div class="cd"><div class="box"><b class="gold" id="cdN">–</b><span id="cdL">PARA O EVENTO</span></div><div class="ev">QUA 11/11 · 19H · ALPHAVILLE · 40 CADEIRAS</div></div>
+  </div>
+  <div class="prog">
+    <div class="pl"><b>PROGRESSO GERAL</b><div><strong class="gold" id="pct">0%</strong><em id="pctTxt"></em></div></div>
+    <div class="track"><div class="bar"><div class="fill" id="fill" style="width:0"></div><div class="todayMark" id="todayMark"></div></div><div id="ticks"></div></div>
+  </div>
+  <div class="filters">
+    <div class="chips" id="people"></div>
+    <div style="display:flex;gap:10px;align-items:center"><select class="sel" id="frente" aria-label="Filtrar por frente"></select><span class="hint">Toque na tarefa para marcar como feita ou a fazer</span></div>
+  </div>
+  <div class="board" id="board"><div class="load">Carregando o plano…</div></div>
+  <div class="foot"><span>NÃO É SOBRE ASSISTIR. É SOBRE PERTENCER.</span><span id="upd"></span></div>
+</div>
+<script>
+const SB='https://hmnhcinkmfwtutkbxejb.supabase.co', KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtbmhjaW5rbWZ3dHV0a2J4ZWpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3ODM3ODcsImV4cCI6MjEwODM1OTc4N30.WRIigm-qiUAjfwYf7GjwTfJzjH_t8dWCWgFftRE07oo';
+const H={apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'};
+const DAYS=['2026-11-05','2026-11-06','2026-11-07','2026-11-08','2026-11-09','2026-11-10','2026-11-11','2026-11-12'];
+const WD=['DOM','SEG','TER','QUA','QUI','SEX','SÁB'];
+const EVENT_DAY='2026-11-11';
+const PEOPLE={Victor:'#D9AC55',Tiago:'#F2D38A',Caio:'#6FA8DC',Cadu:'#5FC48B',Thalita:'#C77DDB'};
+let tasks=[],who='Todos',front='Todas',busy=new Set();
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function todayISO(){return new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo'}).format(new Date())}
+function focusDay(){const t=todayISO();if(t<DAYS[0])return DAYS[0];if(t>DAYS[DAYS.length-1])return DAYS[DAYS.length-1];return t}
+function goDay(d,smooth){const el=document.getElementById('d-'+d),bd=$('board');if(!el)return;bd.scrollTo({left:Math.max(0,el.offsetLeft-bd.offsetLeft-(bd.clientWidth-el.clientWidth)/2),behavior:smooth?'smooth':'auto'})}
+function toast(m){const d=document.createElement('div');d.className='toast';d.textContent=m;document.body.appendChild(d);setTimeout(()=>d.remove(),2600)}
+async function load(){const r=await fetch(SB+'/rest/v1/lhn_agenda?select=*&order=dia.asc,ordem.asc',{headers:H});if(!r.ok)throw new Error(r.status);tasks=await r.json();render()}
+function pass(t){return (who==='Todos'||t.responsavel===who)&&(front==='Todas'||t.frente===front)}
+function render(){
+ const fd=focusDay(),today=todayISO();
+ const done=tasks.filter(t=>t.feito).length,total=tasks.length,pct=total?Math.round(done/total*100):0;
+ $('pct').textContent=pct+'%';$('pctTxt').textContent=done+' de '+total+' tarefas concluídas';$('fill').style.width=Math.max(pct,1)+'%';
+ const fi=DAYS.indexOf(fd);$('todayMark').style.left=((fi+.5)/DAYS.length*100)+'%';
+ const dleft=Math.round((new Date(EVENT_DAY+'T12:00:00')-new Date(today+'T12:00:00'))/864e5);
+ $('cdN').textContent=dleft>1?dleft+' DIAS':dleft===1?'AMANHÃ':dleft===0?'É HOJE':'REALIZADO';$('cdL').textContent=dleft>=0?'PARA O EVENTO':'EVENTO';
+ $('ticks').innerHTML=DAYS.map((d,i)=>{const dt=new Date(d+'T12:00:00');return '<button class="tk'+(d===fd?' on':'')+(d===EVENT_DAY?' ev':'')+'" style="left:'+((i+.5)/DAYS.length*100)+'%" data-go="'+d+'">'+WD[dt.getDay()]+' <b>'+d.slice(8)+'</b></button>'}).join('');
+ const recent=Date.now()-5*60e3;
+ $('board').innerHTML=DAYS.map(d=>{const dt=new Date(d+'T12:00:00');const all=tasks.filter(t=>t.dia===d);const list=all.filter(pass);const dd=all.filter(t=>t.feito).length;const p=all.length?Math.round(dd/all.length*100):0;
+  const cls=(d===fd?' hoje':'')+(d===EVENT_DAY?' evento':'');const badge=d===fd&&d===today?'<span class="bd now">HOJE</span>':d===EVENT_DAY?'<span class="bd ev">EVENTO</span>':'';
+  return '<section class="day'+cls+'" id="d-'+d+'"><header><div class="dh"><b>'+WD[dt.getDay()]+'</b><span>'+d.slice(8)+'/'+d.slice(5,7)+'</span>'+badge+'</div><div class="lbl">'+esc(all[0]?.foco||'')+'</div><div class="mini"><i style="width:'+Math.max(p,2)+'%"></i></div><div class="cnt">'+dd+' de '+all.length+' feitas</div></header><div class="cards">'+
+  (list.length?list.map(t=>'<button class="card'+(t.feito?' done':'')+(new Date(t.updated_at).getTime()>recent?' recent':'')+(busy.has(t.id)?' busy':'')+'" data-id="'+t.id+'" aria-pressed="'+t.feito+'"><span class="ck">'+(t.feito?'✓':'')+'</span><span class="ct"><p>'+esc(t.titulo)+'</p>'+(t.detalhe?'<small>'+esc(t.detalhe)+'</small>':'')+'<span class="meta"><span class="who" style="--c:'+(PEOPLE[t.responsavel]||'#aaa')+'"><i>'+esc(t.responsavel[0])+'</i>'+esc(t.responsavel)+'</span><span class="fr">'+esc(t.frente)+'</span></span></span></button>').join(''):'<div class="empty">Nenhuma tarefa com esse filtro.</div>')+'</div></section>'}).join('');
+ $('upd').textContent='ATUALIZADO ÀS '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+}
+function buildFilters(){$('people').innerHTML=['Todos',...Object.keys(PEOPLE)].map(n=>'<button class="chip" data-who="'+n+'" aria-pressed="'+(n===who)+'" style="--c:'+(PEOPLE[n]||'#D9AC55')+'">'+(n==='Todos'?'':'<i>'+n[0]+'</i>')+n+'</button>').join('');
+ const fronts=['Todas',...new Set(tasks.map(t=>t.frente))];$('frente').innerHTML=fronts.map(f=>'<option'+(f===front?' selected':'')+'>'+f+'</option>').join('')}
+document.addEventListener('click',async e=>{
+ const c=e.target.closest('.chip');if(c){who=c.dataset.who;buildFilters();render();return}
+ const g=e.target.closest('[data-go]');if(g){goDay(g.dataset.go,true);return}
+ const b=e.target.closest('.card');if(!b)return;const id=+b.dataset.id;const t=tasks.find(x=>x.id===id);if(!t||busy.has(id))return;
+ const novo=!t.feito;busy.add(id);t.feito=novo;t.updated_at=new Date().toISOString();render();
+ try{const r=await fetch(SB+'/rest/v1/rpc/lhn_agenda_marcar',{method:'POST',headers:H,body:JSON.stringify({p_id:id,p_feito:novo})});if(!r.ok)throw 0;toast(novo?'Tarefa marcada como feita':'Tarefa voltou para a fazer')}
+ catch(_){t.feito=!novo;toast('Não deu para salvar. Tente de novo.')}
+ busy.delete(id);render()});
+$('frente').addEventListener('change',e=>{front=e.target.value;render()});
+(async()=>{try{await load();buildFilters();render();setTimeout(()=>goDay(focusDay(),false),50)}catch(_){$('board').innerHTML='<div class="load">Não foi possível carregar o plano. Recarregue a página.</div>'}
+ setInterval(()=>{if(!busy.size&&!document.hidden)load().catch(()=>{})},20000)})();
+</script>
+</body>
+</html>
