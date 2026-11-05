@@ -63,6 +63,15 @@ body:before{content:"";position:fixed;left:50%;top:-55vh;width:130vh;height:130v
 .fr{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--g2);border:1px solid rgba(217,172,85,.3);padding:1px 6px}
 .card.done .ck{background:var(--g2);border-color:var(--g2)}.card.done p{text-decoration:line-through;color:var(--mu)}.card.done{opacity:.72}
 .card.recent{border-color:var(--g2);box-shadow:0 0 0 1px rgba(217,172,85,.35),0 0 22px rgba(217,172,85,.25)}
+.who{cursor:pointer;padding:2px 6px 2px 2px;margin:-2px 0 -2px -2px;border-radius:99px;border:1px dashed transparent}.who:hover,.who:focus-visible{border-color:#6b5a38}.who::after{content:"✎";font-size:10px;color:var(--mu);margin-left:2px}
+.sheet{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center}
+.sheet .bx{width:100%;max-width:420px;background:#14120d;border:1px solid #3a3020;border-bottom:0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));font-family:Montserrat,sans-serif}
+@media(min-width:600px){.sheet{align-items:center}.sheet .bx{border-bottom:1px solid #3a3020}}
+.sheet h4{margin:0 0 4px;font-size:12px;letter-spacing:.14em;color:var(--g2)}.sheet .tt{font-size:13px;color:#d8cfbb;margin:0 0 12px}
+.sheet .ops{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}.sheet .ops .chip[aria-pressed=true]{border-color:var(--g2);color:#fff}
+.sheet form{display:flex;gap:7px}.sheet input{flex:1;min-width:0;background:#0d0b08;border:1px solid var(--ln);color:#fff;font:500 14px Montserrat,sans-serif;padding:9px 10px}
+.sheet .ok{background:var(--g2);color:#120c04;border:0;font:700 13px Montserrat,sans-serif;padding:0 14px;cursor:pointer}
+.sheet .x{margin-top:10px;width:100%;background:transparent;border:1px solid var(--ln);color:#d8cfbb;font:600 12px Montserrat,sans-serif;padding:9px;cursor:pointer}
 .card.busy{opacity:.5;pointer-events:none}
 .day.hoje{flex:1.6 1 0;min-width:270px;opacity:1;border:1.5px solid var(--g2);box-shadow:0 0 0 1px rgba(217,172,85,.25),0 20px 60px -20px rgba(217,172,85,.45);background:linear-gradient(180deg,#17130b,#0f0e0c 40%)}
 .day.hoje .dh b{font-size:24px}.day.hoje .ct p{font-size:13.5px}.day.hoje .card{background:#1b1810;border-color:#3a3020}
@@ -110,6 +119,9 @@ const EVENT_DAY='2026-11-11';
 const PEOPLE={Victor:'#D9AC55',Tiago:'#F2D38A',Caio:'#6FA8DC',Cadu:'#5FC48B',Thalita:'#C77DDB'};
 let tasks=[],who='Todos',front='Todas',busy=new Set();
 const $=id=>document.getElementById(id);
+const PAL=['#E0915A','#7FC7C0','#E57A9A','#A6C25A','#8C9BE8','#D6B24A'];
+function col(n){if(PEOPLE[n])return PEOPLE[n];let h=0;for(const ch of n)h=(h*31+ch.charCodeAt(0))>>>0;return PAL[h%PAL.length]}
+function names(){return [...new Set([...Object.keys(PEOPLE),...tasks.map(t=>t.responsavel)])]}
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function todayISO(){return new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo'}).format(new Date())}
 function focusDay(){const t=todayISO();if(t<DAYS[0])return DAYS[0];if(t>DAYS[DAYS.length-1])return DAYS[DAYS.length-1];return t}
@@ -129,12 +141,24 @@ function render(){
  $('board').innerHTML=DAYS.map(d=>{const dt=new Date(d+'T12:00:00');const all=tasks.filter(t=>t.dia===d);const list=all.filter(pass);const dd=all.filter(t=>t.feito).length;const p=all.length?Math.round(dd/all.length*100):0;
   const cls=(d===fd?' hoje':'')+(d===EVENT_DAY?' evento':'');const badge=d===fd&&d===today?'<span class="bd now">HOJE</span>':d===EVENT_DAY?'<span class="bd ev">EVENTO</span>':'';
   return '<section class="day'+cls+'" id="d-'+d+'"><header><div class="dh"><b>'+WD[dt.getDay()]+'</b><span>'+d.slice(8)+'/'+d.slice(5,7)+'</span>'+badge+'</div><div class="lbl">'+esc(all[0]?.foco||'')+'</div><div class="mini"><i style="width:'+Math.max(p,2)+'%"></i></div><div class="cnt">'+dd+' de '+all.length+' feitas</div></header><div class="cards">'+
-  (list.length?list.map(t=>'<button class="card'+(t.feito?' done':'')+(new Date(t.updated_at).getTime()>recent?' recent':'')+(busy.has(t.id)?' busy':'')+'" data-id="'+t.id+'" aria-pressed="'+t.feito+'"><span class="ck">'+(t.feito?'✓':'')+'</span><span class="ct"><p>'+esc(t.titulo)+'</p>'+(t.detalhe?'<small>'+esc(t.detalhe)+'</small>':'')+'<span class="meta"><span class="who" style="--c:'+(PEOPLE[t.responsavel]||'#aaa')+'"><i>'+esc(t.responsavel[0])+'</i>'+esc(t.responsavel)+'</span><span class="fr">'+esc(t.frente)+'</span></span></span></button>').join(''):'<div class="empty">Nenhuma tarefa com esse filtro.</div>')+'</div></section>'}).join('');
+  (list.length?list.map(t=>'<button class="card'+(t.feito?' done':'')+(new Date(t.updated_at).getTime()>recent?' recent':'')+(busy.has(t.id)?' busy':'')+'" data-id="'+t.id+'" aria-pressed="'+t.feito+'"><span class="ck">'+(t.feito?'✓':'')+'</span><span class="ct"><p>'+esc(t.titulo)+'</p>'+(t.detalhe?'<small>'+esc(t.detalhe)+'</small>':'')+'<span class="meta"><span class="who" role="button" tabindex="0" title="Trocar responsável" data-resp="'+t.id+'" style="--c:'+col(t.responsavel)+'"><i>'+esc(t.responsavel[0])+'</i>'+esc(t.responsavel)+'</span><span class="fr">'+esc(t.frente)+'</span></span></span></button>').join(''):'<div class="empty">Nenhuma tarefa com esse filtro.</div>')+'</div></section>'}).join('');
  $('upd').textContent='ATUALIZADO ÀS '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
 }
-function buildFilters(){$('people').innerHTML=['Todos',...Object.keys(PEOPLE)].map(n=>'<button class="chip" data-who="'+n+'" aria-pressed="'+(n===who)+'" style="--c:'+(PEOPLE[n]||'#D9AC55')+'">'+(n==='Todos'?'':'<i>'+n[0]+'</i>')+n+'</button>').join('');
+function buildFilters(){$('people').innerHTML=['Todos',...names()].map(n=>'<button class="chip" data-who="'+esc(n)+'" aria-pressed="'+(n===who)+'" style="--c:'+(n==='Todos'?'#D9AC55':col(n))+'">'+(n==='Todos'?'':'<i>'+esc(n[0])+'</i>')+esc(n)+'</button>').join('');
  const fronts=['Todas',...new Set(tasks.map(t=>t.frente))];$('frente').innerHTML=fronts.map(f=>'<option'+(f===front?' selected':'')+'>'+f+'</option>').join('')}
+function closeSheet(){const s=document.querySelector('.sheet');if(s)s.remove()}
+function openSheet(id){const t=tasks.find(x=>x.id===id);if(!t)return;closeSheet();
+ const d=document.createElement('div');d.className='sheet';d.innerHTML='<div class="bx" role="dialog" aria-label="Trocar responsável"><h4>RESPONSÁVEL</h4><p class="tt">'+esc(t.titulo)+'</p><div class="ops">'+names().map(n=>'<button type="button" class="chip" data-pick="'+esc(n)+'" aria-pressed="'+(n===t.responsavel)+'" style="--c:'+col(n)+'"><i>'+esc(n[0])+'</i>'+esc(n)+'</button>').join('')+'</div><form><input maxlength="30" placeholder="Novo responsável (nome)" aria-label="Novo responsável"><button class="ok">Salvar</button></form><button type="button" class="x">Cancelar</button></div>';
+ document.body.appendChild(d);
+ d.addEventListener('click',e=>{e.stopPropagation();if(e.target===d||e.target.closest('.x'))return closeSheet();const k=e.target.closest('[data-pick]');if(k)setResp(t,k.dataset.pick)});
+ d.querySelector('form').addEventListener('submit',e=>{e.preventDefault();const v=d.querySelector('input').value.trim().replace(/\s+/g,' ');if(v.length<2)return toast('Digite o nome do responsável');setResp(t,v.replace(/(^|\s)\S/g,m=>m.toUpperCase()))})}
+async function setResp(t,n){closeSheet();if(n===t.responsavel)return;const old=t.responsavel;busy.add(t.id);t.responsavel=n;t.updated_at=new Date().toISOString();buildFilters();render();
+ try{const r=await fetch(SB+'/rest/v1/rpc/lhn_agenda_responsavel',{method:'POST',headers:H,body:JSON.stringify({p_id:t.id,p_resp:n})});if(!r.ok)throw 0;toast('Responsável: '+n)}
+ catch(_){t.responsavel=old;toast('Não deu para salvar. Tente de novo.')}
+ busy.delete(t.id);buildFilters();render()}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet();const w=e.target.closest&&e.target.closest('.who');if(w&&(e.key==='Enter'||e.key===' ')){e.preventDefault();e.stopPropagation();openSheet(+w.dataset.resp)}},true);
 document.addEventListener('click',async e=>{
+ const w=e.target.closest('.who[data-resp]');if(w){openSheet(+w.dataset.resp);return}
  const c=e.target.closest('.chip');if(c){who=c.dataset.who;buildFilters();render();return}
  const g=e.target.closest('[data-go]');if(g){goDay(g.dataset.go,true);return}
  const b=e.target.closest('.card');if(!b)return;const id=+b.dataset.id;const t=tasks.find(x=>x.id===id);if(!t||busy.has(id))return;
@@ -144,7 +168,7 @@ document.addEventListener('click',async e=>{
  busy.delete(id);render()});
 $('frente').addEventListener('change',e=>{front=e.target.value;render()});
 (async()=>{try{await load();buildFilters();render();setTimeout(()=>goDay(focusDay(),false),50)}catch(_){$('board').innerHTML='<div class="load">Não foi possível carregar o plano. Recarregue a página.</div>'}
- setInterval(()=>{if(!busy.size&&!document.hidden)load().catch(()=>{})},20000)})();
+ setInterval(()=>{if(!busy.size&&!document.hidden)load().then(buildFilters).catch(()=>{})},20000)})();
 </script>
 </body>
 </html>
