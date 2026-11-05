@@ -1,6 +1,6 @@
 // Service worker: app instalável e funcionando offline (shell em cache).
-const CACHE = 'cdr-v1';
-const SHELL = ['./', 'index.html', 'app.css?v=1', 'app.js?v=1', 'config.js?v=1', 'manifest.webmanifest',
+const CACHE = 'cdr-v2';
+const SHELL = ['./', 'index.html', 'app.css?v=2', 'app.js?v=2', 'config.js?v=2', 'manifest.webmanifest',
   'icons/icon.svg', 'icons/icon-192.png', 'img/hero.jpg', 'img/xadrez.jpg', 'img/auditorio.jpg'];
 
 self.addEventListener('install', e => {

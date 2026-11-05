@@ -26,20 +26,10 @@ create table public.profiles (
   name text not null default '',
   headline text default '', company text default '', segment text default '', city text default '',
   revenue text default '', employees text default '', goals text default '', avatar text default '',
-  phone text default '',
+  phone text default '', site text default '', instagram text default '',
   member_since int default extract(year from now())::int,
   created_at timestamptz default now()
 );
-
--- cria perfil + notificação de boas-vindas quando alguém se cadastra
-create or replace function public.handle_new_user() returns trigger
-language plpgsql security definer set search_path = public as $$
-begin
-  insert into public.profiles (id, name) values (new.id, coalesce(new.raw_user_meta_data->>'name', split_part(new.email, '@', 1)));
-  insert into public.notifications (user_id, title, body, link)
-    values (new.id, 'Bem-vindo ao Clube do ROI', 'Sua jornada de entrada começou. Comece pelas boas-vindas.', '#/jornada');
-  return new;
-end $$;
 
 -- ---------- jornada ----------
 create table public.journey_steps (
@@ -115,16 +105,66 @@ create table public.notifications (
   title text not null, body text default '', link text default '#/', read boolean default false,
   created_at timestamptz default now()
 );
-create table public.diagnostics (
+
+-- ---------- onboarding (documento "Experiência do membro") ----------
+-- Etapa 1: cadastro feito pela equipe logo após a compra no jantar
+create table public.member_intake (
   id uuid primary key default gen_random_uuid(),
-  user_id uuid not null references auth.users on delete cascade default auth.uid(),
-  answers jsonb not null, scores jsonb not null, total int not null,
-  created_at timestamptz default now()
+  user_id uuid references auth.users on delete set null,
+  name text not null, phone text default '', email text not null, company text default '',
+  owner text default '', acquired_at timestamptz default now(),
+  status text not null default 'Compra confirmada', notes text default '',
+  created_at timestamptz default now(), updated_at timestamptz default now()
 );
-create table public.plans (
+create unique index member_intake_email on public.member_intake (lower(email));
+-- Etapa 4: respostas do formulário (salvas automaticamente)
+create table public.onboarding (
   user_id uuid primary key references auth.users on delete cascade default auth.uid(),
-  focus text default '', goals jsonb default '[]', updated_at timestamptz default now()
+  answers jsonb not null default '{}', updated_at timestamptz default now()
 );
+-- Etapa 6: ficha estratégica (interna da equipe)
+create table public.member_sheets (
+  user_id uuid primary key references auth.users on delete cascade,
+  perfil text default '', oportunidades text default '', conexoes text default '',
+  especialistas jsonb default '[]', proximos text default '', updated_at timestamptz default now()
+);
+-- Etapas 7 e 8: reunião e plano de desenvolvimento (visível para o membro)
+create table public.dev_plans (
+  user_id uuid primary key references auth.users on delete cascade,
+  objetivos text default '', prioridades text default '', oportunidades text default '',
+  acoes jsonb default '[]', historico jsonb default '[]',
+  meeting_at timestamptz, meeting_status text default 'Não agendada', updated_at timestamptz default now()
+);
+-- Etapa 5: acesso ao Grupo VIP
+create table public.vip_access (
+  user_id uuid primary key references auth.users on delete cascade default auth.uid(),
+  status text not null default 'solicitado' check (status in ('solicitado', 'liberado')),
+  requested_at timestamptz default now(), approved_at timestamptz
+);
+-- configurações do clube (link do grupo, responsáveis da equipe)
+create table public.settings (key text primary key, value jsonb not null default '{}');
+
+-- novo usuário: só convidados; cria perfil, vincula ao cadastro do jantar e envia boas-vindas
+create or replace function public.handle_new_user() returns trigger
+language plpgsql security definer set search_path = public as $$
+declare it public.member_intake;
+begin
+  select * into it from public.member_intake where lower(email) = lower(new.email) limit 1;
+  -- clube privado: só entra quem a equipe cadastrou (o primeiro usuário, antes de existir admin, é liberado)
+  if it.id is null and exists (select 1 from public.user_roles where role = 'admin') then
+    raise exception 'Este e-mail ainda não foi liberado pela equipe do Clube do ROI.';
+  end if;
+  insert into public.profiles (id, name, company, phone)
+    values (new.id, coalesce(it.name, new.raw_user_meta_data->>'name', split_part(new.email, '@', 1)), coalesce(it.company, ''), coalesce(it.phone, ''));
+  if it.id is not null then
+    update public.member_intake set user_id = new.id, updated_at = now(),
+      status = case when status in ('Compra confirmada', 'Contato realizado') then 'Acesso enviado' else status end
+    where id = it.id;
+  end if;
+  insert into public.notifications (user_id, title, body, link)
+    values (new.id, 'Bem-vindo ao Clube do ROI', 'Sua jornada de entrada começou. Comece pelas boas-vindas.', '#/jornada');
+  return new;
+end $$;
 
 create trigger on_auth_user_created after insert on auth.users for each row execute function public.handle_new_user();
 
@@ -163,8 +203,12 @@ alter table public.mentor_requests enable row level security;
 alter table public.connections enable row level security;
 alter table public.messages enable row level security;
 alter table public.notifications enable row level security;
-alter table public.diagnostics enable row level security;
-alter table public.plans enable row level security;
+alter table public.member_intake enable row level security;
+alter table public.onboarding enable row level security;
+alter table public.member_sheets enable row level security;
+alter table public.dev_plans enable row level security;
+alter table public.vip_access enable row level security;
+alter table public.settings enable row level security;
 
 -- papéis: cada um vê o próprio; admin gerencia
 create policy roles_read on public.user_roles for select to authenticated using (user_id = auth.uid() or public.is_admin());
@@ -192,14 +236,32 @@ create policy rsvps_del on public.rsvps for delete to authenticated using (user_
 
 -- privados: só o dono (e admin)
 create policy ms_own on public.member_steps for all to authenticated using (user_id = auth.uid() or public.is_admin()) with check (user_id = auth.uid() or public.is_admin());
-create policy diag_own on public.diagnostics for all to authenticated using (user_id = auth.uid() or public.is_admin()) with check (user_id = auth.uid());
-create policy plans_own on public.plans for all to authenticated using (user_id = auth.uid() or public.is_admin()) with check (user_id = auth.uid());
 create policy mreq_own on public.mentor_requests for select to authenticated using (user_id = auth.uid() or public.is_admin());
 create policy mreq_ins on public.mentor_requests for insert to authenticated with check (user_id = auth.uid());
 create policy mreq_admin on public.mentor_requests for update to authenticated using (public.is_admin());
 create policy notif_own on public.notifications for select to authenticated using (user_id = auth.uid());
 create policy notif_upd on public.notifications for update to authenticated using (user_id = auth.uid());
 create policy notif_ins on public.notifications for insert to authenticated with check (user_id = auth.uid());
+
+-- onboarding: o membro lê e grava as próprias respostas; a equipe lê todas
+create policy onb_own on public.onboarding for all to authenticated using (user_id = auth.uid() or public.is_admin()) with check (user_id = auth.uid());
+-- cadastro do jantar e ficha estratégica: só a equipe
+create policy intake_admin on public.member_intake for all to authenticated using (public.is_admin()) with check (public.is_admin());
+create policy sheets_admin on public.member_sheets for all to authenticated using (public.is_admin()) with check (public.is_admin());
+-- plano: o membro lê o seu e marca ações; a equipe escreve
+create policy plan_read on public.dev_plans for select to authenticated using (user_id = auth.uid() or public.is_admin());
+create policy plan_member on public.dev_plans for update to authenticated using (user_id = auth.uid()) with check (user_id = auth.uid());
+create policy plan_admin on public.dev_plans for all to authenticated using (public.is_admin()) with check (public.is_admin());
+-- Grupo VIP: o membro só pode solicitar; a equipe libera
+create policy vip_read on public.vip_access for select to authenticated using (user_id = auth.uid() or public.is_admin());
+create policy vip_req on public.vip_access for insert to authenticated with check (user_id = auth.uid() and status = 'solicitado');
+create policy vip_req_upd on public.vip_access for update to authenticated using (user_id = auth.uid() and status = 'solicitado') with check (user_id = auth.uid() and status = 'solicitado');
+create policy vip_admin on public.vip_access for all to authenticated using (public.is_admin()) with check (public.is_admin());
+-- configurações: todos leem (link do grupo só aparece na tela depois da liberação), equipe escreve
+create policy settings_read on public.settings for select to authenticated using (true);
+create policy settings_admin on public.settings for all to authenticated using (public.is_admin()) with check (public.is_admin());
+-- a equipe pode criar notificações para os membros
+create policy notif_admin on public.notifications for insert to authenticated with check (public.is_admin());
 
 -- conexões: só os envolvidos
 create policy conn_read on public.connections for select to authenticated using (requester = auth.uid() or addressee = auth.uid() or public.is_admin());
@@ -213,13 +275,17 @@ create policy msg_ins on public.messages for insert to authenticated with check 
 
 -- ---------- conteúdo inicial ----------
 insert into public.journey_steps (id, ord, key, title, description, minutes, route, label) values
- ('s1',1,'boas-vindas','Boas-vindas ao Clube','Entenda como o Clube do ROI funciona, os pilares do ecossistema e o que esperar dos próximos 90 dias.',5,'#/jornada','Ver boas-vindas'),
- ('s2',2,'perfil','Conhecendo você','Compartilhe mais sobre sua trajetória, empresa e objetivos.',15,'#/perfil','Completar perfil'),
- ('s3',3,'encontro','Seu primeiro encontro','Confirme presença em um encontro da agenda e conheça os membros pessoalmente.',5,'#/agenda','Abrir agenda'),
- ('s4',4,'conexoes','Conexões iniciais','Conecte-se com pelo menos 3 membros alinhados ao seu momento.',10,'#/comunidade','Explorar membros'),
- ('s5',5,'biblioteca','Base de conhecimento','Acesse o Guia Estratégico de Crescimento na biblioteca.',20,'#/biblioteca','Abrir biblioteca'),
- ('s6',6,'diagnostico','Diagnóstico Empresarial','Avalie 8 áreas da sua empresa e descubra onde estão as maiores alavancas de crescimento.',25,'#/diagnosticos','Fazer diagnóstico'),
- ('s7',7,'plano','Plano de Crescimento','Transforme o diagnóstico em metas claras para os próximos 90 dias.',30,'#/plano','Montar plano');
+ ('s1',1,'boas-vindas','Boas-vindas ao Clube','Conheça o ecossistema, como funciona sua jornada de integração e o que esperar do clube.',5,'#/jornada/boas-vindas','Ver boas-vindas'),
+ ('s2',2,'membro','Conhecendo o membro','Bloco 1 · Sua trajetória como empresário e o motivo de entrar no clube.',5,'#/onboarding/1','Responder bloco 1'),
+ ('s3',3,'empresa','Conhecendo sua empresa','Bloco 2 · Segmento, modelo de negócio, porte e estrutura.',7,'#/onboarding/2','Responder bloco 2'),
+ ('s4',4,'diagnostico','Diagnóstico empresarial','Bloco 3 · Desafios atuais e o que impede o crescimento.',6,'#/onboarding/3','Responder bloco 3'),
+ ('s5',5,'futuro','Oportunidades e visão de futuro','Bloco 4 · Objetivos para os próximos 12 meses e o problema que você resolveria em 90 dias.',6,'#/onboarding/4','Responder bloco 4'),
+ ('s6',6,'networking','Networking e conexões estratégicas','Bloco 5 · Que empresários você quer conhecer e o que pode oferecer ao ecossistema.',5,'#/onboarding/5','Responder bloco 5'),
+ ('s7',7,'reuniao','Reunião estratégica individual','Depois de analisar suas respostas, a equipe agenda uma conversa de 45 a 60 minutos com você.',60,'#/plano','Ver detalhes');
+
+insert into public.settings (key, value) values
+ ('vip', '{"link": "", "approval": true, "rules": "Grupo exclusivo para membros do Clube do ROI.\n• Não compartilhe o link.\n• Apresente-se ao entrar: nome, empresa e o que você busca.\n• Compartilhe oportunidades e conteúdos relevantes; evite propaganda.\n• Respeito e sigilo sobre o que é conversado aqui."}'),
+ ('team', '{}');
 
 insert into public.materials (title, kind, size, category, cover) values
  ('Guia Estratégico de Crescimento','PDF','12 MB','Estratégia','img/mat-guia.jpg'),

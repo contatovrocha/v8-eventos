@@ -248,6 +248,79 @@ textarea.input{min-height:96px;resize:vertical}
 .tbl td,.tbl th{padding:10px 8px;border-bottom:1px solid var(--line2);text-align:left;vertical-align:middle}
 .tbl th{color:var(--muted);font-weight:500;font-size:12px}
 
+/* ---------- Onboarding ---------- */
+.onb-head{margin:4px 0 18px}
+.onb-head h1{font-size:34px;margin:10px 0 4px}
+.steps5{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:10px}
+.steps5 i{height:4px;border-radius:4px;background:rgba(255,255,255,.1)}
+.steps5 i.done{background:var(--gold2)}
+.steps5 i.on{background:linear-gradient(90deg,var(--gold2),rgba(201,169,110,.35))}
+.onb .q{margin:0 0 22px;padding:0;border:0;min-width:0}
+.onb .q>label,.onb legend{display:block;font-size:15px;color:var(--text);font-weight:500;margin-bottom:10px;padding:0;line-height:1.4}
+.qn{display:inline-grid;place-items:center;min-width:24px;height:24px;margin-right:8px;border-radius:7px;background:rgba(201,169,110,.12);color:var(--gold);font-size:12px;font-weight:600;vertical-align:1px;font-variant-numeric:tabular-nums}
+.q.miss>label,.q.miss legend{color:#f0a3a3}
+.q.miss .input,.q.miss .opt span{border-color:rgba(235,107,107,.6)}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;width:1px;height:1px}
+.opt span{display:inline-flex;align-items:center;min-height:44px;padding:10px 14px;border:1px solid var(--line2);border-radius:12px;font-size:14px;color:#cfd4de;cursor:pointer;background:rgba(255,255,255,.015);transition:.15s}
+.opt span:hover{border-color:var(--line)}
+.opt input:checked+span{background:rgba(201,169,110,.14);border-color:var(--gold2);color:var(--gold)}
+.opt input:focus-visible+span{outline:2px solid var(--gold);outline-offset:2px}
+.q.strategic{padding:18px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(201,169,110,.10),rgba(201,169,110,.02))}
+.q.strategic label{font-size:24px;line-height:1.25;margin:10px 0 12px;color:var(--text)}
+.autosave{font-size:13px;display:flex;align-items:center;gap:6px;margin:4px 0 14px}
+.autosave svg.i{width:16px;height:16px;color:var(--ok)}
+.onb-nav{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
+.onb-nav .btn.gold{flex:1;max-width:340px}
+.integrado{text-align:center;max-width:620px;margin:10px auto 0;padding:28px 18px;border-radius:22px;border:1px solid var(--line);background:radial-gradient(120% 80% at 50% 0%,rgba(201,169,110,.16),transparent 60%),var(--panel)}
+.integrado h1{font-size:38px;line-height:1.1;margin:8px 0 16px;text-wrap:balance}
+.integrado p{color:#cfd4de;margin-bottom:10px}
+.seal{display:inline-grid;place-items:center;width:76px;height:76px;border-radius:50%;border:1px solid var(--line);margin-bottom:14px;background:rgba(201,169,110,.06)}
+.seal svg{width:42px;height:42px}
+.vip-btn{min-height:56px;letter-spacing:.06em;font-size:14px}
+.strategic-out{padding:16px;border-radius:14px;border:1px solid var(--line);background:rgba(201,169,110,.06);margin-bottom:14px}
+.strategic-out p{font-size:22px;line-height:1.3;margin-top:8px}
+.answers{margin:0;display:grid;gap:12px}
+.answers div{display:grid;gap:2px}
+.answers dt{font-size:12px;color:var(--dim)}
+.answers dd{margin:0;white-space:pre-line}
+.answers.compact{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--line2)}
+.blk{border-top:1px solid var(--line2);padding:12px 0}
+.blk summary{cursor:pointer;font-weight:600;color:var(--gold)}
+.blk .answers{margin-top:12px}
+.chip.bad{color:#f0a3a3;border-color:rgba(235,107,107,.35);background:rgba(235,107,107,.06)}
+.chip svg.i{width:14px;height:14px}
+.kpi.warn{border-color:rgba(229,182,92,.3);text-align:left;cursor:pointer}
+.kpi.warn svg.i{color:var(--warn)}
+.mini-prog{width:6px;height:44px;border-radius:6px;background:rgba(255,255,255,.08);display:flex;align-items:flex-end;overflow:hidden;flex:none}
+.mini-prog i{display:block;width:100%;background:var(--gold2)}
+.pipeline button{font-size:13px}
+.action{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid var(--line2);border-radius:12px;cursor:pointer}
+.action input{width:20px;height:20px;accent-color:#c9a96e;margin-top:2px;flex:none}
+.action b{display:block;font-size:14px;font-weight:600}
+.action small{display:block;color:var(--muted);font-size:12px}
+.action.is-done b{text-decoration:line-through;color:var(--muted)}
+.hist{list-style:none;margin:0;padding:0 0 0 14px;border-left:2px solid var(--line2);display:grid;gap:12px}
+.hist li{position:relative;font-size:14px}
+.hist li::before{content:"";position:absolute;left:-20px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--gold2)}
+.hist time{display:block;font-size:12px;color:var(--dim)}
+.sug{display:grid;gap:6px;margin-top:8px}
+.sug-i{text-align:left;padding:10px 12px;border-radius:10px;border:1px dashed var(--line);background:none;font-size:13px;color:#cfd4de}
+.sug-i b{color:var(--gold)}
+.acao{display:grid;grid-template-columns:1fr 36px;gap:8px;padding:10px;border:1px solid var(--line2);border-radius:12px}
+.acao .input{min-height:42px;padding:8px 12px;font-size:15px}
+.acao [name=a_texto]{grid-column:1/2}
+.acao .iconbtn{grid-column:2;grid-row:1;width:36px;height:42px}
+.acao [name=a_resp],.acao [name=a_prazo],.acao [name=a_status]{grid-column:1/-1}
+@media (min-width:700px){
+  .acao{grid-template-columns:2fr 1.3fr 150px 140px 36px}
+  .acao [name=a_texto],.acao [name=a_resp],.acao [name=a_prazo],.acao [name=a_status]{grid-column:auto}
+  .acao .iconbtn{grid-column:5;grid-row:1}
+  .integrado{padding:44px 40px}
+  .integrado h1{font-size:46px}
+}
+
 /* ---------- Tablet / Desktop ---------- */
 @media (min-width:600px){
   .grid2{grid-template-columns:1fr 1fr}
@@ -299,3 +372,6 @@ textarea.input{min-height:96px;resize:vertical}
 }
 @media (min-width:1024px) and (max-width:1200px){ .hero{grid-template-columns:1fr 270px} }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+fieldset.q{border:0;padding:0;margin:0 0 16px;min-width:0}
+fieldset.q legend{font-size:13px;color:var(--muted);margin-bottom:8px;padding:0}
+.onb fieldset.q legend{font-size:15px;color:var(--text)}
