@@ -41,7 +41,8 @@ img{max-width:100%;display:block}
 .stage .arc{position:absolute;left:50%;transform:translateX(-50%);border-radius:50%;border:1.3px solid rgba(217,172,85,.4);-webkit-mask-image:linear-gradient(180deg,#000 50%,transparent 50%)}
 .stage .tg{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:auto;max-width:none;z-index:2;filter:drop-shadow(0 20px 40px rgba(0,0,0,.7)) brightness(1.04) contrast(1.05)}
 .stage .fade{position:absolute;left:0;right:0;bottom:0;height:45%;z-index:3;background:linear-gradient(180deg,transparent,var(--ink) 92%)}
-.sp{position:absolute;border-radius:50%;background:#F5CC6E;box-shadow:0 0 8px #F5CC6E;z-index:4;pointer-events:none}
+.sp{position:absolute;border-radius:50%;background:#F5CC6E;box-shadow:0 0 8px #F5CC6E;z-index:1;pointer-events:none}
+.stage .tg{z-index:3!important}.stage .pb{z-index:2!important}
 .seats{display:flex;flex-direction:column;gap:5px;min-width:0}
 .seats .st{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:11px;letter-spacing:.18em;font-weight:700;text-transform:uppercase;color:var(--mu);white-space:nowrap}
 .seats .st b{color:var(--g1);letter-spacing:.06em;font-size:13px}
