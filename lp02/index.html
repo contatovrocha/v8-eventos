@@ -230,7 +230,7 @@ header.nav .btn{padding:11px 18px;font-size:14px}
 .proof-list li{display:flex;gap:10px}.proof-list li::before{content:"✓";color:var(--green);font-weight:800}
 
 /* Ingressos */
-.tickets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:stretch;max-width:820px;margin:0 auto}
+.tickets{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;max-width:460px;margin:0 auto}
 .ticket{background:var(--surface);border:1px solid var(--line);border-radius:20px;display:flex;flex-direction:column;overflow:hidden;position:relative}
 .ticket.feat{border-color:var(--green);box-shadow:0 30px 60px -30px rgba(46,230,140,.45)}
 .t-head{padding:24px 26px 18px;border-bottom:1px dashed var(--line)}
@@ -481,7 +481,7 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
         <form id="leadForm" novalidate>
           <span class="eyebrow">Última etapa</span>
           <h2>Seu diagnóstico está pronto para ser liberado.</h2>
-          <p>Informe seus dados para ver o evento e os ingressos do Escala IA, em 13 de novembro, em Alphaville.</p>
+          <p>Informe seus dados para ver o evento e garantir seu ingresso do Escala IA, em 13 de novembro, em Alphaville.</p>
           <div class="field"><label for="name">Nome completo *</label><input id="name" autocomplete="name" placeholder="Seu nome"></div>
           <div class="two">
             <div class="field"><label for="phone">WhatsApp com DDD *</label><input id="phone" inputmode="tel" autocomplete="tel" placeholder="(11) 99999-9999"></div>
@@ -521,7 +521,7 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
         <h1>Sua empresa precisa <span class="g">trabalhar para você</span>, não depender de você.</h1>
         <p class="lead">Em um dia, <b>Tiago Almeida</b> mostra como usar processos, automação e IA no WhatsApp para <b>vender mais sem aumentar a equipe</b>.</p>
         <a class="btn btn-primary hero-cta" href="#ingressos">Garantir meu ingresso →</a>
-        <p class="price-line">Ingressos a partir de <b>R$ 197</b></p>
+        <p class="price-line">Acesso por apenas <b>R$ 197</b></p>
         <ul class="meta">
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span><b>13 de novembro</b> · sexta · <span data-horario>A confirmar</span></span></li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span><b>Presencial</b> · <span data-local>Alphaville · SP</span></span></li>
@@ -690,32 +690,22 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
   <section id="ingressos">
     <div class="wrap">
       <div class="sec-head center">
-        <span class="eyebrow">Ingressos</span>
-        <h2>Escolha como você quer participar do dia 13.</h2>
-        <p class="lead">O conteúdo é o mesmo nos dois. O que muda é a experiência ao redor dele.</p>
+        <span class="eyebrow">Ingresso</span>
+        <h2>Garanta seu lugar no dia 13.</h2>
+        <p class="lead">Um dia presencial em Alphaville para colocar processos, automação e IA trabalhando pela sua empresa.</p>
       </div>
       <div class="tickets">
-        <div class="ticket">
-          <div class="t-head"><small>INGRESSO</small><h3>Essencial</h3></div>
-          <div class="t-body">
-            <p>Para quem quer o conteúdo completo e o ambiente de networking.</p>
-            <ul><li>Acesso a todas as sessões do evento</li><li>Networking com empresários e líderes</li><li>Lugar na área geral</li></ul>
-            <div class="price"><small>por pessoa</small><div class="v"><sup>R$</sup>197</div><div class="inst" data-parcelas="essencial" hidden></div>
-              <a class="btn" href="#" data-ticket="essencial">Garantir ingresso Essencial</a><p class="t-msg" data-msg="essencial"></p></div>
-          </div>
-        </div>
         <div class="ticket feat">
-          <span class="tag">Área reservada</span>
-          <div class="t-head"><small>INGRESSO</small><h3>Executivo</h3></div>
+          <div class="t-head"><small>INGRESSO</small><h3>Escala IA · 13/11</h3></div>
           <div class="t-body">
-            <p>Para quem quer viver o evento com mais conforto e proximidade.</p>
-            <ul><li>Tudo do ingresso Essencial</li><li>Lugar na área reservada</li><li>Lounge de networking</li><li>Acesso ao Tiago e à equipe nas pausas</li></ul>
-            <div class="price"><small>por pessoa</small><div class="v"><sup>R$</sup>497</div><div class="inst" data-parcelas="executivo" hidden></div>
-              <a class="btn btn-primary" href="#" data-ticket="executivo">Garantir ingresso Executivo</a><p class="t-msg" data-msg="executivo"></p></div>
+            <p>Acesso completo ao dia de evento com Tiago Almeida.</p>
+            <ul><li>Todas as sessões do evento, das 9h às 17h</li><li>Os 4 pilares na prática: organizar, automatizar, IA e escalar</li><li>Networking com empresários e líderes</li></ul>
+            <div class="price"><small>por pessoa</small><div class="v"><sup>R$</sup>197</div><div class="inst" data-parcelas="essencial" hidden></div>
+              <a class="btn btn-primary" href="#" data-ticket="essencial">Garantir meu ingresso →</a><p class="t-msg" data-msg="essencial"></p></div>
           </div>
         </div>
       </div>
-      <p class="t-help">Em dúvida sobre qual ingresso escolher? <a id="waLink" href="#" hidden>Fale com a nossa equipe no WhatsApp</a><span id="waFallback">Nossa equipe fala com você pelo WhatsApp que você informou.</span></p>
+      <p class="t-help">Ficou com alguma dúvida? <a id="waLink" href="#" hidden>Fale com a nossa equipe no WhatsApp</a><span id="waFallback">Nossa equipe fala com você pelo WhatsApp que você informou.</span></p>
     </div>
   </section>
 
@@ -745,7 +735,6 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
         <details><summary>Preciso entender de programação?</summary><p>Não. O foco é onde aplicar processos, automação e IA para gerar resultado na empresa, e não em programação.</p></details>
         <details><summary>A IA vai substituir a minha equipe?</summary><p>Não é essa a proposta. A IA assume as tarefas repetitivas para que as pessoas da sua equipe foquem no que gera mais valor, como fechar vendas e cuidar dos clientes.</p></details>
         <details><summary>E o risco de bloqueio do WhatsApp?</summary><p>É uma preocupação comum. No evento, você entende a diferença entre disparo em massa e uma operação organizada, e como a API Oficial do WhatsApp e boas práticas de comunicação ajudam a operar com mais segurança.</p></details>
-        <details><summary>Qual a diferença entre os ingressos?</summary><p>O conteúdo é o mesmo nos dois. O Executivo acrescenta lugar na área reservada, lounge de networking e acesso ao Tiago e à equipe nas pausas.</p></details>
         <details><summary>O evento promete resultados garantidos?</summary><p>Não. Os resultados dependem do contexto, da implementação e dos processos de cada negócio. O objetivo é apresentar caminhos e aplicações possíveis.</p></details>
         <details><summary>Quando e onde acontece?</summary><p>Dia 13 de novembro de 2026. Horário: <span data-horario>A confirmar</span>. Local: <span data-local>Alphaville · SP</span>.</p></details>
       </div>
@@ -761,8 +750,8 @@ const CONFIG = {
   horario: "9h às 17h",                    // ex.: "09h às 18h" (vazio = "A confirmar")
   local: "Alphaville · SP",                // ex.: "Espaço X, Alphaville"
   whatsapp: "",                            // só números com DDI+DDD, ex.: "5511999999999"
-  checkout: { essencial: "", executivo: "" },   // links de checkout de cada ingresso
-  parcelas: { essencial: "", executivo: "" }    // ex.: "ou 12x de R$ 20,00" (vazio = oculto)
+  checkout: { essencial: "" },   // link de checkout do ingresso de R$ 197
+  parcelas: { essencial: "" }    // ex.: "ou 12x de R$ 20,00" (vazio = oculto)
 };
 const EVENT_DATE = new Date(2026, 10, 13); // 13/11/2026
 /* ============================================================ */
@@ -856,7 +845,7 @@ Object.keys(CONFIG.parcelas).forEach(k=>{
 
 if(CONFIG.whatsapp){
  const wa=document.getElementById('waLink');
- wa.href='https://wa.me/'+CONFIG.whatsapp+'?text='+encodeURIComponent('Olá! Tenho uma dúvida sobre os ingressos do Escala IA.');
+ wa.href='https://wa.me/'+CONFIG.whatsapp+'?text='+encodeURIComponent('Olá! Tenho uma dúvida sobre o ingresso do Escala IA.');
  wa.target='_blank';wa.rel='noopener';wa.hidden=false;
  document.getElementById('waFallback').hidden=true;
 }
