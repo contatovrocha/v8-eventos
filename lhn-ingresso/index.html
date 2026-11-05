@@ -98,7 +98,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .hero h1{font-size:clamp(34px,3.8vw,56px)}
 .hero .sub{font-size:18px;color:#dcd2bd}
 .hero .btn{min-width:340px}
-.price{font-size:15px;color:var(--mu)}.price b{font-family:Cinzel,serif;color:var(--g1);font-size:20px}
+.price{font-size:15px;color:var(--mu)}.price{white-space:nowrap}.price .bn{display:inline-block;color:#1a1206;background:var(--g2);font-weight:800;font-size:11.5px;letter-spacing:.06em;padding:2px 7px;margin-left:4px;vertical-align:1px}.price b{font-family:Cinzel,serif;color:var(--g1);font-size:20px}
 .facts{list-style:none;padding:0;display:flex;flex-direction:column;gap:7px;font-size:14.5px;color:#d9cfba}
 .facts li{display:flex;align-items:center;gap:10px}.facts b{color:var(--tx)}
 .facts svg{width:18px;height:18px;flex:none;fill:none;stroke:var(--g2);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
@@ -126,6 +126,7 @@ section{padding-block:96px;position:relative}
 .c4 b{font-family:Cinzel,serif;font-weight:700;font-size:18px;letter-spacing:.12em}.c4 p{font-size:14px;color:#cfc5ae;margin-top:6px}
 .about{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
 .about .stage{aspect-ratio:4/5;border:1px solid var(--ln)}
+.about .stage.palco img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 25%}
 .about .stage .tg{height:92%}.about .stage .leque{top:30%;width:170%}
 .about p{color:#cfc5ae;margin-top:12px}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
@@ -152,6 +153,10 @@ section{padding-block:96px;position:relative}
 .bonus b{display:block;font-family:Cinzel,serif;font-weight:800;font-size:19px;text-transform:uppercase;line-height:1.2}
 .bonus p{font-size:13.5px;color:#cfc5ae;margin:6px 0}
 .bonus .bv{font-size:13px;color:var(--mu)}.bonus .bv s{color:var(--mu)}.bonus .bv em{font-style:normal;color:var(--g1);font-weight:700}
+.bonusband{padding-block:0 60px}
+.bb{position:relative;max-width:820px;margin:0 auto;text-align:center;border:1px solid var(--g2);background:radial-gradient(70% 90% at 50% 0%,rgba(217,172,85,.16),transparent 70%),#0b0a08;padding:44px 28px;display:flex;flex-direction:column;gap:12px;align-items:center}
+.bb h2{font-size:clamp(26px,3.2vw,40px)}
+.bb p{color:#d6ccb6}.bb .bv{font-size:16px}.bb .bv s{color:var(--mu)}
 .tmsg{font-size:14px;color:var(--g1);text-align:center}.tmsg:empty{display:none}
 .faq{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
 details{border:1px solid var(--ln);background:var(--s);padding:0 20px}
@@ -305,7 +310,7 @@ footer .logo{font-size:40px;margin-bottom:8px}
       <h1 class="cz">Se você quer escalar seu negócio, precisa mudar <span class="gold">os ambientes onde está</span>.</h1>
       <p class="sub">Uma noite com Tiago Almeida e 40 empresários para ampliar visão, liderança e conexões, com tecnologia, IA e princípios do Reino.</p>
       <a class="btn" href="#ingresso">Garantir ingresso · R$ 47</a>
-      <p class="price"><b>R$ 47</b> · ingresso para 2 pessoas</p>
+      <p class="price"><b>R$ 47</b> · 2 pessoas <span class="bn">+ bônus R$ 2.500</span></p>
       <ul class="facts">
         <li><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span><b>Quarta, 11/11</b> · abertura 18h30 · início 19h</span></li>
         <li><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span><b>Marçal Tower</b> · Alphaville, Barueri/SP</span></li>
@@ -360,10 +365,9 @@ footer .logo{font-size:40px;margin-bottom:8px}
 
   <section>
     <div class="wrap about">
-      <div class="stage framed">
-        <div class="veil" style="background:radial-gradient(60% 55% at 50% 60%,rgba(217,172,85,.3),transparent 70%)"></div><div class="leque"></div>
-        <img class="tg" src="img/tiago-em-pe.webp" alt="Tiago Almeida">
-        <div class="fade" style="height:25%"></div>
+      <div class="stage framed palco">
+        <img src="img/palco.jpg" alt="Tiago Almeida no palco, falando para empresários">
+        <div class="fade" style="height:30%"></div>
         <span class="cn a"></span><span class="cn d"></span>
       </div>
       <div>
@@ -386,6 +390,15 @@ footer .logo{font-size:40px;margin-bottom:8px}
         <div class="box no"><h3>Não é para você se</h3><ul><li>Procura só mais uma palestra</li><li>Espera negócio fechado na noite</li><li>Não pretende estar presente às 19h</li></ul></div>
       </div>
     </div>
+  </section>
+
+  <section class="bonusband">
+    <div class="wrap"><div class="bb framed"><span class="cn a"></span><span class="cn d"></span>
+      <span class="pill seq"><span class="gold">Bônus para quem está na mesa</span></span>
+      <h2 class="cz">Lista preferencial do <span class="gold">Podcast do Tiago Almeida</span></h2>
+      <p>Quem participa do LHN entra na lista preferencial do podcast do Tiago.</p>
+      <p class="bv">Valor de <s>R$ 2.500</s> · <b class="gold">incluso no seu ingresso de R$ 47</b></p>
+    </div></div>
   </section>
 
   <section id="ingresso" class="band">
