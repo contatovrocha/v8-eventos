@@ -92,7 +92,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .priv{font-size:12px;color:var(--mu);text-align:center;margin-top:12px}
 .hero{display:grid;grid-template-columns:1.05fr .95fr;min-height:calc(100dvh - 64px)}
 .hero .stage{min-height:calc(100dvh - 64px)}
-.hero .stage .tg{height:94%}
+.hero .stage .tg{height:94%;left:40%}
+.hero .stage .pb{position:absolute;z-index:1;bottom:14%;left:78%;transform:translateX(-50%);height:60%;width:auto;max-width:none;filter:brightness(.82) contrast(1.05) drop-shadow(0 10px 30px rgba(0,0,0,.7));-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent 100%)}
 .hero .stage .leque{top:24%}
 .hero .txt{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:44px 52px;gap:14px;max-width:620px}
 .hero h1{font-size:clamp(34px,3.8vw,56px)}
@@ -189,7 +190,8 @@ footer .logo{font-size:40px;margin-bottom:8px}
   .opt{padding:11px 13px;font-size:14.5px}
   .hero{grid-template-columns:1fr;min-height:0}
   .hero .stage{min-height:0;height:285px}
-  .hero .stage .tg{height:112%;bottom:-12%}
+  .hero .stage .tg{height:112%;bottom:-12%;left:42%}
+  .hero .stage .pb{height:88%;bottom:4%;left:77%}
   .hero .stage .leque{top:20%;width:190%}
   .hero .txt{padding:0 20px 36px;gap:10px;max-width:none;margin-top:-44px;position:relative;z-index:5}
   .hero h1{font-size:27px}
@@ -301,16 +303,17 @@ footer .logo{font-size:40px;margin-bottom:8px}
     <div class="stage framed">
       <div class="crowd"></div><div class="veil"></div><div class="leque"></div>
       <div class="arc" style="top:20%;width:125%;aspect-ratio:1"></div>
-      <img class="tg" src="img/tiago-sentado.webp" alt="Tiago Almeida com empresários da edição anterior do LHN ao fundo">
+      <img class="pb" src="img/pablo.webp" alt="Pablo Marçal">
+      <img class="tg" src="img/tiago-sentado.webp" alt="Tiago Almeida, com Pablo Marçal e empresários da edição anterior do LHN ao fundo">
       <div class="fade"></div>
       <span class="cn a"></span><span class="cn b"></span><span class="cn c"></span><span class="cn d"></span>
     </div>
     <div class="txt">
       <span class="kick left seqk">8ª Edição - Mesa Empresarial - Homens com a visão do Reino</span>
-      <h1 class="cz">Se você quer escalar seu negócio, precisa mudar <span class="gold">os ambientes onde está</span>.</h1>
+      <h1 class="cz">Negócios se escalam estando nas mesas certas. <span class="gold">Esteja comigo na Mesa do LHN.</span></h1>
       <p class="sub">Uma noite com Tiago Almeida e 40 empresários para ampliar visão, liderança e conexões, com tecnologia, IA e princípios do Reino.</p>
       <a class="btn" href="#ingresso">Garantir ingresso · R$ 47</a>
-      <p class="price"><b>R$ 47</b> · 2 pessoas <span class="bn">+ bônus R$ 2.500</span></p>
+      <p class="price"><b>R$ 47</b> · ingresso para 2 pessoas</p>
       <ul class="facts">
         <li><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span><b>Quarta, 11/11</b> · abertura 18h30 · início 19h</span></li>
         <li><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span><b>Marçal Tower</b> · Alphaville, Barueri/SP</span></li>
