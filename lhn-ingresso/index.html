@@ -21,13 +21,13 @@ img{max-width:100%;display:block}
 .wrap{max-width:var(--max);margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
 .gold{background:linear-gradient(180deg,var(--g1) 0%,var(--g2) 50%,var(--g3) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;padding:.14em 0 .06em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ord{font-family:Montserrat,sans-serif;font-weight:700;font-size:.8em;vertical-align:.3em}
-.cz{font-family:Cinzel,serif;font-weight:800;text-transform:uppercase;letter-spacing:.01em;line-height:1.12;text-shadow:0 4px 14px rgba(0,0,0,.85)}
+.cz{font-family:Cinzel,"Cinzel Fallback",Georgia,"Times New Roman",serif;font-weight:800;text-transform:uppercase;letter-spacing:.01em;line-height:1.12;text-shadow:0 4px 14px rgba(0,0,0,.85)}
 .cz .gold,.gold.cz{text-shadow:none}
 .kick{display:flex;align-items:center;justify-content:center;gap:14px;font-size:13px;letter-spacing:.42em;font-weight:600;text-transform:uppercase;color:var(--tx)}
 .kick::before,.kick::after{content:"";width:56px;height:1px;background:linear-gradient(90deg,transparent,var(--g2))}.kick::after{transform:scaleX(-1)}
 .kick.left{justify-content:flex-start}.kick.left::before{display:none}
-.logo{font-family:Cinzel,serif;font-weight:700;letter-spacing:.07em;line-height:1}.logo i{font-style:normal;font-size:.45em;vertical-align:.55em;margin:0 .12em}
-.pill{display:inline-block;border:1px solid rgba(217,172,85,.7);background:rgba(5,5,5,.7);padding:7px 20px;font-family:Cinzel,serif;font-weight:700;letter-spacing:.16em;font-size:15px}
+.logo{font-family:Cinzel,"Cinzel Fallback",Georgia,"Times New Roman",serif;font-weight:700;letter-spacing:.07em;line-height:1}.logo i{font-style:normal;font-size:.45em;vertical-align:.55em;margin:0 .12em}
+.pill{display:inline-block;border:1px solid rgba(217,172,85,.7);background:rgba(5,5,5,.7);padding:7px 20px;font-family:Cinzel,"Cinzel Fallback",Georgia,"Times New Roman",serif;font-weight:700;letter-spacing:.16em;font-size:15px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:700 16px Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;padding:17px 28px;border:0;cursor:pointer;text-decoration:none;color:#1a1206;background:linear-gradient(180deg,#FDEFC4 0%,#D9AC55 46%,#B4863A 62%,#F2D38A 100%);box-shadow:0 0 34px rgba(217,172,85,.45);transition:transform .15s,box-shadow .15s}
 .btn:hover{transform:translateY(-1px);box-shadow:0 0 46px rgba(217,172,85,.6)}
 .btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
@@ -86,7 +86,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .qprog{height:4px;background:#1b1812;margin:10px 0 16px}.qprog i{display:block;height:100%;background:linear-gradient(90deg,#94692A,#FBE9B5);transition:width .3s}
 .q{display:none}.q.on{display:block;animation:qin .35s ease}
 @keyframes qin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.q h2{font-family:Cinzel,serif;font-weight:700;font-size:23px;line-height:1.2;margin-bottom:14px}
+.q h2{font-family:Cinzel,"Cinzel Fallback",Georgia,"Times New Roman",serif;font-weight:700;font-size:23px;line-height:1.2;margin-bottom:14px}
 .opts{display:flex;flex-direction:column;gap:8px}
 .opt{display:flex;align-items:center;gap:12px;text-align:left;font:500 15.5px Montserrat,sans-serif;color:var(--tx);background:#0b0a08;border:1px solid #3a3122;padding:13px 15px;cursor:pointer;transition:border-color .15s,background .15s}
 .opt:hover{border-color:var(--g2)}
@@ -108,7 +108,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .hero h1{font-size:clamp(34px,3.8vw,56px);line-height:1.06}
 .hero .sub{font-size:18px;color:#dcd2bd}
 .hero .btn{min-width:340px}
-.price{font-size:15px;color:var(--mu)}.price{white-space:nowrap}.price .bn{display:inline-block;color:#1a1206;background:var(--g2);font-weight:800;font-size:11.5px;letter-spacing:.06em;padding:2px 7px;margin-left:4px;vertical-align:1px}.price b{font-family:Cinzel,serif;color:var(--g1);font-size:20px}
+.price{font-size:15px;color:var(--mu)}.price{white-space:nowrap}.price .bn{display:inline-block;color:#1a1206;background:var(--g2);font-weight:800;font-size:11.5px;letter-spacing:.06em;padding:2px 7px;margin-left:4px;vertical-align:1px}.price b{font-family:Cinzel,"Cinzel Fallback",Georgia,"Times New Roman",serif;color:var(--g1);font-size:20px}
 .facts{list-style:none;padding:0;display:flex;flex-direction:column;gap:7px;font-size:14.5px;color:#d9cfba}
 .facts li{display:flex;align-items:center;gap:10px}.facts b{color:var(--tx)}
 .facts svg{width:18px;height:18px;flex:none;fill:none;stroke:var(--g2);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
@@ -117,15 +117,15 @@ section{padding-block:96px;position:relative}
 .sh h2{font-size:clamp(28px,3.6vw,48px)}
 .lead{color:#cfc5ae;font-size:18px;max-width:680px}
 .pillars{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
-.pillars span{font-family:Cinzel,serif;font-weight:700;font-size:17px;letter-spacing:.14em;padding:10px 18px;border:1px solid rgba(217,172,85,.5)}
+.pillars span{font-family:Cinzel,"Cinzel Fallback",Georgia,"Times New Roman",serif;font-weight:700;font-size:17px;letter-spacing:.14em;padding:10px 18px;border:1px solid rgba(217,172,85,.5)}
 .band{background:radial-gradient(70% 80% at 50% 0%,rgba(217,172,85,.12),transparent 70%),#080706;border-block:1px solid var(--ln)}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .box{position:relative;border:1px solid var(--ln);background:var(--s);padding:32px}
-.box .big{font-family:Cinzel,serif;font-weight:900;font-size:60px;line-height:1;margin-bottom:10px}
-.box h3{font-family:Cinzel,serif;font-weight:700;font-size:22px;text-transform:uppercase;margin-bottom:10px}
+.box .big{font-family:Cinzel,"Cinzel Fallback",Georgia,"Times New Roman",serif;font-weight:900;font-size:60px;line-height:1;margin-bottom:10px}
+.box h3{font-family:Cinzel,"Cinzel Fallback",Georgia,"Times New Roman",serif;font-weight:700;font-size:22px;text-transform:uppercase;margin-bottom:10px}
 .box p{color:#cfc5ae}
 .tl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.tl .box{border-top:3px solid var(--g2)}.tl b{font-family:Cinzel,serif;font-size:32px;display:block}
+.tl .box{border-top:3px solid var(--g2)}.tl b{font-family:Cinzel,"Cinzel Fallback",Georgia,"Times New Roman",serif;font-size:32px;display:block}
 .tl h3{font-size:18px;margin:8px 0 6px}
 .room{position:relative;min-height:600px;display:flex;align-items:flex-end;overflow:hidden}
 .room .ph{position:absolute;inset:0;background:url(img/grupo.jpg) center 55%/cover;filter:sepia(.35) brightness(.75) contrast(1.08)}
@@ -133,34 +133,34 @@ section{padding-block:96px;position:relative}
 .room .wrap{position:relative;z-index:2;padding-bottom:44px;width:100%}
 .c4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:26px}
 .c4 div{background:rgba(13,12,10,.88);border:1px solid var(--ln);padding:20px}
-.c4 b{font-family:Cinzel,serif;font-weight:700;font-size:18px;letter-spacing:.12em}.c4 p{font-size:14px;color:#cfc5ae;margin-top:6px}
+.c4 b{font-family:Cinzel,"Cinzel Fallback",Georgia,"Times New Roman",serif;font-weight:700;font-size:18px;letter-spacing:.12em}.c4 p{font-size:14px;color:#cfc5ae;margin-top:6px}
 .about{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
 .about .stage{aspect-ratio:4/5;border:1px solid var(--ln)}
 .about .stage.palco img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 25%}
 .about .stage .tg{height:92%}.about .stage .leque{top:30%;width:170%}
 .about p{color:#cfc5ae;margin-top:12px}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
-.stat{border:1px solid var(--ln);background:var(--s);padding:16px}.stat b{font-family:Cinzel,serif;font-weight:800;font-size:28px;display:block}.stat span{font-size:13px;color:var(--mu)}
+.stat{border:1px solid var(--ln);background:var(--s);padding:16px}.stat b{font-family:Cinzel,"Cinzel Fallback",Georgia,"Times New Roman",serif;font-weight:800;font-size:28px;display:block}.stat span{font-size:13px;color:var(--mu)}
 .pablo{margin-top:16px;display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center;border:1px solid var(--ln);background:var(--s)}
 .pablo img{width:150px;height:116px;object-fit:cover;object-position:55% 30%}.pablo p{margin:0;font-size:14px;padding-right:14px}
-.quote{font-family:Cinzel,serif;font-weight:700;font-size:20px;border-left:2px solid var(--g2);padding-left:16px;margin-top:20px}
+.quote{font-family:Cinzel,"Cinzel Fallback",Georgia,"Times New Roman",serif;font-weight:700;font-size:20px;border-left:2px solid var(--g2);padding-left:16px;margin-top:20px}
 .fit{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}
 .fit ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:12px}
 .fit li{display:flex;gap:12px;color:#d6ccb6}.fit li::before{content:"";flex:none;width:10px;height:10px;margin-top:7px;border-radius:50%;background:linear-gradient(135deg,var(--g1),var(--g3))}
 .fit .no li::before{background:#6b3b31}
 .ticket{position:relative;max-width:540px;margin:0 auto;border:1.5px solid var(--g2);background:linear-gradient(180deg,#19140b,#0d0c0a 50%);box-shadow:0 30px 80px -30px rgba(217,172,85,.55)}
 .ticket .th{padding:26px 28px 18px;border-bottom:1px dashed rgba(217,172,85,.45);text-align:center}
-.ticket .th h3{font-family:Cinzel,serif;font-weight:800;font-size:26px;text-transform:uppercase;margin-top:8px;line-height:1.1}
+.ticket .th h3{font-family:Cinzel,"Cinzel Fallback",Georgia,"Times New Roman",serif;font-weight:800;font-size:26px;text-transform:uppercase;margin-top:8px;line-height:1.1}
 .ticket .tb{padding:22px 28px 28px;display:flex;flex-direction:column;gap:16px}
 .ticket ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;font-size:15px}
 .ticket li{display:flex;gap:10px}.ticket li::before{content:"✓";color:var(--g2);font-weight:800}
 .pv{text-align:center}.pv small{display:block;font-size:12px;color:var(--mu);letter-spacing:.24em;font-weight:700}
-.pv .num{font-family:Cinzel,serif;font-weight:900;font-size:76px;line-height:1.05}.pv .num sup{font-size:24px;vertical-align:top;position:relative;top:16px;margin-right:4px;-webkit-text-fill-color:var(--g2);color:var(--g2)}
+.pv .num{font-family:Cinzel,"Cinzel Fallback",Georgia,"Times New Roman",serif;font-weight:900;font-size:76px;line-height:1.05}.pv .num sup{font-size:24px;vertical-align:top;position:relative;top:16px;margin-right:4px;-webkit-text-fill-color:var(--g2);color:var(--g2)}
 .ticket .btn{text-align:center}
 .pv em{display:block;font-style:normal;color:var(--g1);font-weight:600;font-size:14px}
 .bonus{position:relative;border:1px dashed var(--g2);background:rgba(217,172,85,.07);padding:16px 16px 14px;text-align:center}
 .bonus .bt{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.22em;color:#1a1206;background:var(--g2);padding:3px 10px;margin-bottom:8px}
-.bonus b{display:block;font-family:Cinzel,serif;font-weight:800;font-size:19px;text-transform:uppercase;line-height:1.2}
+.bonus b{display:block;font-family:Cinzel,"Cinzel Fallback",Georgia,"Times New Roman",serif;font-weight:800;font-size:19px;text-transform:uppercase;line-height:1.2}
 .bonus p{font-size:13.5px;color:#cfc5ae;margin:6px 0}
 .bonus .bv{font-size:13px;color:var(--mu)}.bonus .bv s{color:var(--mu)}.bonus .bv em{font-style:normal;color:var(--g1);font-weight:700}
 .bonusband{padding-block:0 60px}
@@ -189,7 +189,7 @@ footer .logo{font-size:40px;margin-bottom:8px}
 .pop .pc{pointer-events:auto;position:relative;width:100%;max-width:340px;border:1.5px solid var(--g2);background:linear-gradient(180deg,#1a150c,#0b0a08);box-shadow:0 -10px 60px rgba(0,0,0,.7),0 0 40px rgba(217,172,85,.25);padding:12px 40px 12px 14px;text-align:left;animation:up .4s cubic-bezier(.2,.8,.2,1)}
 @keyframes up{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
 .pop .x{position:absolute;right:6px;top:6px;z-index:7;background:none;border:0;color:var(--mu);font-size:24px;cursor:pointer;padding:4px 10px;line-height:1}
-.pop h3{font-family:Cinzel,serif;font-weight:800;font-size:16px;text-transform:uppercase;line-height:1.2;margin:0 0 3px}
+.pop h3{font-family:Cinzel,"Cinzel Fallback",Georgia,"Times New Roman",serif;font-weight:800;font-size:16px;text-transform:uppercase;line-height:1.2;margin:0 0 3px}
 .pop p{font-size:12.5px;color:#d6ccb6;margin:0}
 .pop p a{color:var(--g1);font-weight:700}
 
@@ -255,233 +255,211 @@ footer .logo{font-size:40px;margin-bottom:8px}
 </style>
 </head>
 <body>
-
 <!-- ================= QUIZ ================= -->
 <main id="quiz">
-  <div class="topbar"><div class="wrap">
-    <span class="logo gold">L<i>•</i>H<i>•</i>N</span>
-    <div class="seats hide" data-seats></div>
-  </div></div>
-  <div class="stage qstage framed">
-    <div class="crowd"></div><div class="veil"></div><div class="leque"></div>
-    <div class="arc" style="top:26%;width:120%;aspect-ratio:1"></div>
-    <img class="tg" src="img/tiago-sentado.webp" alt="Tiago Almeida" fetchpriority="high">
-    <div class="fade"></div>
-    <span class="cn a"></span><span class="cn b"></span>
-  </div>
-  <div class="qhead">
-    <span class="pill seq"><span class="gold">8<span class="ord">ª</span> Edição - Mesa Empresarial - Homens com a visão do Reino</span></span>
-    <h1 class="cz gold">De frente com Tiago Almeida<small>na Mesa Empresarial do LHN</small></h1>
-  </div>
-  <div class="qcard">
-    <div class="qbox">
-      <div class="qtop"><span id="qlbl">SUA CADEIRA</span><button class="back" type="button" id="qback" hidden>← Voltar</button><span id="qstep">1 DE 5</span></div>
-      <div class="qprog"><i id="qbar" style="width:20%"></i></div>
-
-      <div class="q on" data-q="idade"><h2>Qual é a sua idade?</h2><div class="opts">
-        <button class="opt" type="button"><span class="dot"></span>18 a 24 anos</button>
-        <button class="opt" type="button"><span class="dot"></span>25 a 34 anos</button>
-        <button class="opt" type="button"><span class="dot"></span>35 a 44 anos</button>
-        <button class="opt" type="button"><span class="dot"></span>45 a 54 anos</button>
-        <button class="opt" type="button"><span class="dot"></span>55 anos ou mais</button></div></div>
-
-      <div class="q" data-q="nome"><h2>Qual é o seu nome?</h2><div class="inp">
-        <input id="nome" autocomplete="name" placeholder="Seu nome" enterkeyhint="next">
-        <button class="btn" type="button" data-next>Continuar →</button></div></div>
-
-      <div class="q" data-q="whatsapp"><h2>Qual é o seu WhatsApp?</h2><div class="inp">
-        <input id="whats" inputmode="tel" autocomplete="tel" placeholder="(11) 99999-9999" enterkeyhint="next">
-        <button class="btn" type="button" data-next>Continuar →</button></div></div>
-
-      <div class="q" data-q="cargo"><h2>O que você é hoje no seu negócio?</h2><div class="opts">
-        <button class="opt" type="button"><span class="dot"></span>Sócio</button>
-        <button class="opt" type="button"><span class="dot"></span>Fundador</button>
-        <button class="opt" type="button"><span class="dot"></span>Diretor</button>
-        <button class="opt" type="button"><span class="dot"></span>Gerente ou coordenador</button>
-        <button class="opt" type="button"><span class="dot"></span>Quero criar um negócio com Tiago Almeida</button></div></div>
-
-      <div class="q" data-q="faturamento"><h2>Qual é o faturamento mensal do negócio?</h2><div class="opts">
-        <button class="opt" type="button"><span class="dot"></span>Ainda não fatura</button>
-        <button class="opt" type="button"><span class="dot"></span>Até R$ 20 mil</button>
-        <button class="opt" type="button"><span class="dot"></span>R$ 20 mil a R$ 100 mil</button>
-        <button class="opt" type="button"><span class="dot"></span>R$ 100 mil a R$ 500 mil</button>
-        <button class="opt" type="button"><span class="dot"></span>Acima de R$ 500 mil</button></div></div>
-
-      <p class="qerr" id="qerr" role="alert"></p>
-    </div>
-    <p class="priv">Seus dados são usados apenas para a organização do LHN.</p>
-  </div>
+<div class="topbar"><div class="wrap">
+<span class="logo gold">L<i>•</i>H<i>•</i>N</span>
+<div class="seats hide" data-seats=""></div>
+</div></div>
+<div class="stage qstage framed">
+<div class="crowd"></div><div class="veil"></div><div class="leque"></div>
+<div class="arc" style="top:26%;width:120%;aspect-ratio:1"></div>
+<img alt="Tiago Almeida" class="tg" fetchpriority="high" src="img/tiago-sentado.webp"/>
+<div class="fade"></div>
+<span class="cn a"></span><span class="cn b"></span>
+</div>
+<div class="qhead">
+<span class="pill seq"><span class="gold">8<span class="ord">ª</span> EDIÇÃO - MESA EMPRESARIAL - HOMENS COM A VISÃO DO REINO</span></span>
+<h1 class="cz gold">DE FRENTE COM TIAGO ALMEIDA<small>NA MESA EMPRESARIAL DO LHN</small></h1>
+</div>
+<div class="qcard">
+<div class="qbox">
+<div class="qtop"><span id="qlbl">SUA CADEIRA</span><button class="back" hidden="" id="qback" type="button">← VOLTAR</button><span id="qstep">1 DE 5</span></div>
+<div class="qprog"><i id="qbar" style="width:20%"></i></div>
+<div class="q on" data-q="idade"><h2>Qual é a sua idade?</h2><div class="opts">
+<button class="opt" type="button"><span class="dot"></span>18 a 24 anos</button>
+<button class="opt" type="button"><span class="dot"></span>25 a 34 anos</button>
+<button class="opt" type="button"><span class="dot"></span>35 a 44 anos</button>
+<button class="opt" type="button"><span class="dot"></span>45 a 54 anos</button>
+<button class="opt" type="button"><span class="dot"></span>55 anos ou mais</button></div></div>
+<div class="q" data-q="nome"><h2>Qual é o seu nome?</h2><div class="inp">
+<input autocomplete="name" enterkeyhint="next" id="nome" placeholder="Seu nome"/>
+<button class="btn" data-next="" type="button">CONTINUAR →</button></div></div>
+<div class="q" data-q="whatsapp"><h2>Qual é o seu WhatsApp?</h2><div class="inp">
+<input autocomplete="tel" enterkeyhint="next" id="whats" inputmode="tel" placeholder="(11) 99999-9999"/>
+<button class="btn" data-next="" type="button">CONTINUAR →</button></div></div>
+<div class="q" data-q="cargo"><h2>O que você é hoje no seu negócio?</h2><div class="opts">
+<button class="opt" type="button"><span class="dot"></span>Sócio</button>
+<button class="opt" type="button"><span class="dot"></span>Fundador</button>
+<button class="opt" type="button"><span class="dot"></span>Diretor</button>
+<button class="opt" type="button"><span class="dot"></span>Gerente ou coordenador</button>
+<button class="opt" type="button"><span class="dot"></span>Quero criar um negócio com Tiago Almeida</button></div></div>
+<div class="q" data-q="faturamento"><h2>Qual é o faturamento mensal do negócio?</h2><div class="opts">
+<button class="opt" type="button"><span class="dot"></span>Ainda não fatura</button>
+<button class="opt" type="button"><span class="dot"></span>Até R$ 20 mil</button>
+<button class="opt" type="button"><span class="dot"></span>R$ 20 mil a R$ 100 mil</button>
+<button class="opt" type="button"><span class="dot"></span>R$ 100 mil a R$ 500 mil</button>
+<button class="opt" type="button"><span class="dot"></span>Acima de R$ 500 mil</button></div></div>
+<p class="qerr" id="qerr" role="alert"></p>
+</div>
+<p class="priv">Seus dados são usados apenas para a organização do LHN.</p>
+</div>
 </main>
-
 <!-- ================= PÁGINA ================= -->
-<div id="page" class="hidden">
-  <div class="topbar"><div class="wrap">
-    <a href="#topo" style="text-decoration:none"><span class="logo gold">L<i>•</i>H<i>•</i>N</span></a>
-    <div class="seats hide" data-seats></div>
-    <a class="btn" href="#ingresso">Garantir ingresso</a>
-  </div></div>
-
-  <section class="hero" id="topo" style="padding:0">
-    <div class="stage framed">
-      <div class="crowd"></div><div class="veil"></div><div class="leque"></div>
-      <div class="arc" style="top:20%;width:125%;aspect-ratio:1"></div>
-      <img class="pb" src="img/pablo.webp" alt="Pablo Marçal">
-      <img class="tg" src="img/tiago-busto.webp" alt="Tiago Almeida, com Pablo Marçal e empresários da edição anterior do LHN ao fundo">
-      <div class="fade"></div>
-      <span class="cn a"></span><span class="cn b"></span><span class="cn c"></span><span class="cn d"></span>
-    </div>
-    <div class="txt">
-      <span class="kick left seqk"><span>8<span class="ord">ª</span> Edição - Mesa Empresarial - Homens com a visão do Reino</span></span>
-      <h1 class="cz">Negócios se escalam estando nas mesas certas. <span class="gold">Esteja comigo na Mesa do LHN.</span></h1>
-      <p class="sub">Uma noite com Tiago Almeida e 40 empresários para ampliar visão, liderança e conexões, com tecnologia, IA e princípios do Reino.</p>
-      <a class="btn" href="#ingresso">Garantir ingresso · R$ 47</a>
-      <p class="price"><b>R$ 47</b> · ingresso para 2 pessoas</p>
-      <ul class="facts">
-        <li><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span><b>Quarta, 11/11</b> · abertura 18h30 · início 19h</span></li>
-        <li><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span><b>Marçal Tower</b> · Alphaville, Barueri/SP</span></li>
-        <li><svg viewBox="0 0 24 24"><path d="M7 13V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7"/><path d="M5 13h14v3H5zM7 16v5M17 16v5"/></svg><span><b>40 cadeiras</b> · presencial e seleto</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- DEPOIMENTOS -->
-  <section class="dep band" id="depoimentos">
-    <div class="wrap">
-      <div class="sh"><span class="kick">Depoimentos</span><h2 class="cz">Ouça quem participa <span class="gold">e viva essa nova fase do seu negócio.</span></h2></div>
-      <div class="vmain framed"><span class="cn a"></span><span class="cn d"></span>
-        <video id="vMain" src="img/dep-1.mp4" poster="img/dep-1.jpg" playsinline muted autoplay preload="auto"></video>
-        <button class="snd" id="sndBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg><span>Toque para ouvir</span></button>
-      </div>
-      <div class="vrow">
-        <div class="vbox"><video src="img/dep-2.mp4" poster="img/dep-2.jpg" playsinline controls preload="none"></video></div>
-        <div class="vbox"><video src="img/dep-3.mp4" poster="img/dep-3.jpg" playsinline controls preload="none"></video></div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap"><div class="sh">
-      <span class="kick">Levantando Homens de Negócio</span>
-      <h2 class="cz">Não é sobre assistir.<br><span class="gold">É sobre pertencer.</span></h2>
-      <p class="lead">O LHN reúne homens que constroem empresas, lideram pessoas e tomam decisões. A cada encontro, empresários ampliam a visão, trocam experiências e constroem relacionamentos que abrem novas oportunidades.</p>
-      <div class="pillars"><span class="gold">NEGÓCIOS</span><span class="gold">CONEXÕES</span><span class="gold">TECNOLOGIA</span><span class="gold">IA</span><span class="gold">REINO</span></div>
-    </div></div>
-  </section>
-
-  <section class="band">
-    <div class="wrap">
-      <div class="sh"><span class="kick">Como funciona nesta edição</span><h2 class="cz">Cadeira reservada é <span class="gold">cadeira ocupada</span>.</h2></div>
-      <div class="two">
-        <div class="box"><div class="big gold">R$ 47</div><h3>Um valor simbólico, de propósito</h3><p>São só 40 cadeiras. O ingresso garante que cada lugar seja de quem vai, de fato, estar na mesa. Quem reserva se compromete com a noite, e a conversa fica no nível de quem decidiu estar ali.</p></div>
-        <div class="box"><div class="big gold">2 pessoas</div><h3>Traga quem constrói com você</h3><p>Decisões importantes não se tomam sozinho. Seu ingresso vale para você e mais um: seu sócio, um diretor, quem vai assumir o negócio com você ou um empresário que precisa estar nessa conversa.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="sh"><span class="kick">A noite</span><h2 class="cz">Como acontece a <span class="gold">Mesa Empresarial</span></h2></div>
-      <div class="tl">
-        <div class="box"><b class="gold">18h30</b><h3>Abertura</h3><p>Chegada, credenciamento e as primeiras conexões entre os empresários.</p></div>
-        <div class="box"><b class="gold">19h</b><h3>De frente com Tiago</h3><p>Visão, liderança, crescimento, tecnologia e IA aplicadas aos negócios, com os princípios do Reino como fundamento.</p></div>
-        <div class="box"><b class="gold">Perguntas</b><h3>Mesa aberta</h3><p>Um grupo pequeno permite perguntar e conversar sobre o momento real da sua empresa.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <div class="room framed">
-    <div class="ph"></div>
-    <div class="wrap">
-      <span class="kick left">O ambiente · edição anterior do LHN</span>
-      <h2 class="cz" style="font-size:clamp(28px,3.6vw,48px);margin-top:12px">O ambiente certo muda<br><span class="gold">o nível das conversas.</span></h2>
-      <div class="c4">
-        <div><b class="gold">CONEXÕES</b><p>Relacionamento com empresários que vivem o mundo dos negócios.</p></div>
-        <div><b class="gold">NEGÓCIOS</b><p>Conversas que abrem novas perspectivas e oportunidades.</p></div>
-        <div><b class="gold">FUTURO</b><p>Tecnologia e IA aplicadas à nova realidade empresarial.</p></div>
-        <div><b class="gold">REINO</b><p>Crescimento e prosperidade sem abandonar princípios.</p></div>
-      </div>
-    </div>
-  </div>
-
-  <section>
-    <div class="wrap about">
-      <div class="stage framed palco">
-        <img src="img/palco.jpg" alt="Tiago Almeida no palco, falando para empresários">
-        <div class="fade" style="height:30%"></div>
-        <span class="cn a"></span><span class="cn d"></span>
-      </div>
-      <div>
-        <span class="kick left">Quem conduz o movimento</span>
-        <h2 class="cz gold" style="font-size:clamp(34px,4vw,54px);margin-top:12px">Tiago Almeida</h2>
-        <p>Empresário, marido e pai. Fundador de uma empresa de tecnologia presente em mais de 58 países, vive na prática os desafios de construir, liderar e crescer num mercado transformado pela tecnologia.</p>
-        <p>No LHN, reúne empresários para compartilhar visão, gerar conexões e discutir os movimentos que estão mudando os negócios, mantendo os princípios do Reino como fundamento.</p>
-        <div class="stats"><div class="stat"><b class="gold">58+ países</b><span>com a empresa de tecnologia que fundou</span></div><div class="stat"><b class="gold">Sócio</b><span>de Pablo Marçal</span></div></div>
-        <div class="pablo"><img src="img/tiago-pablo.jpg" alt="Tiago Almeida e Pablo Marçal"><p>Sócio de Pablo Marçal e parte de um dos maiores ecossistemas de empresários do país.</p></div>
-        <p class="quote gold">O futuro dos negócios será construído por homens capazes de unir visão, tecnologia e princípios.</p>
-      </div>
-    </div>
-  </section>
-
-  <section style="padding-top:0">
-    <div class="wrap">
-      <div class="sh"><span class="kick">Para quem é</span><h2 class="cz">Essa mesa é para homens que estão <span class="gold">construindo</span>.</h2></div>
-      <div class="fit">
-        <div class="box"><ul><li>Donos, sócios e fundadores de empresas</li><li>Diretores e líderes que tomam decisões</li><li>Quem quer ampliar o círculo de relacionamento</li><li>Quem quer entender tecnologia e IA nos negócios</li><li>Quem acredita que princípios e negócios caminham juntos</li></ul></div>
-        <div class="box no"><h3>Não é para você se</h3><ul><li>Procura só mais uma palestra</li><li>Espera negócio fechado na noite</li><li>Não pretende estar presente às 19h</li></ul></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="bonusband">
-    <div class="wrap"><div class="bb framed"><span class="cn a"></span><span class="cn d"></span>
-      <span class="pill seq"><span class="gold">Bônus para quem está na mesa</span></span>
-      <h2 class="cz">Lista preferencial do <span class="gold">Podcast do Tiago Almeida</span></h2>
-      <p>Quem participa do LHN entra na lista preferencial do podcast do Tiago.</p>
-      <p class="bv">Valor de <s>R$ 2.500</s> · <b class="gold">incluso no seu ingresso de R$ 47</b></p>
-    </div></div>
-  </section>
-
-  <section id="ingresso" class="band">
-    <div class="wrap">
-      <div class="sh"><span class="kick">Ingresso · 11/11</span><h2 class="cz">Garanta a sua cadeira <span class="gold">e a do seu convidado</span>.</h2></div>
-      <div class="ticket framed">
-        <span class="cn a"></span><span class="cn d"></span>
-        <div class="th"><span class="pill seq"><span class="gold">8<span class="ord">ª</span> Edição - Mesa Empresarial - Homens com a visão do Reino</span></span><h3>De frente com <span class="gold">Tiago Almeida</span></h3></div>
-        <div class="tb">
-          <div class="seats hide" data-seats></div>
-          <ul><li>Entrada para 2 pessoas: você + 1 convidado</li><li>Bate-papo seleto com Tiago Almeida</li><li>Mesa aberta para perguntas sobre o seu negócio</li><li>Conexões com empresários da região</li></ul>
-          <div class="bonus"><span class="bt">BÔNUS PARA QUEM ESTÁ NA MESA</span><b class="gold">Lista preferencial do Podcast do Tiago Almeida</b><p>Quem participa do LHN entra na lista preferencial do podcast.</p><span class="bv">Valor de <s>R$ 2.500</s> · <em>incluso no seu ingresso</em></span></div>
-          <div class="pv"><small>INGRESSO PARA 2 PESSOAS</small><div class="num gold"><sup>R$</sup>47</div><em>Quarta, 11/11 · 19h · Marçal Tower, Alphaville</em></div>
-          <a class="btn" href="#" data-buy>Garantir meu ingresso</a>
-          <p class="tmsg" id="buyMsg" role="status"></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="sh"><span class="kick">Dúvidas</span><h2 class="cz">Antes de garantir <span class="gold">o seu lugar</span></h2></div>
-      <div class="faq">
-        <details><summary>O ingresso vale para quantas pessoas?</summary><p>Para duas: você e mais um convidado. Pode ser seu sócio, um diretor ou um empresário que precisa estar nessa conversa.</p></details>
-        <details><summary>Por que o encontro tem ingresso?</summary><p>Porque são só 40 cadeiras. O valor simbólico garante que cada lugar seja ocupado por quem realmente vai estar presente.</p></details>
-        <details><summary>Preciso ser dono de empresa?</summary><p>A mesa é pensada para donos, sócios, fundadores e líderes de negócios. Quem está estruturando o próprio negócio também pode participar.</p></details>
-        <details><summary>Quando e onde acontece?</summary><p>Quarta-feira, 11 de novembro. Abertura às 18h30 e início às 19h, na Marçal Tower, em Alphaville, Barueri/SP. A confirmação e as orientações de chegada são enviadas pelo WhatsApp.</p></details>
-        <details><summary>É transmitido online?</summary><p>Não. O LHN é presencial e seleto, só para quem está na mesa.</p></details>
-      </div>
-    </div>
-  </section>
-
-  <footer><div class="wrap"><div class="logo gold">L<i>•</i>H<i>•</i>N</div><p>Levantando Homens de Negócio · Um movimento conduzido por Tiago Almeida</p><p>Marçal Tower · Alphaville, Barueri/SP</p><p style="margin-top:14px;letter-spacing:.3em;font-size:11px">NÃO É SOBRE ASSISTIR. É SOBRE PERTENCER.</p></div></footer>
+<div class="hidden" id="page">
+<div class="topbar"><div class="wrap">
+<a href="#topo" style="text-decoration:none"><span class="logo gold">L<i>•</i>H<i>•</i>N</span></a>
+<div class="seats hide" data-seats=""></div>
+<a class="btn" href="#ingresso">GARANTIR INGRESSO</a>
+</div></div>
+<section class="hero" id="topo" style="padding:0">
+<div class="stage framed">
+<div class="crowd"></div><div class="veil"></div><div class="leque"></div>
+<div class="arc" style="top:20%;width:125%;aspect-ratio:1"></div>
+<img alt="Pablo Marçal" class="pb" src="img/pablo.webp"/>
+<img alt="Tiago Almeida, com Pablo Marçal e empresários da edição anterior do LHN ao fundo" class="tg" src="img/tiago-busto.webp"/>
+<div class="fade"></div>
+<span class="cn a"></span><span class="cn b"></span><span class="cn c"></span><span class="cn d"></span>
 </div>
-
-<div class="pop hidden" id="pop" role="dialog" aria-modal="false" aria-labelledby="popT">
-  <div class="pc"><button class="x" id="popX" aria-label="Fechar">×</button>
-    <h3 id="popT"><span class="gold" id="popH">Cadeiras limitadas</span></h3>
-    <p>Mesa Empresarial de 11/11 · ingresso para 2 pessoas. <a href="#ingresso" id="popBtn">Garantir agora →</a></p>
-  </div>
+<div class="txt">
+<span class="kick left seqk"><span>8<span class="ord">ª</span> EDIÇÃO - MESA EMPRESARIAL - HOMENS COM A VISÃO DO REINO</span></span>
+<h1 class="cz">NEGÓCIOS SE ESCALAM ESTANDO NAS MESAS CERTAS. <span class="gold">ESTEJA COMIGO NA MESA DO LHN.</span></h1>
+<p class="sub">Uma noite com Tiago Almeida e 40 empresários para ampliar visão, liderança e conexões, com tecnologia, IA e princípios do Reino.</p>
+<a class="btn" href="#ingresso">GARANTIR INGRESSO · R$ 47</a>
+<p class="price"><b>R$ 47</b> · ingresso para 2 pessoas</p>
+<ul class="facts">
+<li><svg viewbox="0 0 24 24"><rect height="16" rx="2" width="18" x="3" y="5"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg><span><b>Quarta, 11/11</b> · abertura 18h30 · início 19h</span></li>
+<li><svg viewbox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg><span><b>Marçal Tower</b> · Alphaville, Barueri/SP</span></li>
+<li><svg viewbox="0 0 24 24"><path d="M7 13V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7"></path><path d="M5 13h14v3H5zM7 16v5M17 16v5"></path></svg><span><b>40 cadeiras</b> · presencial e seleto</span></li>
+</ul>
 </div>
-
+</section>
+<!-- DEPOIMENTOS -->
+<section class="dep band" id="depoimentos">
+<div class="wrap">
+<div class="sh"><span class="kick">DEPOIMENTOS</span><h2 class="cz">OUÇA QUEM PARTICIPA <span class="gold">E VIVA ESSA NOVA FASE DO SEU NEGÓCIO.</span></h2></div>
+<div class="vmain framed"><span class="cn a"></span><span class="cn d"></span>
+<video autoplay="" id="vMain" muted="" playsinline="" poster="img/dep-1.jpg" preload="auto" src="img/dep-1.mp4"></video>
+<button class="snd" id="sndBtn" type="button"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"></path><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"></path></svg><span>TOQUE PARA OUVIR</span></button>
+</div>
+<div class="vrow">
+<div class="vbox"><video controls="" playsinline="" poster="img/dep-2.jpg" preload="none" src="img/dep-2.mp4"></video></div>
+<div class="vbox"><video controls="" playsinline="" poster="img/dep-3.jpg" preload="none" src="img/dep-3.mp4"></video></div>
+</div>
+</div>
+</section>
+<section>
+<div class="wrap"><div class="sh">
+<span class="kick">LEVANTANDO HOMENS DE NEGÓCIO</span>
+<h2 class="cz">NÃO É SOBRE ASSISTIR.<br/><span class="gold">É SOBRE PERTENCER.</span></h2>
+<p class="lead">O LHN reúne homens que constroem empresas, lideram pessoas e tomam decisões. A cada encontro, empresários ampliam a visão, trocam experiências e constroem relacionamentos que abrem novas oportunidades.</p>
+<div class="pillars"><span class="gold">NEGÓCIOS</span><span class="gold">CONEXÕES</span><span class="gold">TECNOLOGIA</span><span class="gold">IA</span><span class="gold">REINO</span></div>
+</div></div>
+</section>
+<section class="band">
+<div class="wrap">
+<div class="sh"><span class="kick">COMO FUNCIONA NESTA EDIÇÃO</span><h2 class="cz">CADEIRA RESERVADA É <span class="gold">CADEIRA OCUPADA</span>.</h2></div>
+<div class="two">
+<div class="box"><div class="big gold">R$ 47</div><h3>UM VALOR SIMBÓLICO, DE PROPÓSITO</h3><p>São só 40 cadeiras. O ingresso garante que cada lugar seja de quem vai, de fato, estar na mesa. Quem reserva se compromete com a noite, e a conversa fica no nível de quem decidiu estar ali.</p></div>
+<div class="box"><div class="big gold">2 PESSOAS</div><h3>TRAGA QUEM CONSTRÓI COM VOCÊ</h3><p>Decisões importantes não se tomam sozinho. Seu ingresso vale para você e mais um: seu sócio, um diretor, quem vai assumir o negócio com você ou um empresário que precisa estar nessa conversa.</p></div>
+</div>
+</div>
+</section>
+<section>
+<div class="wrap">
+<div class="sh"><span class="kick">A NOITE</span><h2 class="cz">COMO ACONTECE A <span class="gold">MESA EMPRESARIAL</span></h2></div>
+<div class="tl">
+<div class="box"><b class="gold">18H30</b><h3>ABERTURA</h3><p>Chegada, credenciamento e as primeiras conexões entre os empresários.</p></div>
+<div class="box"><b class="gold">19H</b><h3>DE FRENTE COM TIAGO</h3><p>Visão, liderança, crescimento, tecnologia e IA aplicadas aos negócios, com os princípios do Reino como fundamento.</p></div>
+<div class="box"><b class="gold">PERGUNTAS</b><h3>MESA ABERTA</h3><p>Um grupo pequeno permite perguntar e conversar sobre o momento real da sua empresa.</p></div>
+</div>
+</div>
+</section>
+<div class="room framed">
+<div class="ph"></div>
+<div class="wrap">
+<span class="kick left">O AMBIENTE · EDIÇÃO ANTERIOR DO LHN</span>
+<h2 class="cz" style="font-size:clamp(28px,3.6vw,48px);margin-top:12px">O AMBIENTE CERTO MUDA<br/><span class="gold">O NÍVEL DAS CONVERSAS.</span></h2>
+<div class="c4">
+<div><b class="gold">CONEXÕES</b><p>Relacionamento com empresários que vivem o mundo dos negócios.</p></div>
+<div><b class="gold">NEGÓCIOS</b><p>Conversas que abrem novas perspectivas e oportunidades.</p></div>
+<div><b class="gold">FUTURO</b><p>Tecnologia e IA aplicadas à nova realidade empresarial.</p></div>
+<div><b class="gold">REINO</b><p>Crescimento e prosperidade sem abandonar princípios.</p></div>
+</div>
+</div>
+</div>
+<section>
+<div class="wrap about">
+<div class="stage framed palco">
+<img alt="Tiago Almeida no palco, falando para empresários" src="img/palco.jpg"/>
+<div class="fade" style="height:30%"></div>
+<span class="cn a"></span><span class="cn d"></span>
+</div>
+<div>
+<span class="kick left">QUEM CONDUZ O MOVIMENTO</span>
+<h2 class="cz gold" style="font-size:clamp(34px,4vw,54px);margin-top:12px">TIAGO ALMEIDA</h2>
+<p>Empresário, marido e pai. Fundador de uma empresa de tecnologia presente em mais de 58 países, vive na prática os desafios de construir, liderar e crescer num mercado transformado pela tecnologia.</p>
+<p>No LHN, reúne empresários para compartilhar visão, gerar conexões e discutir os movimentos que estão mudando os negócios, mantendo os princípios do Reino como fundamento.</p>
+<div class="stats"><div class="stat"><b class="gold">58+ PAÍSES</b><span>com a empresa de tecnologia que fundou</span></div><div class="stat"><b class="gold">SÓCIO</b><span>de Pablo Marçal</span></div></div>
+<div class="pablo"><img alt="Tiago Almeida e Pablo Marçal" src="img/tiago-pablo.jpg"/><p>Sócio de Pablo Marçal e parte de um dos maiores ecossistemas de empresários do país.</p></div>
+<p class="quote gold">O futuro dos negócios será construído por homens capazes de unir visão, tecnologia e princípios.</p>
+</div>
+</div>
+</section>
+<section style="padding-top:0">
+<div class="wrap">
+<div class="sh"><span class="kick">PARA QUEM É</span><h2 class="cz">ESSA MESA É PARA HOMENS QUE ESTÃO <span class="gold">CONSTRUINDO</span>.</h2></div>
+<div class="fit">
+<div class="box"><ul><li>Donos, sócios e fundadores de empresas</li><li>Diretores e líderes que tomam decisões</li><li>Quem quer ampliar o círculo de relacionamento</li><li>Quem quer entender tecnologia e IA nos negócios</li><li>Quem acredita que princípios e negócios caminham juntos</li></ul></div>
+<div class="box no"><h3>NÃO É PARA VOCÊ SE</h3><ul><li>Procura só mais uma palestra</li><li>Espera negócio fechado na noite</li><li>Não pretende estar presente às 19h</li></ul></div>
+</div>
+</div>
+</section>
+<section class="bonusband">
+<div class="wrap"><div class="bb framed"><span class="cn a"></span><span class="cn d"></span>
+<span class="pill seq"><span class="gold">BÔNUS PARA QUEM ESTÁ NA MESA</span></span>
+<h2 class="cz">LISTA PREFERENCIAL DO <span class="gold">PODCAST DO TIAGO ALMEIDA</span></h2>
+<p>Quem participa do LHN entra na lista preferencial do podcast do Tiago.</p>
+<p class="bv">Valor de <s>R$ 2.500</s> · <b class="gold">incluso no seu ingresso de R$ 47</b></p>
+</div></div>
+</section>
+<section class="band" id="ingresso">
+<div class="wrap">
+<div class="sh"><span class="kick">INGRESSO · 11/11</span><h2 class="cz">GARANTA A SUA CADEIRA <span class="gold">E A DO SEU CONVIDADO</span>.</h2></div>
+<div class="ticket framed">
+<span class="cn a"></span><span class="cn d"></span>
+<div class="th"><span class="pill seq"><span class="gold">8<span class="ord">ª</span> EDIÇÃO - MESA EMPRESARIAL - HOMENS COM A VISÃO DO REINO</span></span><h3>DE FRENTE COM <span class="gold">TIAGO ALMEIDA</span></h3></div>
+<div class="tb">
+<div class="seats hide" data-seats=""></div>
+<ul><li>Entrada para 2 pessoas: você + 1 convidado</li><li>Bate-papo seleto com Tiago Almeida</li><li>Mesa aberta para perguntas sobre o seu negócio</li><li>Conexões com empresários da região</li></ul>
+<div class="bonus"><span class="bt">BÔNUS PARA QUEM ESTÁ NA MESA</span><b class="gold">LISTA PREFERENCIAL DO PODCAST DO TIAGO ALMEIDA</b><p>Quem participa do LHN entra na lista preferencial do podcast.</p><span class="bv">Valor de <s>R$ 2.500</s> · <em>incluso no seu ingresso</em></span></div>
+<div class="pv"><small>INGRESSO PARA 2 PESSOAS</small><div class="num gold"><sup>R$</sup>47</div><em>Quarta, 11/11 · 19h · Marçal Tower, Alphaville</em></div>
+<a class="btn" data-buy="" href="#">GARANTIR MEU INGRESSO</a>
+<p class="tmsg" id="buyMsg" role="status"></p>
+</div>
+</div>
+</div>
+</section>
+<section>
+<div class="wrap">
+<div class="sh"><span class="kick">DÚVIDAS</span><h2 class="cz">ANTES DE GARANTIR <span class="gold">O SEU LUGAR</span></h2></div>
+<div class="faq">
+<details><summary>O ingresso vale para quantas pessoas?</summary><p>Para duas: você e mais um convidado. Pode ser seu sócio, um diretor ou um empresário que precisa estar nessa conversa.</p></details>
+<details><summary>Por que o encontro tem ingresso?</summary><p>Porque são só 40 cadeiras. O valor simbólico garante que cada lugar seja ocupado por quem realmente vai estar presente.</p></details>
+<details><summary>Preciso ser dono de empresa?</summary><p>A mesa é pensada para donos, sócios, fundadores e líderes de negócios. Quem está estruturando o próprio negócio também pode participar.</p></details>
+<details><summary>Quando e onde acontece?</summary><p>Quarta-feira, 11 de novembro. Abertura às 18h30 e início às 19h, na Marçal Tower, em Alphaville, Barueri/SP. A confirmação e as orientações de chegada são enviadas pelo WhatsApp.</p></details>
+<details><summary>É transmitido online?</summary><p>Não. O LHN é presencial e seleto, só para quem está na mesa.</p></details>
+</div>
+</div>
+</section>
+<footer><div class="wrap"><div class="logo gold">L<i>•</i>H<i>•</i>N</div><p>Levantando Homens de Negócio · Um movimento conduzido por Tiago Almeida</p><p>Marçal Tower · Alphaville, Barueri/SP</p><p style="margin-top:14px;letter-spacing:.3em;font-size:11px">NÃO É SOBRE ASSISTIR. É SOBRE PERTENCER.</p></div></footer>
+</div>
+<div aria-labelledby="popT" aria-modal="false" class="pop hidden" id="pop" role="dialog">
+<div class="pc"><button aria-label="Fechar" class="x" id="popX">×</button>
+<h3 id="popT"><span class="gold" id="popH">CADEIRAS LIMITADAS</span></h3>
+<p>Mesa Empresarial de 11/11 · ingresso para 2 pessoas. <a href="#ingresso" id="popBtn">Garantir agora →</a></p>
+</div>
+</div>
 <script>
 /* ============ CONFIGURAÇÃO — edite só este bloco ============ */
 const CONFIG = {
@@ -559,5 +537,5 @@ else if(loadLead())showPage();
 /* partículas douradas nos palcos */
 document.querySelectorAll('.stage').forEach(st=>{for(let i=0;i<14;i++){const d=document.createElement('i');d.className='sp';const s=2+Math.random()*3;d.style.cssText='width:'+s+'px;height:'+s+'px;left:'+(5+Math.random()*90)+'%;top:'+(15+Math.random()*70)+'%;opacity:'+(.35+Math.random()*.6).toFixed(2);st.appendChild(d)}});
 </script>
-</body>
-</html>
+
+
