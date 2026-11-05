@@ -19,8 +19,10 @@ body{background:var(--ink);color:var(--tx);font-family:Montserrat,system-ui,sans
 img{max-width:100%;display:block}
 .hidden{display:none!important}
 .wrap{max-width:var(--max);margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
-.gold{background:linear-gradient(180deg,var(--g1) 0%,var(--g2) 50%,var(--g3) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.cz{font-family:Cinzel,serif;font-weight:800;text-transform:uppercase;letter-spacing:.01em;line-height:1.02;filter:drop-shadow(0 4px 14px rgba(0,0,0,.85))}
+.gold{background:linear-gradient(180deg,var(--g1) 0%,var(--g2) 50%,var(--g3) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;padding:.14em 0 .06em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.ord{font-family:Montserrat,sans-serif;font-weight:700;font-size:.8em;vertical-align:.3em}
+.cz{font-family:Cinzel,serif;font-weight:800;text-transform:uppercase;letter-spacing:.01em;line-height:1.12;text-shadow:0 4px 14px rgba(0,0,0,.85)}
+.cz .gold,.gold.cz{text-shadow:none}
 .kick{display:flex;align-items:center;justify-content:center;gap:14px;font-size:13px;letter-spacing:.42em;font-weight:600;text-transform:uppercase;color:var(--tx)}
 .kick::before,.kick::after{content:"";width:56px;height:1px;background:linear-gradient(90deg,transparent,var(--g2))}.kick::after{transform:scaleX(-1)}
 .kick.left{justify-content:flex-start}.kick.left::before{display:none}
@@ -74,7 +76,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 #quiz .qstage .leque{top:22%}
 #quiz .qhead{position:relative;z-index:5;text-align:center;margin-top:-118px;padding:0 20px}
 #quiz .qhead .pill{font-size:12px;padding:5px 14px;margin-bottom:10px}
-#quiz h1{font-size:clamp(28px,3.4vw,46px)}
+#quiz h1{font-size:clamp(28px,3.4vw,46px);line-height:1.06}
 #quiz h1 small{display:block;font-size:.55em;margin-top:8px;color:var(--tx);background:none;-webkit-text-fill-color:var(--tx)}
 .qcard{position:relative;z-index:5;width:100%;max-width:620px;margin:22px auto 30px;padding:0 20px}
 .qbox{border:1px solid var(--ln);background:linear-gradient(180deg,rgba(23,19,11,.95),rgba(13,12,10,.95));padding:22px 22px 20px;position:relative}
@@ -103,7 +105,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .hero .stage .pb{position:absolute;z-index:1;bottom:0;left:72%;transform:translateX(-50%);height:88%;width:auto;max-width:none;filter:brightness(.92) contrast(1.05) drop-shadow(0 10px 30px rgba(0,0,0,.7))}
 .hero .stage .leque{top:24%}
 .hero .txt{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:44px 52px;gap:14px;max-width:620px}
-.hero h1{font-size:clamp(34px,3.8vw,56px)}
+.hero h1{font-size:clamp(34px,3.8vw,56px);line-height:1.06}
 .hero .sub{font-size:18px;color:#dcd2bd}
 .hero .btn{min-width:340px}
 .price{font-size:15px;color:var(--mu)}.price{white-space:nowrap}.price .bn{display:inline-block;color:#1a1206;background:var(--g2);font-weight:800;font-size:11.5px;letter-spacing:.06em;padding:2px 7px;margin-left:4px;vertical-align:1px}.price b{font-family:Cinzel,serif;color:var(--g1);font-size:20px}
@@ -189,7 +191,7 @@ footer .logo{font-size:40px;margin-bottom:8px}
   .seats .st{font-size:9.5px;letter-spacing:.12em}.seats .st b{font-size:11.5px}
   .topbar .seats .grid{grid-template-columns:repeat(20,minmax(0,1fr));gap:1.5px}
   .topbar .seats .s{border-radius:1px}
-  #quiz .qstage{height:230px;min-height:0}
+  #quiz .qstage{height:220px;min-height:0}
   #quiz .qhead{margin-top:-70px}
   #quiz.go .qstage{height:190px;min-height:0}
   #quiz h1{font-size:24px}
@@ -225,7 +227,7 @@ footer .logo{font-size:40px;margin-bottom:8px}
   #page .topbar .seats .st{justify-content:flex-start}.cn{width:24px;height:24px}.cn.a,.cn.b{top:4px}.cn.c,.cn.d{bottom:4px}.cn.a,.cn.c{left:4px}.cn.b,.cn.d{right:4px}
 }
 @media (max-width:600px) and (max-height:700px){
-  #quiz .qstage{height:200px}
+  #quiz .qstage{height:188px}
   #quiz .qhead{margin-top:-62px}
   #quiz.go .qstage{height:150px;min-height:0}
   #quiz h1{font-size:21px}#quiz h1 small{margin-top:5px}
@@ -257,7 +259,7 @@ footer .logo{font-size:40px;margin-bottom:8px}
     <span class="cn a"></span><span class="cn b"></span>
   </div>
   <div class="qhead">
-    <span class="pill seq"><span class="gold">8ª Edição - Mesa Empresarial - Homens com a visão do Reino</span></span>
+    <span class="pill seq"><span class="gold">8<span class="ord">ª</span> Edição - Mesa Empresarial - Homens com a visão do Reino</span></span>
     <h1 class="cz gold">De frente com Tiago Almeida<small>na Mesa Empresarial do LHN</small></h1>
   </div>
   <div class="qcard">
@@ -318,7 +320,7 @@ footer .logo{font-size:40px;margin-bottom:8px}
       <span class="cn a"></span><span class="cn b"></span><span class="cn c"></span><span class="cn d"></span>
     </div>
     <div class="txt">
-      <span class="kick left seqk">8ª Edição - Mesa Empresarial - Homens com a visão do Reino</span>
+      <span class="kick left seqk"><span>8<span class="ord">ª</span> Edição - Mesa Empresarial - Homens com a visão do Reino</span></span>
       <h1 class="cz">Negócios se escalam estando nas mesas certas. <span class="gold">Esteja comigo na Mesa do LHN.</span></h1>
       <p class="sub">Uma noite com Tiago Almeida e 40 empresários para ampliar visão, liderança e conexões, com tecnologia, IA e princípios do Reino.</p>
       <a class="btn" href="#ingresso">Garantir ingresso · R$ 47</a>
@@ -418,7 +420,7 @@ footer .logo{font-size:40px;margin-bottom:8px}
       <div class="sh"><span class="kick">Ingresso · 11/11</span><h2 class="cz">Garanta a sua cadeira <span class="gold">e a do seu convidado</span>.</h2></div>
       <div class="ticket framed">
         <span class="cn a"></span><span class="cn d"></span>
-        <div class="th"><span class="pill seq"><span class="gold">8ª Edição - Mesa Empresarial - Homens com a visão do Reino</span></span><h3>De frente com <span class="gold">Tiago Almeida</span></h3></div>
+        <div class="th"><span class="pill seq"><span class="gold">8<span class="ord">ª</span> Edição - Mesa Empresarial - Homens com a visão do Reino</span></span><h3>De frente com <span class="gold">Tiago Almeida</span></h3></div>
         <div class="tb">
           <div class="seats hide" data-seats></div>
           <ul><li>Entrada para 2 pessoas: você + 1 convidado</li><li>Bate-papo seleto com Tiago Almeida</li><li>Mesa aberta para perguntas sobre o seu negócio</li><li>Conexões com empresários da região</li></ul>
