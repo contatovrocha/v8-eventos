@@ -43,6 +43,14 @@ body:before{content:"";position:fixed;left:50%;top:-55vh;width:130vh;height:130v
 .board{flex:1;min-height:0;display:flex;gap:10px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;padding-bottom:6px}
 .day{flex:1 1 0;min-width:190px;background:var(--s);border:1px solid var(--ln);display:flex;flex-direction:column;opacity:.6;transition:opacity .3s,flex .3s;scroll-snap-align:start}
 .day:hover{opacity:.9}
+.post{position:relative;border-bottom:1px solid var(--ln);background:#0b0a07}
+.post img{display:block;width:100%;height:150px;object-fit:cover;object-position:50% 12%;cursor:zoom-in}
+.post .pt{position:absolute;left:8px;top:8px;font-size:10px;font-weight:800;letter-spacing:.14em;color:#120c04;background:var(--g2);padding:3px 7px}
+.post .pb{display:flex;gap:6px;padding:7px}
+.post a{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;font:700 11px Montserrat,sans-serif;letter-spacing:.06em;color:var(--g2);border:1px solid #4a3e28;padding:7px 4px;text-decoration:none}
+.post a.ph{all:unset;display:block;cursor:zoom-in}.post .pb a:hover{background:var(--g2);color:#120c04}
+.post a svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.day.hoje .post img{height:190px}
 .day header{padding:12px 12px 10px;border-bottom:1px solid var(--ln)}
 .dh{display:flex;align-items:baseline;gap:8px}.dh b{font-family:Cinzel,serif;font-size:19px}.dh span{font-size:12px;color:var(--mu);font-weight:600}
 .lbl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--g2);font-weight:700;margin-top:5px}
@@ -119,6 +127,9 @@ const EVENT_DAY='2026-11-11';
 const PEOPLE={Victor:'#D9AC55',Tiago:'#F2D38A',Caio:'#6FA8DC',Cadu:'#5FC48B',Thalita:'#C77DDB',Kael:'#E0915A'};
 let tasks=[],who='Todos',front='Todas',busy=new Set();
 const $=id=>document.getElementById(id);
+const POSTS={'2026-11-08':['lhn-1-3dias','Faltam 3 dias'],'2026-11-09':['lhn-2-2dias','Faltam 2 dias'],'2026-11-10':['lhn-3-amanha','É amanhã'],'2026-11-11':['lhn-4-hoje','É hoje!']};
+const DL='<svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>';
+function postCard(d){const p=POSTS[d];if(!p)return '';const b='img/posts/'+p[0];return '<div class="post"><a class="ph" href="'+b+'-feed.jpg" target="_blank" aria-label="Ver post '+p[1]+'"><img src="'+b+'-feed.jpg" alt="Post '+p[1]+'" loading="lazy"></a><span class="pt">POST · '+p[1].toUpperCase()+'</span><div class="pb"><a href="'+b+'-feed.jpg" download>'+DL+'Feed</a><a href="'+b+'-story.jpg" download>'+DL+'Stories</a></div></div>'}
 const PAL=['#E0915A','#7FC7C0','#E57A9A','#A6C25A','#8C9BE8','#D6B24A'];
 function col(n){if(PEOPLE[n])return PEOPLE[n];let h=0;for(const ch of n)h=(h*31+ch.charCodeAt(0))>>>0;return PAL[h%PAL.length]}
 function names(){return [...new Set([...Object.keys(PEOPLE),...tasks.map(t=>t.responsavel)])]}
@@ -140,7 +151,7 @@ function render(){
  const recent=Date.now()-5*60e3;
  $('board').innerHTML=DAYS.map(d=>{const dt=new Date(d+'T12:00:00');const all=tasks.filter(t=>t.dia===d);const list=all.filter(pass);const dd=all.filter(t=>t.feito).length;const p=all.length?Math.round(dd/all.length*100):0;
   const cls=(d===fd?' hoje':'')+(d===EVENT_DAY?' evento':'');const badge=d===fd&&d===today?'<span class="bd now">HOJE</span>':d===EVENT_DAY?'<span class="bd ev">EVENTO</span>':'';
-  return '<section class="day'+cls+'" id="d-'+d+'"><header><div class="dh"><b>'+WD[dt.getDay()]+'</b><span>'+d.slice(8)+'/'+d.slice(5,7)+'</span>'+badge+'</div><div class="lbl">'+esc(all[0]?.foco||'')+'</div><div class="mini"><i style="width:'+Math.max(p,2)+'%"></i></div><div class="cnt">'+dd+' de '+all.length+' feitas</div></header><div class="cards">'+
+  return '<section class="day'+cls+'" id="d-'+d+'">'+postCard(d)+'<header><div class="dh"><b>'+WD[dt.getDay()]+'</b><span>'+d.slice(8)+'/'+d.slice(5,7)+'</span>'+badge+'</div><div class="lbl">'+esc(all[0]?.foco||'')+'</div><div class="mini"><i style="width:'+Math.max(p,2)+'%"></i></div><div class="cnt">'+dd+' de '+all.length+' feitas</div></header><div class="cards">'+
   (list.length?list.map(t=>'<button class="card'+(t.feito?' done':'')+(new Date(t.updated_at).getTime()>recent?' recent':'')+(busy.has(t.id)?' busy':'')+'" data-id="'+t.id+'" aria-pressed="'+t.feito+'"><span class="ck">'+(t.feito?'✓':'')+'</span><span class="ct"><p>'+esc(t.titulo)+'</p>'+(t.detalhe?'<small>'+esc(t.detalhe)+'</small>':'')+'<span class="meta"><span class="who" role="button" tabindex="0" title="Trocar responsável" data-resp="'+t.id+'" style="--c:'+col(t.responsavel)+'"><i>'+esc(t.responsavel[0])+'</i>'+esc(t.responsavel)+'</span><span class="fr">'+esc(t.frente)+'</span></span></span></button>').join(''):'<div class="empty">Nenhuma tarefa com esse filtro.</div>')+'</div></section>'}).join('');
  $('upd').textContent='ATUALIZADO ÀS '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
 }
