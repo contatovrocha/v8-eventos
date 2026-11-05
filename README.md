@@ -4,3 +4,5 @@ Páginas de eventos publicadas em https://eventos.v8.ia.br via GitHub Pages.
 
 - `/escala-ia/` — Escala IA (Tiago Almeida), 13/11 em Alphaville. Leads na tabela `leads_escala_ia` do Supabase (V8 OSS).
 - `/lp02/` — Escala IA, versão 2 da página de vendas e captura (posicionamento do Tiago, método dos 4 pilares e dobra com Pablo Marçal). Ingressos Essencial e Executivo. Usa a mesma tabela `leads_escala_ia` e as imagens de `/escala-ia/img/`.
+- `/lhn/` — Agenda do lançamento do LHN 8ª Edição (tarefas na tabela `lhn_agenda`).
+- `/lhn-ingresso/` — LHN 8ª Edição - Empresarial (11/11): cadastro primeiro, depois a página de vendas do ingresso de R$ 47 para duas pessoas. Leads na tabela `leads_lhn`.
