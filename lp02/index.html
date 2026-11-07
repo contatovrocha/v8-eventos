@@ -87,7 +87,7 @@ body.lock{overflow:hidden}
 #quizScreen{min-height:100dvh;background:radial-gradient(900px 600px at 15% 0%,rgba(46,230,140,.12),transparent 60%),var(--bg);padding-block:16px 32px}
 .quiz-col{max-width:540px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
 .quiz-visual{position:relative;height:220px;border-radius:22px;overflow:hidden;border:1px solid var(--line)}
-.quiz-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:55% 30%;transform:scale(1.45);transform-origin:52% 0%}
+.quiz-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:55% 38%;transform:scale(1.35);transform-origin:50% 30%}
 .quiz-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,9,10,.35) 0%,rgba(6,9,10,0) 30%,rgba(6,9,10,.92) 100%)}
 .quiz-visual .brand{position:absolute;z-index:1;top:16px;left:18px}
 .quiz-visual .vc{position:absolute;z-index:1;left:20px;right:20px;bottom:16px;display:flex;flex-direction:column;gap:6px}
@@ -319,7 +319,7 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
   #quizScreen{padding-block:0 24px}
   #quizScreen>.wrap{padding-left:0;padding-right:0}
   .quiz-col{gap:0}
-  .quiz-visual{height:190px;border-radius:0 0 22px 22px;border:0}
+  .quiz-visual{height:300px;border-radius:0 0 22px 22px;border:0}
   #leadForm.active{gap:10px}
   #leadForm h2{font-size:20px}
   #leadForm>p{display:none}
@@ -404,7 +404,7 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
 }
 /* Celulares baixos (ex.: 360×640, 375×667): mantém a primeira dobra sem rolar */
 @media (max-width:600px) and (max-height:700px){
-  .quiz-visual{height:160px}
+  .quiz-visual{height:260px}
   .quiz-visual h1{font-size:19px}
   .quiz-card{padding:14px 14px}
   .progress{margin:8px 0 12px}
