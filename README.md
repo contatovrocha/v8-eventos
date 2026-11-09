@@ -7,3 +7,4 @@ Páginas de eventos publicadas em https://eventos.v8.ia.br via GitHub Pages.
 - `/lhn/` — Agenda do lançamento do LHN 8ª Edição (tarefas na tabela `lhn_agenda`).
 - `/lhn-ingresso/` — LHN 8ª Edição - Empresarial (11/11): cadastro primeiro, depois a página de vendas do ingresso de R$ 47 para duas pessoas. Leads na tabela `leads_lhn`.
 - `/clubedoroi/` — Clube do ROI: web app de membros (PWA instalável) com jornada, agenda, comunidade, diagnóstico e admin. Modo demonstração por enquanto; `clubedoroi/supabase/schema.sql` liga ao banco.
+- `/culto/` — Fundo animado para o telão do culto (luz fluida com retícula de pontos). Seletor de cor; teclas 1–6 trocam a cor, F tela cheia, H retícula.
