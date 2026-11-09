@@ -221,84 +221,114 @@ vec3 hueRot(vec3 c, float a){
   float ca = cos(a);
   return c*ca + cross(k, c)*sin(a) + k*dot(k, c)*(1.-ca);
 }
-float blob(vec2 p, vec2 c, float r){ vec2 d = p - c; return exp(-dot(d,d)/(r*r)); }
+float blob(vec2 p, vec2 c, vec2 r){ vec2 d = (p - c)/r; return exp(-dot(d,d)); }
+float gband(float d, float w){ return exp(-d*d/(w*w)); }
 
-// curva infinita: soma de senos + ruído lento
-float curve(float x, float t, vec4 k){
-  // k: amplitude, frequência, velocidade, fase
-  return k.x*sin(x*k.y + t*k.z + k.w)
-       + k.x*.45*sin(x*k.y*1.87 - t*k.z*.63 + k.w*1.7)
-       + (noise(vec2(x*.7 + k.w, t*.06)) - .5)*.35;
+// ---------- CENA A: a onda (foto laranja) ----------
+vec3 sceneWave(vec2 p, float t, vec3 c, float pulse){
+  vec3 dusk = mix(c, vec3(.55, .52, .48), .72) * .62;           // topo cinza-bege
+  vec3 hot  = clamp(hueRot(c, .2)*1.2 + vec3(.1, .05, .0), 0., 1.); // laranja-amarelo quente
+  vec3 body = mix(c, dusk, .35);                                  // meio terroso
+
+  float x = p.x;
+  float y = -.22 + .34*sin(x*2.5 + t*.10 + .9) + .07*sin(x*3.7 - t*.08 + 2.)
+          + (fbm(vec2(x*.6, t*.04)) - .5)*.18;
+  float y2 = -.22 + .34*sin((x+.01)*2.5 + t*.10 + .9) + .07*sin((x+.01)*3.7 - t*.08 + 2.)
+          + (fbm(vec2((x+.01)*.6, t*.04)) - .5)*.18;
+  float sl = (y2 - y)/.01;
+  float sd = (p.y - y)/sqrt(1. + sl*sl);   // >0 acima da onda
+
+  // acima: cortina de luz que vai do quente (perto da onda) ao cinza (topo)
+  float up = max(sd, 0.);
+  vec3 above = mix(body*1.05, dusk, smoothstep(.05, .85, up));
+  above = mix(hot*.9, above, smoothstep(0., .28, up));
+  above *= .62 + .38*exp(-up*1.6);
+  // abaixo: cai rápido para o preto
+  float dn = max(-sd, 0.);
+  vec3 below = mix(c*.75, c*.04, smoothstep(0., .22, dn));
+
+  vec3 col = sd > 0. ? above : below;
+  // costura suave entre os lados (sem linha dura)
+  col = mix(below, above, smoothstep(-.06, .06, sd));
+
+  // a própria onda: faixa larga e desfocada, mais grossa à esquerda
+  float w = mix(.2, .1, smoothstep(-1.2, 1.2, x)) * (.85 + .3*noise(vec2(x*1.5, t*.07)));
+  col += mix(c, hot, .5) * gband(sd + .03, w) * .9 * pulse;
+  col += hot * gband(sd + .02, w*.5) * .35 * pulse;
+
+  // ponto quente à esquerda
+  col += hot * blob(p, vec2(-.95 + .08*sin(t*.05), -.05 + .12*sin(t*.037)), vec2(.42, .55)) * .85 * pulse;
+  // canto direito inferior em preto
+  col *= 1. - .9*blob(p, vec2(.85 + .1*sin(t*.03), -.6), vec2(.55, .6));
+  // canto superior esquerdo mais escuro e acinzentado
+  col *= 1. - .45*blob(p, vec2(-1.0, .75), vec2(.6, .45));
+  return col;
 }
-// feixe de luz fino: núcleo brilhante + halo largo, com espessura que varia ao longo da curva
-float ribbon(vec2 p, float t, vec4 k, float off, float w){
-  float y = off + curve(p.x, t, k);
-  float y2 = off + curve(p.x + .01, t, k);
-  float s = (y2 - y)/.01;
-  float d = abs(p.y - y)/sqrt(1. + s*s);
-  float taper = .35 + .9*smoothstep(-.2, 1., sin(p.x*1.3 + t*.11 + k.w*3.));
-  float ww = w*taper;
-  return exp(-d*d/(ww*ww)) + .55*exp(-d/(ww*7.)) + .25*exp(-d/(ww*28.));
+
+// ---------- CENA B: as faixas (foto azul) ----------
+vec3 sceneBands(vec2 p, float t, vec3 c, float pulse){
+  vec3 deep  = c*.07 + vec3(.006, .008, .014);       // marinho quase preto
+  vec3 mid   = c*.55;
+  vec3 light = mix(c, vec3(.93, .95, .94), .62);       // centro quase branco
+
+  vec2 q = p + (vec2(fbm(p*.8 + t*.02), fbm(p*.8 - t*.018 + 3.)) - .5)*.45;
+  vec3 col = deep;
+
+  // faixa de cima, atravessando para a direita
+  float y1 = .55 + .1*sin(q.x*1.4 + t*.07) + .04*sin(q.x*3. - t*.05);
+  col += mid * gband(q.y - y1, .2) * smoothstep(-.9, .2, q.x) * 1.0;
+  // faixa do meio, saindo da direita
+  float y2 = -.12 + .08*sin(q.x*1.2 - t*.06 + 1.);
+  col += mix(mid, light, .25) * gband(q.y - y2, .19) * smoothstep(-.1, .9, q.x) * 1.15 * (.75 + .25*pulse);
+  // névoa média ao redor do brilho
+  col += mid * blob(q, vec2(-.8 + .06*sin(t*.04), -.05 + .1*sin(t*.03)), vec2(.75, .6)) * .9;
+  // brilho quase branco à esquerda
+  col += light * blob(q, vec2(-1.05 + .06*sin(t*.05), -.02 + .12*sin(t*.033)), vec2(.5, .6)) * 1.35 * pulse;
+  // bolsões escuros
+  col *= 1. - .75*blob(q, vec2(.25 + .2*sin(t*.03), .2), vec2(.65, .2));
+  col *= 1. - .6*blob(q, vec2(.6, -.6 + .1*cos(t*.04)), vec2(.7, .3));
+  return col;
 }
 
 void main(){
   vec2 frag = gl_FragCoord.xy;
   vec2 p = (frag - .5*uRes) / min(uRes.x, uRes.y);
   float t = uTime;
-
   vec3 c = uColor;
-  vec3 light = mix(c, vec3(1.), .55);           // centro quase branco (imagem azul)
-  vec3 warm  = clamp(hueRot(c, .24)*1.15, 0., 1.); // vizinho de matiz (laranja do vermelho)
-  vec3 dusk  = mix(c, vec3(.5, .48, .46), .7)*.55; // cinza tingido (topo da imagem laranja)
 
-  // respiração cinematográfica: brilho sobe e desce, com "flares" ocasionais
-  float breath = .78 + .22*sin(t*.33) + .1*sin(t*.71 + 1.3);
-  float flare = pow(noise(vec2(t*.09, 7.3)), 3.)*1.6;
-  float pulse = breath + flare;
+  // brilho de cinema: sobe e desce devagar, com picos ocasionais
+  float pulse = .82 + .14*sin(t*.33) + .06*sin(t*.71 + 1.3) + pow(noise(vec2(t*.08, 7.3)), 3.)*1.1;
 
-  // campo suave distorcido
-  vec2 wp = p + (vec2(fbm(p*.9 + t*.03), fbm(p*.9 - t*.025 + 4.)) - .5)*.9;
+  // alterna entre as duas cenas com uma fusão longa e suave (~2 min por ciclo)
+  float mixAB = smoothstep(.2, .8, .5 + .5*sin(t*.05));
+  vec3 col = mix(sceneWave(p, t, c, pulse), sceneBands(p, t, c, pulse), mixAB);
 
-  vec3 col = c*.035 + vec3(.012, .011, .013);
-  col += dusk  * blob(wp, vec2(.15*sin(t*.05), .85 + .1*cos(t*.04)), .7) * .55;
-  col += c     * blob(wp, vec2(.6 + .2*sin(t*.043), .05 + .25*cos(t*.051)), .42) * .7;
-  col += warm  * blob(wp, vec2(-.75 + .15*cos(t*.037), -.2 + .2*sin(t*.047)), .36) * .9 * pulse;
-  col += light * blob(wp, vec2(-1. + .12*sin(t*.06), .02 + .3*sin(t*.029)), .3) * .95 * pulse;
-  col *= .75 + .5*fbm(wp*1.4 + t*.02);
-  // área de sombra profunda que passeia
-  col *= 1. - .85*blob(wp, vec2(.2 + .35*cos(t*.031), -.4 + .2*sin(t*.04)), .6);
-  col *= 1. - .7*blob(wp, vec2(.1 + .3*sin(t*.027), .45 + .15*cos(t*.035)), .45);
-
-  // feixes de luz (raios) vindos de uma fonte fora da tela
-  vec2 src = vec2(-1.3 + .2*sin(t*.04), 1.1);
-  vec2 v = p - src;
-  float ang = atan(v.y, v.x);
-  float rays = pow(noise(vec2(ang*9., t*.12)), 2.2)*.8 + pow(noise(vec2(ang*23. + 3., t*.2)), 3.)*.5;
-  rays *= smoothstep(2.8, .4, length(v)) * (.4 + .6*breath);
-  col += mix(c, light, .4) * rays * .18;
-
-  // traços infinitos de luz
-  float r1 = ribbon(p, t, vec4(.28, 1.6, .22, 0.), -.18, .010);
-  float r2 = ribbon(p, t, vec4(.22, 2.1, -.17, 2.1), .12, .006);
-  float r3 = ribbon(p, t, vec4(.35, 1.1, .12, 4.4), -.42, .016);
-  float pulse1 = .55 + .45*sin(t*.41) + flare;
-  float pulse2 = .55 + .45*sin(t*.29 + 2.) + flare*.6;
-  float pulse3 = .55 + .45*sin(t*.23 + 4.);
-  col += mix(warm, light, .35) * r1 * .55 * pulse1;
-  col += mix(c, light, .6)     * r2 * .45 * pulse2;
-  col += c                     * r3 * .5  * pulse3;
+  // feixes grossos de luz: faixas largas e desfocadas que acendem e apagam
+  vec3 beamCol = mix(c, vec3(1.), .35);
+  for (int i = 0; i < 3; i++) {
+    float fi = float(i);
+    float ang = -.75 + fi*.55 + .12*sin(t*.03 + fi*2.);
+    vec2 dir = vec2(cos(ang), sin(ang));
+    vec2 nrm = vec2(-dir.y, dir.x);
+    float off = -.35 + fi*.45 + .25*sin(t*.045 + fi*1.7);
+    float d = dot(p, nrm) - off;
+    float along = dot(p, dir);
+    float width = .16 + .07*sin(t*.07 + fi*3.);
+    float on = smoothstep(.15, .85, .5 + .5*sin(t*(.16 + fi*.05) + fi*2.4)); // acende e apaga
+    float fade = smoothstep(1.6, -.2, along + .3*fi) * (.6 + .4*noise(vec2(along*1.5 - t*.2, fi*9.)));
+    col += beamCol * gband(d, width) * fade * on * .22 * pulse;
+  }
 
   // vinheta
   vec2 uv = frag/uRes;
-  col *= .25 + .75*smoothstep(1.2, .3, length((uv - .5)*vec2(1.15, 1.)));
+  col *= .45 + .55*smoothstep(1.25, .3, length((uv - .5)*vec2(1.1, 1.)));
 
-  // tone map filmico (brilho estoura com suavidade)
-  col = 1. - exp(-col*1.2*(.9 + .1*pulse));
-  col = pow(col, vec3(.95));
+  // tone map suave
+  col = 1. - exp(-col*1.35*(.9 + .1*pulse));
 
-  // granulado
+  // granulado de filme
   float g = hash(frag + fract(t*7.13)*vec2(91.7, 37.3)) - .5;
-  col += g*.06;
+  col += g*.07;
 
   gl_FragColor = vec4(clamp(col, 0., 1.), 1.);
 }`;
@@ -443,7 +473,7 @@ void main(){
   // ---- loop ----
   if (!gl) return;
   const speed = matchMedia('(prefers-reduced-motion: reduce)').matches ? .3 : 1;
-  let last = performance.now(), time = 30;
+  let last = performance.now(), time = (typeof window.__t === "number") ? window.__t : 94;
   function frame(now) {
     const dt = Math.min(.1, (now - last) / 1000); last = now;
     time += dt * speed;
