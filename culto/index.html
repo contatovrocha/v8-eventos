@@ -174,7 +174,7 @@ body.idle .hint, body.editing .hint { opacity: 0; }
   </form>
 
   <div class="bar" role="toolbar" aria-label="Controles do fundo">
-    <button class="swatch" id="c1" style="--c:#e0301e" data-color="#e0301e" aria-label="Vermelho" aria-pressed="false"></button>
+    <button class="swatch" id="c1" style="--c:#f2260f" data-color="#f2260f" aria-label="Vermelho" aria-pressed="false"></button>
     <button class="swatch" id="c2" style="--c:#f07a2a" data-color="#f07a2a" aria-label="Laranja" aria-pressed="false"></button>
     <button class="swatch" id="c3" style="--c:#d4a548" data-color="#d4a548" aria-label="Dourado" aria-pressed="false"></button>
     <button class="swatch" id="c4" style="--c:#3a9e8f" data-color="#3a9e8f" aria-label="Verde-água" aria-pressed="false"></button>
@@ -226,7 +226,7 @@ float gband(float d, float w){ return exp(-d*d/(w*w)); }
 
 // ---------- CENA A: a onda (foto laranja) ----------
 vec3 sceneWave(vec2 p, float t, vec3 c, float pulse){
-  vec3 dusk = mix(c, vec3(.55, .52, .48), .72) * .62;           // topo cinza-bege
+  vec3 dusk = mix(c, vec3(.6, .45, .4), .4) * .55;           // topo cinza-bege
   vec3 hot  = clamp(hueRot(c, .2)*1.2 + vec3(.1, .05, .0), 0., 1.); // laranja-amarelo quente
   vec3 body = mix(c, dusk, .35);                                  // meio terroso
 
@@ -290,6 +290,39 @@ vec3 sceneBands(vec2 p, float t, vec3 c, float pulse){
   return col;
 }
 
+// ---------- CENA C: a colina de luz (foto vermelha) ----------
+vec3 sceneHill(vec2 p, float t, vec3 c, float pulse){
+  vec3 sat    = clamp(c*1.25, 0., 1.);
+  vec3 maroon = hueRot(c, -.12)*.2;                                // vinho profundo
+  vec3 orange = clamp(hueRot(c, .3)*1.3 + vec3(.06, .02, 0.), 0., 1.); // laranja vivo
+  vec3 amber  = clamp(hueRot(c, .5)*1.35 + vec3(.12, .06, 0.), 0., 1.); // miolo amarelo-laranja
+  vec3 blush  = mix(c, vec3(1., .96, .94), .7);                    // luz rosada quase branca
+
+  vec2 q = p + (vec2(fbm(p*.7 + t*.02), fbm(p*.7 - t*.02 + 5.)) - .5)*.25;
+  float x = q.x;
+  // linha da colina: sobe da esquerda, pico perto do centro, desce suave para a direita
+  float peakX = -.2 + .25*sin(t*.04);
+  float hy = -.12 + .16*exp(-pow((x - peakX)*1.6, 2.)) - .1*(x - peakX) + .03*sin(x*2. + t*.09);
+  float sd = q.y - hy;            // >0 acima da colina
+
+  // ---- céu (acima) ----
+  vec3 sky = mix(sat*.75, maroon*1.2, smoothstep(-.4, .9, q.x + q.y*.9));       // vermelho -> vinho no canto
+  sky += orange * blob(q, vec2(peakX - .05, hy + .15), vec2(.6, .45)) * .75 * pulse;  // brilho laranja
+  sky += amber  * blob(q, vec2(peakX + .1, hy + .05), vec2(.3, .2)) * .55 * pulse; // miolo
+  sky += blush  * blob(q, vec2(1.0 + .1*sin(t*.05), hy - .04), vec2(.45, .25)) * .8 * pulse; // luz atrás da colina
+  sky *= 1. - .65*blob(q, vec2(1.0, .75), vec2(.75, .55));                       // canto superior direito escuro
+
+  // ---- colina (abaixo) ----
+  float dn = max(-sd, 0.);
+  vec3 hill = mix(sat*1.05, maroon, smoothstep(-.6, .9, q.x - q.y*.3 + dn*.6)); // laranja-vermelho à esquerda, vinho à direita
+  hill += orange * blob(q, vec2(-1.0, -.35), vec2(.5, .65)) * .6;
+  hill *= .75 + .25*exp(-dn*2.5);
+  // borda da colina iluminada por trás
+  hill += mix(sat, blush, .3) * exp(-dn/.05) * .35 * pulse;
+
+  return mix(hill, sky, smoothstep(-.025, .05, sd));
+}
+
 void main(){
   vec2 frag = gl_FragCoord.xy;
   vec2 p = (frag - .5*uRes) / min(uRes.x, uRes.y);
@@ -300,8 +333,18 @@ void main(){
   float pulse = .82 + .14*sin(t*.33) + .06*sin(t*.71 + 1.3) + pow(noise(vec2(t*.08, 7.3)), 3.)*1.1;
 
   // alterna entre as duas cenas com uma fusão longa e suave (~2 min por ciclo)
-  float mixAB = smoothstep(.2, .8, .5 + .5*sin(t*.05));
-  vec3 col = mix(sceneWave(p, t, c, pulse), sceneBands(p, t, c, pulse), mixAB);
+  // três cenas em ciclo (~45s cada, com fusão longa): colina, onda, faixas
+  float cyc = mod(t/45., 3.);
+  float dC = min(abs(cyc - 0.), 3. - abs(cyc - 0.));
+  float dW = min(abs(cyc - 1.), 3. - abs(cyc - 1.));
+  float dB = min(abs(cyc - 2.), 3. - abs(cyc - 2.));
+  float wC = smoothstep(.85, .25, dC), wW = smoothstep(.85, .25, dW), wB = smoothstep(.85, .25, dB);
+  float ws = wC + wW + wB + 1e-4;
+  vec3 col = vec3(0.);
+  if (wC > .001) col += sceneHill(p, t, c, pulse) * wC;
+  if (wW > .001) col += sceneWave(p, t, c, pulse) * wW;
+  if (wB > .001) col += sceneBands(p, t, c, pulse) * wB;
+  col /= ws;
 
   // feixes grossos de luz: faixas largas e desfocadas que acendem e apagam
   vec3 beamCol = mix(c, vec3(1.), .35);
@@ -324,7 +367,10 @@ void main(){
   col *= .45 + .55*smoothstep(1.25, .3, length((uv - .5)*vec2(1.1, 1.)));
 
   // tone map suave
-  col = 1. - exp(-col*1.35*(.9 + .1*pulse));
+  col = 1. - exp(-col*1.6*(.9 + .1*pulse));
+  // saturação exagerada
+  float lum = dot(col, vec3(.299, .587, .114));
+  col = max(mix(vec3(lum), col, 1.45), 0.);
 
   // granulado de filme
   float g = hash(frag + fract(t*7.13)*vec2(91.7, 37.3)) - .5;
@@ -380,7 +426,7 @@ void main(){
   const hex2rgb = h => { const n = parseInt(h.slice(1), 16); return [(n>>16&255)/255, (n>>8&255)/255, (n&255)/255]; };
   const swatches = [...document.querySelectorAll('.swatch')];
   const custom = document.getElementById('custom');
-  let target = hex2rgb('#e0301e'), current = target.slice();
+  let target = hex2rgb('#f2260f'), current = target.slice();
   function setColor(hex, save = true) {
     if (!/^#[0-9a-f]{6}$/i.test(hex)) return;
     target = hex2rgb(hex);
@@ -388,7 +434,7 @@ void main(){
     swatches.forEach(s => s.setAttribute('aria-pressed', String(s.dataset.color.toLowerCase() === hex.toLowerCase())));
     if (save) store.set('culto-cor', hex);
   }
-  setColor(store.get('culto-cor') || '#e0301e', false);
+  setColor(store.get('culto-cor') || '#f2260f', false);
   current = target.slice();
   swatches.forEach(s => s.addEventListener('click', () => setColor(s.dataset.color)));
   custom.addEventListener('input', e => setColor(e.target.value));
@@ -441,16 +487,34 @@ void main(){
   }
   document.getElementById('fs').addEventListener('click', toggleFS);
 
-  addEventListener('keydown', e => {
-    const typing = e.target.matches('input[type="text"], textarea');
-    if (e.key === 'Escape') { toggleEditor(false); e.target.blur?.(); wake(); return; }
-    if (typing) { wake(); return; }
-    const n = parseInt(e.key, 10);
-    if (n >= 1 && n <= swatches.length) setColor(swatches[n-1].dataset.color);
-    else if (e.key === 'f' || e.key === 'F') toggleFS();
-    else if (e.key === 't' || e.key === 'T') { showText.checked = !showText.checked; renderText(); }
-    wake();
+  function toggleTextOnScreen() { showText.checked = !showText.checked; renderText(); }
+
+  // ao entrar em tela cheia: fecha o editor e tira o cursor dos campos, para os atalhos funcionarem
+  document.addEventListener('fullscreenchange', () => {
+    if (document.fullscreenElement) {
+      toggleEditor(false);
+      document.activeElement?.blur?.();
+      document.body.classList.add('idle');
+    }
   });
+
+  document.addEventListener('keydown', e => {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    const typing = e.target.matches?.('input[type="text"], textarea');
+    if (e.key === 'Escape') { toggleEditor(false); document.activeElement?.blur?.(); return; }
+    // em tela cheia o T sempre apresenta/esconde o texto, mesmo com o cursor num campo
+    if (typing && !(document.fullscreenElement && e.code === 'KeyT')) { wake(); return; }
+    const quiet = !!document.fullscreenElement; // no telão os atalhos não fazem os controles aparecerem
+    if (e.code === 'KeyT') { e.preventDefault(); toggleTextOnScreen(); }
+    else if (e.code === 'KeyF') { e.preventDefault(); toggleFS(); }
+    else {
+      const n = parseInt(e.key, 10);
+      if (n >= 1 && n <= swatches.length) setColor(swatches[n-1].dataset.color);
+      else if (!quiet) wake();
+      return;
+    }
+    if (!quiet) wake();
+  }, true);
 
   // ---- controles somem depois de 3s parado ----
   let idleTimer;
@@ -473,7 +537,7 @@ void main(){
   // ---- loop ----
   if (!gl) return;
   const speed = matchMedia('(prefers-reduced-motion: reduce)').matches ? .3 : 1;
-  let last = performance.now(), time = (typeof window.__t === "number") ? window.__t : 94;
+  let last = performance.now(), time = (typeof window.__t === "number") ? window.__t : 0;
   function frame(now) {
     const dt = Math.min(.1, (now - last) / 1000); last = now;
     time += dt * speed;
