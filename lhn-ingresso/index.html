@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>LHN · 8ª Edição - Mesa Empresarial · 11/11</title>
-<meta name="description" content="Mesa Empresarial do LHN: bate-papo seleto com Tiago Almeida para 40 empresários. Quarta, 11/11, Marçal Tower, Alphaville. Ingresso para duas pessoas por R$ 47.">
+<title>LHN · 8ª Edição - Mesa Empresarial · 18/11</title>
+<meta name="description" content="Mesa Empresarial do LHN: bate-papo seleto com Tiago Almeida para 40 empresários. Quarta, 18/11, Marçal Tower, Alphaville. Ingresso para duas pessoas por R$ 47.">
 <meta property="og:title" content="De frente com Tiago Almeida · Mesa Empresarial do LHN">
-<meta property="og:description" content="8ª Edição - Empresarial · 11/11 · Alphaville · 40 cadeiras.">
+<meta property="og:description" content="8ª Edição - Empresarial · 18/11 · Alphaville · 40 cadeiras.">
 <meta property="og:image" content="https://eventos.v8.ia.br/lhn-ingresso/img/grupo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -58,6 +58,29 @@ img{max-width:100%;display:block}
 .topbar .seats .lg{display:none}
 .ticket .seats .grid{grid-template-columns:repeat(20,minmax(0,1fr));gap:5px}.ticket .seats .s{border-radius:3px}
 .seats.hide{visibility:hidden}
+.seats .grid{grid-template-columns:repeat(24,minmax(0,1fr))!important}
+.ticket .seats .grid{grid-template-columns:repeat(12,minmax(0,1fr))!important;gap:5px}
+.seats .s.l2{background:linear-gradient(180deg,#C9902E,#8A5A12);border-color:#B07A1E;opacity:.55}
+.seats .lg .d{background:linear-gradient(180deg,#C9902E,#8A5A12);opacity:.6}
+.lots{display:flex;align-items:stretch;width:100%;margin-top:18px;gap:0}
+.lots .l1{flex:0 0 70%;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:3px;padding:14px 10px;text-decoration:none;color:#1a1206;text-align:center;background:linear-gradient(180deg,#FDEFC4 0%,#D9AC55 46%,#B4863A 62%,#F2D38A 100%);box-shadow:0 0 30px rgba(217,172,85,.45);position:relative;z-index:1;animation:lotpulse 2.2s ease-in-out infinite}
+.lots .l1 b{font-size:17px;font-weight:800;letter-spacing:.08em}
+.lots .l1 small{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+.lots .l2{flex:0 0 30%;margin:-6px 0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;background:linear-gradient(180deg,#C9902E,#7A4E0E);color:#120c04;opacity:.5;cursor:not-allowed;text-align:center;padding:8px 4px}
+.lots .l2 svg{width:15px;height:15px;fill:none;stroke:#120c04;stroke-width:2.2}
+.lots .l2 b{font-size:11px;font-weight:800;letter-spacing:.1em}.lots .l2 span{font-size:14px;font-weight:800}
+.lots.over .l1{opacity:.45;pointer-events:none;animation:none}.lots.over .l1 b{text-decoration:line-through}
+.lots.over .l2{opacity:1;cursor:pointer}
+@keyframes lotpulse{0%,100%{box-shadow:0 0 22px rgba(217,172,85,.35)}50%{box-shadow:0 0 38px rgba(217,172,85,.7)}}
+.price .up{color:var(--g1);font-weight:600}
+@media (max-width:900px){.hero h1{font-size:24px!important}.lots{margin-top:12px}.lots .l1{padding:11px 8px}.lots .l1 b{font-size:15.5px}.lots .l1 small{font-size:10px}.lots .l2 b{font-size:10px}.lots .l2 span{font-size:13px}.hero h1{font-size:24px}.hero .sub{font-size:13.5px;margin-top:8px}}
+@media (max-width:600px) and (max-height:730px){.hero h1{font-size:21px!important}.hero .sub{font-size:12.5px!important;line-height:1.4}.hero .stage{height:190px!important}.price{margin-top:6px}}
+.topbar .seats .st>span:first-child{display:none}.topbar .seats .st b{letter-spacing:.02em!important;font-size:10.5px!important}
+.pv .nx{display:block;margin-top:6px;font-size:12px;color:var(--mu);letter-spacing:.06em}
+.hero .txt,.lots,.lots a,.lots span{min-width:0}
+.topbar .seats .st b{overflow:hidden;text-overflow:ellipsis}
+.ticket .seats .st{white-space:normal}
+@media (max-width:900px){.hero{grid-template-columns:minmax(0,1fr)!important}}
 .pill.seq{text-transform:uppercase;font-size:12px;letter-spacing:.12em;line-height:1.5;max-width:100%}
 .seqk{letter-spacing:.22em}
 #quiz .qstage.framed::before{bottom:-40px;border-bottom:0}
@@ -269,7 +292,7 @@ footer .logo{font-size:40px;margin-bottom:8px}
 <span class="cn a"></span><span class="cn b"></span>
 </div>
 <div class="qhead">
-<span class="pill seq"><span class="gold">8<span class="ord">ª</span> EDIÇÃO - MESA EMPRESARIAL - HOMENS COM A VISÃO DO REINO</span></span>
+<span class="pill seq"><span class="gold">8<span class="ord">ª</span> EDIÇÃO - LEVANTANDO HOMENS DE NEGÓCIO COM A VISÃO DO REINO</span></span>
 <h1 class="cz gold">DE FRENTE COM TIAGO ALMEIDA<small>NA MESA EMPRESARIAL DO LHN</small></h1>
 </div>
 <div class="qcard">
@@ -322,13 +345,13 @@ footer .logo{font-size:40px;margin-bottom:8px}
 <span class="cn a"></span><span class="cn b"></span><span class="cn c"></span><span class="cn d"></span>
 </div>
 <div class="txt">
-<span class="kick left seqk"><span>8<span class="ord">ª</span> EDIÇÃO - MESA EMPRESARIAL - HOMENS COM A VISÃO DO REINO</span></span>
-<h1 class="cz">NEGÓCIOS SE ESCALAM ESTANDO NAS MESAS CERTAS. <span class="gold">ESTEJA COMIGO NA MESA DO LHN.</span></h1>
+<span class="kick left seqk"><span>8<span class="ord">ª</span> EDIÇÃO - LEVANTANDO HOMENS DE NEGÓCIO COM A VISÃO DO REINO</span></span>
+<h1 class="cz">O ÚNICO ENCONTRO DE EMPRESÁRIOS PARA <span class="gold">ESCALAR SEU NEGÓCIO COM A VISÃO DO REINO.</span></h1>
 <p class="sub">Uma noite com Tiago Almeida e 40 empresários para ampliar visão, liderança e conexões, com tecnologia, IA e princípios do Reino.</p>
-<a class="btn" href="#ingresso">GARANTIR INGRESSO · R$ 47</a>
-<p class="price"><b>R$ 47</b> · ingresso para 2 pessoas</p>
+<div class="lots" ><a class="l1" href="#ingresso"><b>LOTE 01 · R$ 47,00</b><small data-l1left>ingresso para 2 · últimas cadeiras</small></a><span class="l2" aria-disabled="true"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><b>LOTE 02</b><span>R$ 197,00</span></span></div>
+<p class="price"><b>R$ 47</b> · ingresso para 2 pessoas · <span class="up">depois, R$ 197</span></p>
 <ul class="facts">
-<li><svg viewbox="0 0 24 24"><rect height="16" rx="2" width="18" x="3" y="5"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg><span><b>Quarta, 11/11</b> · abertura 18h30 · início 19h</span></li>
+<li><svg viewbox="0 0 24 24"><rect height="16" rx="2" width="18" x="3" y="5"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg><span><b>Quarta, 18/11</b> · abertura 18h30 · início 19h</span></li>
 <li><svg viewbox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg><span><b>Marçal Tower</b> · Alphaville, Barueri/SP</span></li>
 <li><svg viewbox="0 0 24 24"><path d="M7 13V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7"></path><path d="M5 13h14v3H5zM7 16v5M17 16v5"></path></svg><span><b>40 cadeiras</b> · presencial e seleto</span></li>
 </ul>
@@ -425,16 +448,16 @@ footer .logo{font-size:40px;margin-bottom:8px}
 </section>
 <section class="band" id="ingresso">
 <div class="wrap">
-<div class="sh"><span class="kick">INGRESSO · 11/11</span><h2 class="cz">GARANTA A SUA CADEIRA <span class="gold">E A DO SEU CONVIDADO</span>.</h2></div>
+<div class="sh"><span class="kick">INGRESSO · 18/11</span><h2 class="cz">GARANTA A SUA CADEIRA <span class="gold">E A DO SEU CONVIDADO</span>.</h2></div>
 <div class="ticket framed">
 <span class="cn a"></span><span class="cn d"></span>
-<div class="th"><span class="pill seq"><span class="gold">8<span class="ord">ª</span> EDIÇÃO - MESA EMPRESARIAL - HOMENS COM A VISÃO DO REINO</span></span><h3>DE FRENTE COM <span class="gold">TIAGO ALMEIDA</span></h3></div>
+<div class="th"><span class="pill seq"><span class="gold">8<span class="ord">ª</span> EDIÇÃO - LEVANTANDO HOMENS DE NEGÓCIO COM A VISÃO DO REINO</span></span><h3>DE FRENTE COM <span class="gold">TIAGO ALMEIDA</span></h3></div>
 <div class="tb">
 <div class="seats hide" data-seats=""></div>
 <ul><li>Entrada para 2 pessoas: você + 1 convidado</li><li>Bate-papo seleto com Tiago Almeida</li><li>Mesa aberta para perguntas sobre o seu negócio</li><li>Conexões com empresários da região</li></ul>
 <div class="bonus"><span class="bt">BÔNUS PARA QUEM ESTÁ NA MESA</span><b class="gold">LISTA PREFERENCIAL DO PODCAST DO TIAGO ALMEIDA</b><p>Quem participa do LHN entra na lista preferencial do podcast.</p><span class="bv">Valor de <s>R$ 2.500</s> · <em>incluso no seu ingresso</em></span></div>
-<div class="pv"><small>INGRESSO PARA 2 PESSOAS</small><div class="num gold"><sup>R$</sup>47</div><em>Quarta, 11/11 · 19h · Marçal Tower, Alphaville</em></div>
-<a class="btn" data-buy="" href="#">GARANTIR MEU INGRESSO</a>
+<div class="pv"><small>LOTE 01 · INGRESSO PARA 2 PESSOAS</small><div class="num gold"><sup>R$</sup>47</div><small class="nx">Lote 02: R$ 197 · abre quando o lote 01 fechar</small><em>Quarta, 18/11 · 19h · Marçal Tower, Alphaville</em></div>
+<div class="lots" ><a class="l1" data-buy="" href="#"><b>LOTE 01 · R$ 47,00</b><small data-l1left>ingresso para 2 · últimas cadeiras</small></a><span class="l2" aria-disabled="true"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><b>LOTE 02</b><span>R$ 197,00</span></span></div>
 <p class="tmsg" id="buyMsg" role="status"></p>
 </div>
 </div>
@@ -447,7 +470,7 @@ footer .logo{font-size:40px;margin-bottom:8px}
 <details><summary>O ingresso vale para quantas pessoas?</summary><p>Para duas: você e mais um convidado. Pode ser seu sócio, um diretor ou um empresário que precisa estar nessa conversa.</p></details>
 <details><summary>Por que o encontro tem ingresso?</summary><p>Porque são só 40 cadeiras. O valor simbólico garante que cada lugar seja ocupado por quem realmente vai estar presente.</p></details>
 <details><summary>Preciso ser dono de empresa?</summary><p>A mesa é pensada para donos, sócios, fundadores e líderes de negócios. Quem está estruturando o próprio negócio também pode participar.</p></details>
-<details><summary>Quando e onde acontece?</summary><p>Quarta-feira, 11 de novembro. Abertura às 18h30 e início às 19h, na Marçal Tower, em Alphaville, Barueri/SP. A confirmação e as orientações de chegada são enviadas pelo WhatsApp.</p></details>
+<details><summary>Quando e onde acontece?</summary><p>Quarta-feira, 18 de novembro. Abertura às 18h30 e início às 19h, na Marçal Tower, em Alphaville, Barueri/SP. A confirmação e as orientações de chegada são enviadas pelo WhatsApp.</p></details>
 <details><summary>É transmitido online?</summary><p>Não. O LHN é presencial e seleto, só para quem está na mesa.</p></details>
 </div>
 </div>
@@ -457,7 +480,7 @@ footer .logo{font-size:40px;margin-bottom:8px}
 <div aria-labelledby="popT" aria-modal="false" class="pop hidden" id="pop" role="dialog">
 <div class="pc"><button aria-label="Fechar" class="x" id="popX">×</button>
 <h3 id="popT"><span class="gold" id="popH">CADEIRAS LIMITADAS</span></h3>
-<p>Mesa Empresarial de 11/11 · ingresso para 2 pessoas. <a href="#ingresso" id="popBtn">Garantir agora →</a></p>
+<p>Mesa Empresarial de 18/11 · ingresso para 2 pessoas. <a href="#ingresso" id="popBtn">Garantir agora →</a></p>
 </div>
 </div>
 <script>
@@ -481,10 +504,14 @@ const $=id=>document.getElementById(id);
 
 /* ---- cadeiras: número real de reservas ---- */
 let SEATS=null;
-function paintSeats(){if(!SEATS)return;const {total,reservadas}=SEATS;const left=Math.max(0,total-reservadas);const pct=Math.min(100,Math.round(reservadas/total*100));
- document.querySelectorAll('[data-seats]').forEach(el=>{el.classList.remove('hide');let g='';for(let k=0;k<total;k++)g+='<span class="s'+(k<reservadas?' on':(k===reservadas&&left>0?' me':''))+'"></span>';el.innerHTML='<div class="st"><span>Cadeiras</span><b>'+(left>0?(left===1?'Resta 1 cadeira':'Restam '+left+'<span class="of"> de '+total+'</span>'):'Mesa completa')+'</b></div><div class="grid" role="img" aria-label="'+reservadas+' de '+total+' cadeiras reservadas">'+g+'</div>'+(left>0?'<div class="lg"><span><i class="a"></i>Reservadas</span><span><i class="b"></i>A sua</span><span><i class="c"></i>Livres</span></div>':'')});
- $('popH').textContent=left>0?(left===1?'Resta 1 cadeira na mesa':'Restam '+left+' cadeiras na mesa'):'Mesa completa';}
-function loadSeats(){fetch(SB+'/rest/v1/lhn_cadeiras?select=total,reservadas&id=eq.1',{headers:H}).then(r=>r.ok?r.json():null).then(d=>{if(d&&d[0]&&(!SEATS||d[0].reservadas!==SEATS.reservadas)){SEATS=d[0];paintSeats()}}).catch(()=>{})}
+function paintSeats(){if(!SEATS)return;const T=SEATS.lote1_total||12,V=Math.min(SEATS.lote1_vendidas||0,T),left=Math.max(0,T-V),over=left===0,pad=n=>String(n).padStart(2,'0');
+ document.querySelectorAll('[data-seats]').forEach(el=>{el.classList.remove('hide');let g='';for(let k=0;k<2*T;k++)g+='<span class="s'+(k<T?(k<V?' on':(k===V?' me':'')):(over?'':' l2'))+'"></span>';
+  el.innerHTML='<div class="st"><span>'+(over?'Lote 02':'Lote 01')+'</span><b>'+(over?'Lote 01 esgotado':(el.closest('.topbar')?'Restam '+pad(left):(left===1?'Resta 01 cadeira no lote 01':'Restam '+pad(left)+' no lote 01')))+'</b></div><div class="grid" role="img" aria-label="Lote 01: '+V+' de '+T+' cadeiras vendidas">'+g+'</div><div class="lg"><span><i class="a"></i>Vendidas</span><span><i class="c"></i>Lote 01 · R$ 47</span><span><i class="d"></i>Lote 02 · R$ 197</span></div>'});
+ document.querySelectorAll('.lots').forEach(l=>l.classList.toggle('over',over));
+ document.querySelectorAll('[data-l1left]').forEach(e=>e.textContent=over?'esgotado':(left===1?'resta 01 neste valor':'restam '+pad(left)+' neste valor'));
+ document.querySelectorAll('[data-lotmsg]').forEach(e=>e.textContent=over?'o lote 01 esgotou: agora o ingresso é R$ 197':'restam '+pad(left)+' cadeiras neste valor; depois, o ingresso vai para R$ 197');
+ $('popH').textContent=over?'Lote 01 esgotado':'Restam '+pad(left)+' cadeiras no lote 01';}
+function loadSeats(){fetch(SB+'/rest/v1/lhn_cadeiras?select=total,reservadas,lote1_total,lote1_vendidas&id=eq.1',{headers:H}).then(r=>r.ok?r.json():null).then(d=>{if(d&&d[0]&&(!SEATS||d[0].lote1_vendidas!==SEATS.lote1_vendidas)){SEATS=d[0];paintSeats()}}).catch(()=>{})}
 loadSeats();setInterval(()=>{if(!document.hidden)loadSeats()},60000);
 
 /* ---- quiz ---- */
