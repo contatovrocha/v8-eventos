@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Escala IA · Tiago Almeida · 13 de novembro · Alphaville</title>
-<meta name="description" content="Evento presencial para donos de empresa: transforme o WhatsApp em uma operação inteligente de vendas e atendimento com processos, automação e IA. 13/11, Alphaville.">
+<title>Escala IA · Tiago Almeida · 11 de dezembro · Alphaville</title>
+<meta name="description" content="Evento presencial para donos de empresa: transforme o WhatsApp em uma operação inteligente de vendas e atendimento com processos, automação e IA. 11/12, Alphaville.">
 <meta property="og:title" content="Escala IA · Como criar sua primeira fonte de renda digital com IA">
-<meta property="og:description" content="13/11, Alphaville. Com Tiago Almeida, fundador da Devzapp.">
+<meta property="og:description" content="11/12, Alphaville. Com Tiago Almeida, fundador da Devzapp.">
 <meta property="og:image" content="https://eventos.v8.ia.br/escala-ia/img/preview.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -433,6 +433,50 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
   .hero-photo{height:max(300px,calc(100% - 330px))}
 }
 @media (max-width:600px) and (max-height:700px){.hero-photo{height:max(250px,calc(100% - 330px))}}
+
+/* ===== lotes ===== */
+.seats{display:flex;flex-direction:column;gap:5px;min-width:0;flex:1}
+.seats.hide{visibility:hidden}
+.seats .st{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:11px;letter-spacing:.16em;font-weight:800;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.seats .st b{color:var(--green);letter-spacing:.04em;font-size:12.5px;overflow:hidden;text-overflow:ellipsis}
+.seats .grid{display:grid;grid-template-columns:repeat(36,minmax(0,1fr));gap:2px}
+.seats .s{aspect-ratio:1;border:1px solid rgba(46,230,140,.45);border-radius:2px;background:#0d1714}
+.seats .s.on{background:linear-gradient(180deg,#B8FFD9,#2EE68C);border-color:#2EE68C}
+.seats .s.me{background:#fff;border-color:#fff;box-shadow:0 0 6px 1px rgba(255,255,255,.75);animation:seatp 1.6s ease-in-out infinite}
+.seats .s.l2,.seats .s.l3{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2304140C' stroke-width='2.6' stroke-linecap='round'%3E%3Crect x='5' y='11' width='14' height='10' rx='2' fill='%2304140C'/%3E%3Cpath d='M8 11V8a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E") center/72% no-repeat,linear-gradient(180deg,#1FAE68,#0E6B3E);border-color:#1FAE68;opacity:.55}
+.seats .s.l3{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2304140C' stroke-width='2.6' stroke-linecap='round'%3E%3Crect x='5' y='11' width='14' height='10' rx='2' fill='%2304140C'/%3E%3Cpath d='M8 11V8a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E") center/72% no-repeat,linear-gradient(180deg,#147A49,#08402A);opacity:.5}
+@keyframes seatp{0%,100%{opacity:1}50%{opacity:.4}}
+.seats .lg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--muted);margin-top:4px}
+.seats .lg i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.seats .lg .a{background:#2EE68C}.seats .lg .c{border:1px solid rgba(46,230,140,.6)}
+.seats .lg .d{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2304140C' stroke-width='2.6' stroke-linecap='round'%3E%3Crect x='5' y='11' width='14' height='10' rx='2' fill='%2304140C'/%3E%3Cpath d='M8 11V8a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E") center/80% no-repeat,#1FAE68;opacity:.7}.seats .lg .e{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2304140C' stroke-width='2.6' stroke-linecap='round'%3E%3Crect x='5' y='11' width='14' height='10' rx='2' fill='%2304140C'/%3E%3Cpath d='M8 11V8a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E") center/80% no-repeat,#0E6B3E;opacity:.7}
+header.nav .seats{margin:0 16px;max-width:420px}
+header.nav .seats .st>span:first-child{display:none}
+.hero-seats{margin-top:18px}
+.ticket .seats{margin:4px 0 14px}.ticket .seats .grid{grid-template-columns:repeat(12,minmax(0,1fr));gap:5px}.ticket .seats .s{border-radius:4px}
+.lots{display:flex;align-items:stretch;width:100%;margin-top:18px}
+.lots .l1{flex:0 0 70%;min-width:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:3px;padding:15px 10px;border-radius:14px 0 0 14px;text-decoration:none;color:#04140C;text-align:center;background:#2EE68C;box-shadow:0 0 34px rgba(46,230,140,.45);position:relative;z-index:1;animation:lotp 2.2s ease-in-out infinite}
+.lots .l1 b{font-size:18px;font-weight:800;letter-spacing:.02em}
+.lots .l1 small,.ticket .lots .l1 small{color:#04140C!important;font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.lots .l2{flex:0 0 30%;min-width:0;margin:-6px 0;border-radius:0 14px 14px 0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;background:#1FAE68;color:#04140C;opacity:.5;cursor:not-allowed;text-align:center;padding:8px 4px}
+.lots .l2 svg{width:15px;height:15px;fill:none;stroke:#04140C;stroke-width:2.4}
+.lots .l2 b{font-size:11px;font-weight:800;letter-spacing:.1em}.lots .l2 span{font-size:15px;font-weight:800}
+.lots.over .l1{opacity:.45;pointer-events:none;animation:none}.lots.over .l1 b{text-decoration:line-through}
+.lots.over .l2{opacity:1;cursor:pointer}
+@keyframes lotp{0%,100%{box-shadow:0 0 22px rgba(46,230,140,.3)}50%{box-shadow:0 0 40px rgba(46,230,140,.65)}}
+.price-line .up{color:var(--green);font-weight:700}
+.ticket .nx{display:block;margin-top:6px;font-size:13px;color:var(--muted)}
+.lotpop{position:fixed;right:14px;bottom:14px;z-index:40;max-width:300px;background:#0D1513;border:1px solid var(--green);border-radius:14px;padding:12px 34px 12px 14px;box-shadow:0 20px 40px rgba(0,0,0,.6);font-size:13.5px;color:var(--muted);transform:translateY(140%);transition:transform .4s}
+.lotpop.on{transform:none}.lotpop b{display:block;color:var(--text);font-size:15px;margin-bottom:2px}.lotpop b span{color:var(--green)}
+.lotpop button{position:absolute;right:8px;top:6px;background:none;border:0;color:var(--muted);font-size:18px;cursor:pointer}
+@media (max-width:960px){
+  .hero-txt,.lots,.lots a,.lots span{min-width:0}
+  header.nav .brand b,header.nav .brand small{display:none}
+  header.nav .seats{margin:0 10px}
+  .seats .st b{font-size:11px}
+  .lots{margin-top:12px}.lots .l1{padding:12px 8px}.lots .l1 b{font-size:16px}.lots .l1 small{font-size:10px}.lots .l2 b{font-size:10px}.lots .l2 span{font-size:13.5px}
+  .hero-seats{display:none}
+}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -476,7 +520,7 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
     <div class="quiz-col">
       <div class="quiz-visual">
         <img src="../escala-ia/img/palco.jpg" alt="Tiago Almeida no palco, durante um evento" fetchpriority="high">
-        <a class="brand" href="#"><span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="14" width="3.6" height="7" rx="1" fill="#03140B"/><rect x="8.1" y="10.5" width="3.6" height="10.5" rx="1" fill="#03140B"/><rect x="13.2" y="7" width="3.6" height="14" rx="1" fill="#03140B"/><rect x="18.3" y="3" width="3.6" height="18" rx="1" fill="#03140B"/></svg></span><span><b>ESCALA IA</b><small>13/11 · ALPHAVILLE · SP</small></span></a>
+        <a class="brand" href="#"><span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="14" width="3.6" height="7" rx="1" fill="#03140B"/><rect x="8.1" y="10.5" width="3.6" height="10.5" rx="1" fill="#03140B"/><rect x="13.2" y="7" width="3.6" height="14" rx="1" fill="#03140B"/><rect x="18.3" y="3" width="3.6" height="18" rx="1" fill="#03140B"/></svg></span><span><b>ESCALA IA</b><small>11/12 · ALPHAVILLE · SP</small></span></a>
         <div class="vc">
           <span class="eyebrow">Diagnóstico rápido · 1 minuto</span>
           <h1>Como criar sua <span class="g">primeira fonte de renda digital</span> com IA.</h1>
@@ -493,7 +537,7 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
         <form id="leadForm" novalidate>
           <span class="eyebrow">Última etapa</span>
           <h2>Seu diagnóstico está pronto para ser liberado.</h2>
-          <p>Informe seus dados para ver o evento e garantir seu ingresso do Escala IA, em 13 de novembro, em Alphaville.</p>
+          <p>Informe seus dados para ver o evento e garantir seu ingresso do Escala IA, em 11 de dezembro, em Alphaville.</p>
           <div class="field"><label for="name">Nome completo *</label><input id="name" autocomplete="name" placeholder="Seu nome"></div>
           <div class="two">
             <div class="field"><label for="phone">WhatsApp com DDD *</label><input id="phone" inputmode="tel" autocomplete="tel" placeholder="(11) 99999-9999"></div>
@@ -516,7 +560,8 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
 <div id="eventPage" class="hidden">
   <header class="nav">
     <div class="wrap">
-      <a class="brand" href="#topo"><span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="14" width="3.6" height="7" rx="1" fill="#03140B"/><rect x="8.1" y="10.5" width="3.6" height="10.5" rx="1" fill="#03140B"/><rect x="13.2" y="7" width="3.6" height="14" rx="1" fill="#03140B"/><rect x="18.3" y="3" width="3.6" height="18" rx="1" fill="#03140B"/></svg></span><span><b>ESCALA IA</b><small>13/11 · ALPHAVILLE</small></span></a>
+      <a class="brand" href="#topo"><span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="14" width="3.6" height="7" rx="1" fill="#03140B"/><rect x="8.1" y="10.5" width="3.6" height="10.5" rx="1" fill="#03140B"/><rect x="13.2" y="7" width="3.6" height="14" rx="1" fill="#03140B"/><rect x="18.3" y="3" width="3.6" height="18" rx="1" fill="#03140B"/></svg></span><span><b>ESCALA IA</b><small>11/12 · ALPHAVILLE</small></span></a>
+      <div class="seats hide" data-seats></div>
       <a class="btn btn-primary" href="#ingressos">Garantir ingresso</a>
     </div>
   </header>
@@ -532,10 +577,10 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
         <span class="eyebrow">Evento presencial para empresários</span>
         <h1>Como criar sua <span class="g">primeira fonte de renda digital</span> com IA.</h1>
         <p class="lead">Imagine ter uma <b>IA treinada acelerando os processos</b> da sua empresa. É isso que você vai ter ao final do nosso workshop, com <b>Tiago Almeida</b>.</p>
-        <a class="btn btn-primary hero-cta" href="#ingressos">Garantir meu ingresso →</a>
-        <p class="price-line">Acesso por apenas <b>R$ 197</b></p>
+        <div class="lots"><a class="l1" href="#ingressos"><b>LOTE 01 · R$ 97,00</b><small data-l1left>últimas vagas neste valor</small></a><span class="l2" aria-disabled="true"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><b>LOTE 02</b><span>R$ 197,00</span></span></div>
+        <p class="price-line">Lote 01 por apenas <b>R$ 97</b> · <span class="up">depois, R$ 197</span></p>
         <ul class="meta">
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span><b>13 de novembro</b> · sexta · <span data-horario>A confirmar</span></span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span><b>11 de dezembro</b> · sexta · <span data-horario>A confirmar</span></span></li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span><b>Presencial</b> · <span data-local>Alphaville · SP</span></span></li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span><b>Tiago Almeida</b> · sócio de Pablo Marçal</span></li>
         </ul>
@@ -703,17 +748,17 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
     <div class="wrap">
       <div class="sec-head center">
         <span class="eyebrow">Ingresso</span>
-        <h2>Garanta seu lugar no dia 13.</h2>
+        <h2>Garanta seu lugar no dia 11.</h2>
         <p class="lead">Um dia presencial em Alphaville para colocar processos, automação e IA trabalhando pela sua empresa.</p>
       </div>
       <div class="tickets">
         <div class="ticket feat">
-          <div class="t-head"><small>INGRESSO</small><h3>Escala IA · 13/11</h3></div>
+          <div class="t-head"><small>INGRESSO</small><h3>Escala IA · 11/12</h3></div>
           <div class="t-body">
             <p>Acesso completo ao dia de evento com Tiago Almeida.</p>
             <ul><li>Todas as sessões do evento, das 9h às 17h</li><li>Os 4 pilares na prática: organizar, automatizar, IA e escalar</li><li>Networking com empresários e líderes</li></ul>
-            <div class="price"><small>por pessoa</small><div class="v"><sup>R$</sup>197</div><div class="inst" data-parcelas="essencial" hidden></div>
-              <a class="btn btn-primary" href="#" data-ticket="essencial">Garantir meu ingresso →</a><p class="t-msg" data-msg="essencial"></p></div>
+            <div class="seats hide" data-seats></div><div class="price"><small>LOTE 01 · por pessoa</small><div class="v"><sup>R$</sup>97</div><small class="nx">Lote 02: R$ 197 · Lote 03: R$ 297 · abrem quando o lote anterior fechar</small><div class="inst" data-parcelas="lote1" hidden></div>
+              <div class="lots"><a class="l1" href="#" data-buy><b>LOTE 01 · R$ 97,00</b><small data-l1left>últimas vagas neste valor</small></a><span class="l2" aria-disabled="true"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><b>LOTE 02</b><span>R$ 197,00</span></span></div><a href="#" data-ticket="lote1" hidden></a><a href="#" data-ticket="lote2" hidden></a><p class="t-msg" data-msg="lote1"></p><p class="t-msg" data-msg="lote2"></p></div>
           </div>
         </div>
       </div>
@@ -730,7 +775,7 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
           <h2>Seja dono de uma empresa, <span class="g">e não refém da operação que criou.</span></h2>
           <p>Mais inteligência na operação. Mais liberdade para crescer. Em um dia, em Alphaville.</p>
           <div><a class="btn btn-primary" href="#ingressos">Garantir meu ingresso →</a></div>
-          <span class="final-meta">13 de novembro de 2026 · <span data-horario>A confirmar</span> · <span data-local>Alphaville · SP</span></span>
+          <span class="final-meta">11 de dezembro de 2026 · <span data-horario>A confirmar</span> · <span data-local>Alphaville · SP</span></span>
         </div>
         <div class="final-photo"><img src="../escala-ia/img/cta.jpg" alt="Tiago Almeida"></div>
       </div>
@@ -748,12 +793,12 @@ footer{border-top:1px solid var(--line);padding-block:28px;text-align:center;fon
         <details><summary>A IA vai substituir a minha equipe?</summary><p>Não é essa a proposta. A IA assume as tarefas repetitivas para que as pessoas da sua equipe foquem no que gera mais valor, como fechar vendas e cuidar dos clientes.</p></details>
         <details><summary>E o risco de bloqueio do WhatsApp?</summary><p>É uma preocupação comum. No evento, você entende a diferença entre disparo em massa e uma operação organizada, e como a API Oficial do WhatsApp e boas práticas de comunicação ajudam a operar com mais segurança.</p></details>
         <details><summary>O evento promete resultados garantidos?</summary><p>Não. Os resultados dependem do contexto, da implementação e dos processos de cada negócio. O objetivo é apresentar caminhos e aplicações possíveis.</p></details>
-        <details><summary>Quando e onde acontece?</summary><p>Dia 13 de novembro de 2026. Horário: <span data-horario>A confirmar</span>. Local: <span data-local>Alphaville · SP</span>.</p></details>
+        <details><summary>Quando e onde acontece?</summary><p>Dia 11 de dezembro de 2026. Horário: <span data-horario>A confirmar</span>. Local: <span data-local>Alphaville · SP</span>.</p></details>
       </div>
     </div>
   </section>
 
-  <footer><div class="wrap">Escala IA · Tiago Almeida · 13 de novembro de 2026 · Alphaville · SP</div></footer>
+  <footer><div class="wrap">Escala IA · Tiago Almeida · 11 de dezembro de 2026 · Alphaville · SP</div></footer>
 </div>
 
 <script>
@@ -762,10 +807,10 @@ const CONFIG = {
   horario: "9h às 17h",                    // ex.: "09h às 18h" (vazio = "A confirmar")
   local: "Alphaville · SP",                // ex.: "Espaço X, Alphaville"
   whatsapp: "",                            // só números com DDI+DDD, ex.: "5511999999999"
-  checkout: { essencial: "" },   // link de checkout do ingresso de R$ 197
-  parcelas: { essencial: "" }    // ex.: "ou 12x de R$ 20,00" (vazio = oculto)
+  checkout: { lote1: "", lote2: "", lote3: "" },   // links de checkout: lote 01 R$ 97, lote 02 R$ 197, lote 03 R$ 297
+  parcelas: { lote1: "" }    // ex.: "ou 12x de R$ 20,00" (vazio = oculto)
 };
-const EVENT_DATE = new Date(2026, 10, 13); // 13/11/2026
+const EVENT_DATE = new Date(2026, 11, 11); // 11/12/2026
 /* ============================================================ */
 
 /* leads e cliques gravados no Supabase (tabela leads_escala_ia, só inserção) */
@@ -875,7 +920,25 @@ document.querySelectorAll('[data-ticket]').forEach(btn=>{
  });
 });
 
+
+/* ===== lotes: números reais da tabela escala_ia_lotes ===== */
+let LOTES=null;
+function paintLotes(){if(!LOTES)return;const T=LOTES.lote1_total||12,V=Math.min(LOTES.lote1_vendidas||0,T),left=Math.max(0,T-V),over=left===0,pad=n=>String(n).padStart(2,'0');
+ document.querySelectorAll('[data-seats]').forEach(el=>{el.classList.remove('hide');let g='';for(let k=0;k<3*T;k++)g+='<span class="s'+(k<T?(k<V?' on':(k===V?' me':'')):(k<2*T?(over?'':' l2'):' l3'))+'"></span>';
+  const top=el.closest('header');
+  el.innerHTML='<div class="st"><span>Lote 01</span><b>'+(over?'Lote 01 esgotado':(top?'Restam '+pad(left):'Restam '+pad(left)+' vagas para fechar o lote 01'))+'</b></div><div class="grid" role="img" aria-label="Lote 01: '+V+' de '+T+' vagas vendidas">'+g+'</div>'+(top?'':'<div class="lg"><span><i class="a"></i>Vendidas</span><span><i class="c"></i>Lote 01 · R$ 97</span><span><i class="d"></i>Lote 02 · R$ 197</span><span><i class="e"></i>Lote 03 · R$ 297</span></div>')});
+ document.querySelectorAll('.lots').forEach(l=>l.classList.toggle('over',over));
+ document.querySelectorAll('[data-l1left]').forEach(e=>e.textContent=over?'esgotado':(left===1?'resta 01 neste valor':'restam '+pad(left)+' neste valor'));
+ const ph=document.getElementById('lotpopH');if(ph)ph.innerHTML=over?'Lote 01 esgotado':'Restam <span>'+pad(left)+' vagas</span> no lote 01';}
+function loadLotes(){fetch(SUPABASE_URL+'/rest/v1/escala_ia_lotes?select=lote1_total,lote1_vendidas&id=eq.1',{headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}}).then(r=>r.ok?r.json():null).then(d=>{if(d&&d[0]){LOTES=d[0];paintLotes()}}).catch(()=>{})}
+loadLotes();setInterval(()=>{if(!document.hidden)loadLotes()},60000);
+document.querySelectorAll('.lots .l2').forEach(x=>x.addEventListener('click',()=>{if(x.parentElement.classList.contains('over'))document.querySelector('[data-ticket="lote2"]').click()}));
+document.querySelectorAll('.lots .l1').forEach(a=>a.addEventListener('click',e=>{if(a.getAttribute('href')==='#ingressos')return;e.preventDefault();document.querySelector('[data-ticket="lote1"]').click()}));
+(function(){const pop=document.getElementById('lotpop');if(!pop)return;let shown=false;try{shown=sessionStorage.getItem('ia_lotpop')==='1'}catch(_){}
+ if(shown)return;const go=()=>{if(document.getElementById('eventPage').classList.contains('hidden')||!LOTES)return setTimeout(go,2000);pop.classList.add('on');try{sessionStorage.setItem('ia_lotpop','1')}catch(_){}setTimeout(()=>pop.classList.remove('on'),9000)};
+ setTimeout(go,6000);pop.querySelector('button').addEventListener('click',()=>pop.classList.remove('on'))})();
 renderQuestion();
 </script>
+<div class="lotpop" id="lotpop" role="status"><button type="button" aria-label="Fechar">×</button><b id="lotpopH">Últimas vagas no lote 01</b>Depois, o ingresso vai para R$ 197.</div>
 </body>
 </html>
