@@ -22,6 +22,12 @@ body:before{content:"";position:fixed;left:50%;top:-55vh;width:130vh;height:130v
 .bt h1{font-family:Cinzel,serif;font-weight:700;font-size:22px;letter-spacing:.06em}
 .bt p{font-size:11px;letter-spacing:.3em;color:var(--mu);font-weight:600;margin-top:5px}
 .cd{display:flex;align-items:center;gap:20px}
+.lb{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;padding:56px 16px 16px}
+.lb img{max-width:100%;max-height:100%;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.lb .lx{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:1px solid #4a3e28;background:#14120d;color:#f3ead6;font:400 28px/1 Montserrat,sans-serif;cursor:pointer;display:grid;place-items:center}
+.lb .lx:hover{background:var(--g2);color:#120c04}
+.lb .ld{position:absolute;top:14px;left:14px;display:inline-flex;align-items:center;gap:6px;background:var(--g2);color:#120c04;font:700 12px Montserrat,sans-serif;padding:10px 14px;text-decoration:none}.lb .ld svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.2}
+.mimg img{cursor:zoom-in}
 .nd{margin-left:12px;font:800 11px Montserrat,sans-serif;letter-spacing:.14em;color:#120c04;background:var(--g2);border:0;padding:8px 12px;cursor:pointer;vertical-align:middle}.nd:hover{background:#f2d38a}
 .sheet input[type=date]{color-scheme:dark}
 .cd .box{text-align:right}.cd .box b{display:block;font-family:Cinzel,serif;font-size:34px;line-height:1}.cd .box span{font-size:11px;letter-spacing:.28em;color:var(--mu);font-weight:600}
@@ -148,7 +154,7 @@ let tasks=[],who='Todos',front='Todas',busy=new Set();
 const $=id=>document.getElementById(id);
 const POSTS_REL=[[-3,'lhn-1-3dias','Faltam 3 dias'],[-2,'lhn-2-2dias','Faltam 2 dias'],[-1,'lhn-3-amanha','É amanhã'],[0,'lhn-4-hoje','É hoje!']];let POSTS={};
 const DL='<svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>';
-function postCard(d){const p=POSTS[d];if(!p)return '';const b='img/posts/'+p[0];return '<div class="post"><a class="ph" href="'+b+'-feed.jpg" target="_blank" aria-label="Ver post '+p[1]+'"><img src="'+b+'-feed.jpg" alt="Post '+p[1]+'" loading="lazy"></a><span class="pt">POST · '+p[1].toUpperCase()+'</span><div class="pb"><a href="'+b+'-feed.jpg" download>'+DL+'Feed</a><a href="'+b+'-story.jpg" download>'+DL+'Stories</a></div></div>'}
+function postCard(d){const p=POSTS[d];if(!p)return '';const b='img/posts/'+p[0];const V='?v=1811';return '<div class="post"><a class="ph" href="'+b+'-feed.jpg'+V+'" aria-label="Ver post '+p[1]+'"><img src="'+b+'-feed.jpg'+V+'" alt="Post '+p[1]+'" loading="lazy"></a><span class="pt">POST · '+p[1].toUpperCase()+'</span><div class="pb"><a href="'+b+'-feed.jpg'+V+'" download>'+DL+'Feed</a><a href="'+b+'-story.jpg'+V+'" download>'+DL+'Stories</a></div></div>'}
 const PAL=['#E0915A','#7FC7C0','#E57A9A','#A6C25A','#8C9BE8','#D6B24A'];
 function col(n){if(PEOPLE[n])return PEOPLE[n];let h=0;for(const ch of n)h=(h*31+ch.charCodeAt(0))>>>0;return PAL[h%PAL.length]}
 function names(){return [...new Set([...Object.keys(PEOPLE),...tasks.map(t=>t.responsavel)])]}
@@ -187,7 +193,7 @@ function openMsg(id){const t=tasks.find(x=>x.id===id);if(!t||!t.modelos||!t.mode
   t.modelos.map((m,i)=>'<h5>'+esc(m.titulo)+'</h5><pre>'+esc(tok(m.texto))+'</pre><div class="row"><button type="button" class="act" data-copy="'+i+'"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="1"/><path d="M5 15V4h11"/></svg><span>Copiar</span></button><a class="act alt" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(tok(m.texto))+'">Abrir no WhatsApp</a></div>').join('')+
   '<button type="button" class="x">Fechar</button></div>';
  document.body.appendChild(d);
- d.addEventListener('click',e=>{e.stopPropagation();if(e.target===d||e.target.closest('.x'))return closeSheet();const c=e.target.closest('[data-copy]');if(c){const sp=c.querySelector('span');copyText(tok(t.modelos[+c.dataset.copy].texto)).then(()=>{sp.textContent='Copiado!';toast('Mensagem copiada');setTimeout(()=>{sp.textContent='Copiar'},1800)}).catch(()=>toast('Não deu para copiar. Selecione o texto.'))}})}
+ d.addEventListener('click',e=>{e.stopPropagation();if(e.target===d||e.target.closest('.x'))return closeSheet();const zi=e.target.closest('.mimg img');if(zi){openLB(zi.getAttribute('src'));return}const c=e.target.closest('[data-copy]');if(c){const sp=c.querySelector('span');copyText(tok(t.modelos[+c.dataset.copy].texto)).then(()=>{sp.textContent='Copiado!';toast('Mensagem copiada');setTimeout(()=>{sp.textContent='Copiar'},1800)}).catch(()=>toast('Não deu para copiar. Selecione o texto.'))}})}
 function openNovaData(){closeSheet();const d=document.createElement('div');d.className='sheet';
  d.innerHTML='<div class="bx" role="dialog" aria-label="Nova data do evento"><h4>NOVA DATA DO EVENTO</h4><p class="tt">Hoje o evento está em '+EVENT_DAY.slice(8)+'/'+EVENT_DAY.slice(5,7)+'. Toda a agenda e as mensagens de disparo se ajustam à nova data, mantendo os mesmos dias antes e depois do evento.</p><form><input type="date" required value="'+EVENT_DAY+'" aria-label="Nova data"><button class="ok">Atualizar</button></form><button type="button" class="x">Cancelar</button></div>';
  document.body.appendChild(d);d.addEventListener('click',e=>{e.stopPropagation();if(e.target===d||e.target.closest('.x'))closeSheet()});
@@ -195,6 +201,9 @@ function openNovaData(){closeSheet();const d=document.createElement('div');d.cla
   if(!confirm('Mudar o evento para '+v.slice(8)+'/'+v.slice(5,7)+'/'+v.slice(0,4)+'? Todas as tarefas serão movidas junto.'))return;
   try{const r=await fetch(SB+'/rest/v1/rpc/lhn_nova_data',{method:'POST',headers:H,body:JSON.stringify({p_data:v})});if(!r.ok)throw 0;closeSheet();await load();buildFilters();setTimeout(()=>goDay(focusDay(),true),50);toast('Evento movido para '+v.slice(8)+'/'+v.slice(5,7))}
   catch(_){toast('Não deu para salvar. Tente de novo.')}})}
+function openLB(src){const o=document.createElement('div');o.className='lb';o.innerHTML='<a class="act ld" href="'+src+'" download>'+DL+'Baixar</a><button type="button" class="lx" aria-label="Fechar e voltar ao plano">×</button><img src="'+src+'" alt="">';
+ document.body.appendChild(o);const close=()=>{o.remove();document.removeEventListener('keydown',k)};const k=e=>{if(e.key==='Escape')close()};document.addEventListener('keydown',k);
+ o.addEventListener('click',e=>{e.stopPropagation();if(e.target===o||e.target.closest('.lx'))close()})}
 function closeSheet(){const s=document.querySelector('.sheet');if(s)s.remove()}
 function openSheet(id){const t=tasks.find(x=>x.id===id);if(!t)return;closeSheet();
  const d=document.createElement('div');d.className='sheet';d.innerHTML='<div class="bx" role="dialog" aria-label="Trocar responsável"><h4>RESPONSÁVEL</h4><p class="tt">'+esc(t.titulo)+'</p><div class="ops">'+names().map(n=>'<button type="button" class="chip" data-pick="'+esc(n)+'" aria-pressed="'+(n===t.responsavel)+'" style="--c:'+col(n)+'"><i>'+esc(n[0])+'</i>'+esc(n)+'</button>').join('')+'</div><form><input maxlength="30" placeholder="Novo responsável (nome)" aria-label="Novo responsável"><button class="ok">Salvar</button></form><button type="button" class="x">Cancelar</button></div>';
@@ -208,6 +217,7 @@ async function setResp(t,n){closeSheet();if(n===t.responsavel)return;const old=t
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet();const mg=e.target.closest&&e.target.closest('.msgb');if(mg&&(e.key==='Enter'||e.key===' ')){e.preventDefault();e.stopPropagation();openMsg(+mg.dataset.msg);return}const w=e.target.closest&&e.target.closest('.who');if(w&&(e.key==='Enter'||e.key===' ')){e.preventDefault();e.stopPropagation();openSheet(+w.dataset.resp)}},true);
 document.addEventListener('click',async e=>{
  const mg=e.target.closest('.msgb[data-msg]');if(mg){openMsg(+mg.dataset.msg);return}
+ const ph=e.target.closest('a.ph');if(ph){e.preventDefault();openLB(ph.getAttribute('href'));return}
  if(e.target.closest('#novaData')){openNovaData();return}
  const w=e.target.closest('.who[data-resp]');if(w){openSheet(+w.dataset.resp);return}
  const c=e.target.closest('.chip');if(c){who=c.dataset.who;buildFilters();render();return}
