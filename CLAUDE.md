@@ -19,3 +19,11 @@ Vale para qualquer celular, não só o iPhone 11. Referência principal: iPhone 
 - Para caber nas telas baixas, use uma regra `@media (max-width:600px) and (max-height:700px)` que reduz a foto, os espaçamentos e as fontes, sem tirar nenhum dos itens obrigatórios. Exemplo em `lp02/index.html`.
 
 Referência visual: a página "O Novo Contrato" (imersão online, R$ 19,90), com foto, headline, subheadline, botão, valor e a lista de data, formato, vagas e acesso, tudo na primeira tela.
+
+## Datas e dia da semana (obrigatório)
+
+Toda vez que uma data de evento mudar em página, criativo, mensagem ou planejamento:
+
+- Confira o dia da semana no calendário do ano certo antes de escrever (ex.: `python3 -c "import datetime;print(datetime.date(2026,12,11).weekday())"`, 0 = segunda). Nunca copie o dia da semana da data anterior.
+- Troque juntos a data curta (11/12), a data por extenso (11 de dezembro), o dia da semana (sexta), o `EVENT_DATE` do script e as datas dos criativos.
+- Depois, procure no arquivo a data e o mês antigos para garantir que não sobrou nenhum.
