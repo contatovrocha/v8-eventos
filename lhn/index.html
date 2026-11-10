@@ -22,6 +22,8 @@ body:before{content:"";position:fixed;left:50%;top:-55vh;width:130vh;height:130v
 .bt h1{font-family:Cinzel,serif;font-weight:700;font-size:22px;letter-spacing:.06em}
 .bt p{font-size:11px;letter-spacing:.3em;color:var(--mu);font-weight:600;margin-top:5px}
 .cd{display:flex;align-items:center;gap:20px}
+.nd{margin-left:12px;font:800 11px Montserrat,sans-serif;letter-spacing:.14em;color:#120c04;background:var(--g2);border:0;padding:8px 12px;cursor:pointer;vertical-align:middle}.nd:hover{background:#f2d38a}
+.sheet input[type=date]{color-scheme:dark}
 .cd .box{text-align:right}.cd .box b{display:block;font-family:Cinzel,serif;font-size:34px;line-height:1}.cd .box span{font-size:11px;letter-spacing:.28em;color:var(--mu);font-weight:600}
 .cd .ev{border:1px solid rgba(217,172,85,.6);padding:10px 16px;font-weight:700;font-size:13px;letter-spacing:.12em;background:rgba(217,172,85,.06);white-space:nowrap}
 .prog{padding:14px 20px 34px;background:linear-gradient(180deg,rgba(217,172,85,.06),rgba(217,172,85,.02));border:1px solid var(--ln)}
@@ -119,7 +121,7 @@ body:before{content:"";position:fixed;left:50%;top:-55vh;width:130vh;height:130v
 <div class="app">
   <div class="top">
     <div class="brand"><div class="logo gold">L<i>•</i>H<i>•</i>N</div><div class="bt"><h1>PLANO DE LANÇAMENTO</h1><p>8ª EDIÇÃO - EMPRESARIAL · TIAGO ALMEIDA</p></div></div>
-    <div class="cd"><div class="box"><b class="gold" id="cdN">–</b><span id="cdL">PARA O EVENTO</span></div><div class="ev">QUA 11/11 · 19H · ALPHAVILLE · 40 CADEIRAS</div></div>
+    <div class="cd"><div class="box"><b class="gold" id="cdN">–</b><span id="cdL">PARA O EVENTO</span></div><div class="ev"><span id="evTxt">QUA 11/11</span> · 19H · ALPHAVILLE · 40 CADEIRAS<button type="button" class="nd" id="novaData">NOVA DATA</button></div></div>
   </div>
   <div class="prog">
     <div class="pl"><b>PROGRESSO GERAL</b><div><strong class="gold" id="pct">0%</strong><em id="pctTxt"></em></div></div>
@@ -135,13 +137,16 @@ body:before{content:"";position:fixed;left:50%;top:-55vh;width:130vh;height:130v
 <script>
 const SB='https://hmnhcinkmfwtutkbxejb.supabase.co', KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtbmhjaW5rbWZ3dHV0a2J4ZWpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3ODM3ODcsImV4cCI6MjEwODM1OTc4N30.WRIigm-qiUAjfwYf7GjwTfJzjH_t8dWCWgFftRE07oo';
 const H={apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'};
-const DAYS=['2026-11-05','2026-11-06','2026-11-07','2026-11-08','2026-11-09','2026-11-10','2026-11-11','2026-11-12'];
+let DAYS=[];
 const WD=['DOM','SEG','TER','QUA','QUI','SEX','SÁB'];
-const EVENT_DAY='2026-11-11';
+let EVENT_DAY='2026-11-11';
+const SEMANA=['domingo','segunda','terça','quarta','quinta','sexta','sábado'];
+function addDays(d,n){const x=new Date(d+'T12:00:00');x.setDate(x.getDate()+n);return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')}
+function tok(txt){if(!txt)return txt;const dt=new Date(EVENT_DAY+'T12:00:00'),w=SEMANA[dt.getDay()];return txt.replace(/\{\{data\}\}/g,EVENT_DAY.slice(8)+'/'+EVENT_DAY.slice(5,7)).replace(/\{\{semana\}\}/g,w).replace(/\{\{Semana\}\}/g,w[0].toUpperCase()+w.slice(1))}
 const PEOPLE={Victor:'#D9AC55',Tiago:'#F2D38A',Caio:'#6FA8DC',Cadu:'#5FC48B',Thalita:'#C77DDB',Kael:'#E0915A'};
 let tasks=[],who='Todos',front='Todas',busy=new Set();
 const $=id=>document.getElementById(id);
-const POSTS={'2026-11-08':['lhn-1-3dias','Faltam 3 dias'],'2026-11-09':['lhn-2-2dias','Faltam 2 dias'],'2026-11-10':['lhn-3-amanha','É amanhã'],'2026-11-11':['lhn-4-hoje','É hoje!']};
+const POSTS_REL=[[-3,'lhn-1-3dias','Faltam 3 dias'],[-2,'lhn-2-2dias','Faltam 2 dias'],[-1,'lhn-3-amanha','É amanhã'],[0,'lhn-4-hoje','É hoje!']];let POSTS={};
 const DL='<svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>';
 function postCard(d){const p=POSTS[d];if(!p)return '';const b='img/posts/'+p[0];return '<div class="post"><a class="ph" href="'+b+'-feed.jpg" target="_blank" aria-label="Ver post '+p[1]+'"><img src="'+b+'-feed.jpg" alt="Post '+p[1]+'" loading="lazy"></a><span class="pt">POST · '+p[1].toUpperCase()+'</span><div class="pb"><a href="'+b+'-feed.jpg" download>'+DL+'Feed</a><a href="'+b+'-story.jpg" download>'+DL+'Stories</a></div></div>'}
 const PAL=['#E0915A','#7FC7C0','#E57A9A','#A6C25A','#8C9BE8','#D6B24A'];
@@ -152,7 +157,10 @@ function todayISO(){return new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sa
 function focusDay(){const t=todayISO();if(t<DAYS[0])return DAYS[0];if(t>DAYS[DAYS.length-1])return DAYS[DAYS.length-1];return t}
 function goDay(d,smooth){const el=document.getElementById('d-'+d),bd=$('board');if(!el)return;bd.scrollTo({left:Math.max(0,el.offsetLeft-bd.offsetLeft-(bd.clientWidth-el.clientWidth)/2),behavior:smooth?'smooth':'auto'})}
 function toast(m){const d=document.createElement('div');d.className='toast';d.textContent=m;document.body.appendChild(d);setTimeout(()=>d.remove(),2600)}
-async function load(){const r=await fetch(SB+'/rest/v1/lhn_agenda?select=*&order=dia.asc,ordem.asc',{headers:H});if(!r.ok)throw new Error(r.status);tasks=await r.json();render()}
+async function load(){const [r,c]=await Promise.all([fetch(SB+'/rest/v1/lhn_agenda?select=*&order=dia.asc,ordem.asc',{headers:H}),fetch(SB+'/rest/v1/lhn_config?select=event_day&id=eq.1',{headers:H})]);if(!r.ok)throw new Error(r.status);tasks=await r.json();
+ try{const cf=await c.json();if(cf&&cf[0])EVENT_DAY=cf[0].event_day}catch(_){}
+ DAYS=[...new Set(tasks.map(t=>t.dia))].sort();POSTS={};POSTS_REL.forEach(([o,f,l])=>{POSTS[addDays(EVENT_DAY,o)]=[f,l]});
+ const dt=new Date(EVENT_DAY+'T12:00:00');$('evTxt').textContent=WD[dt.getDay()]+' '+EVENT_DAY.slice(8)+'/'+EVENT_DAY.slice(5,7);render()}
 function pass(t){return (who==='Todos'||t.responsavel===who)&&(front==='Todas'||t.frente===front)}
 function render(){
  const fd=focusDay(),today=todayISO();
@@ -166,7 +174,7 @@ function render(){
  $('board').innerHTML=DAYS.map(d=>{const dt=new Date(d+'T12:00:00');const all=tasks.filter(t=>t.dia===d);const list=all.filter(pass);const dd=all.filter(t=>t.feito).length;const p=all.length?Math.round(dd/all.length*100):0;
   const cls=(d===fd?' hoje':'')+(d===EVENT_DAY?' evento':'');const badge=d===fd&&d===today?'<span class="bd now">HOJE</span>':d===EVENT_DAY?'<span class="bd ev">EVENTO</span>':'';
   return '<section class="day'+cls+'" id="d-'+d+'">'+postCard(d)+'<header><div class="dh"><b>'+WD[dt.getDay()]+'</b><span>'+d.slice(8)+'/'+d.slice(5,7)+'</span>'+badge+'</div><div class="lbl">'+esc(all[0]?.foco||'')+'</div><div class="mini"><i style="width:'+Math.max(p,2)+'%"></i></div><div class="cnt">'+dd+' de '+all.length+' feitas</div></header><div class="cards">'+
-  (list.length?list.map(t=>'<button class="card'+(t.feito?' done':'')+(new Date(t.updated_at).getTime()>recent?' recent':'')+(busy.has(t.id)?' busy':'')+'" data-id="'+t.id+'" aria-pressed="'+t.feito+'"><span class="ck">'+(t.feito?'✓':'')+'</span><span class="ct"><p>'+esc(t.titulo)+'</p>'+(t.detalhe?'<small>'+esc(t.detalhe)+'</small>':'')+'<span class="meta"><span class="who" role="button" tabindex="0" title="Trocar responsável" data-resp="'+t.id+'" style="--c:'+col(t.responsavel)+'"><i>'+esc(t.responsavel[0])+'</i>'+esc(t.responsavel)+'</span><span class="fr">'+esc(t.frente)+'</span>'+((t.modelos&&t.modelos.length)?'<span class="msgb" role="button" tabindex="0" title="Ver mensagem para enviar" data-msg="'+t.id+'"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg>Mensagem</span>':'')+'</span></span></button>').join(''):'<div class="empty">Nenhuma tarefa com esse filtro.</div>')+'</div></section>'}).join('');
+  (list.length?list.map(t=>'<button class="card'+(t.feito?' done':'')+(new Date(t.updated_at).getTime()>recent?' recent':'')+(busy.has(t.id)?' busy':'')+'" data-id="'+t.id+'" aria-pressed="'+t.feito+'"><span class="ck">'+(t.feito?'✓':'')+'</span><span class="ct"><p>'+esc(tok(t.titulo))+'</p>'+(t.detalhe?'<small>'+esc(t.detalhe)+'</small>':'')+'<span class="meta"><span class="who" role="button" tabindex="0" title="Trocar responsável" data-resp="'+t.id+'" style="--c:'+col(t.responsavel)+'"><i>'+esc(t.responsavel[0])+'</i>'+esc(t.responsavel)+'</span><span class="fr">'+esc(t.frente)+'</span>'+((t.modelos&&t.modelos.length)?'<span class="msgb" role="button" tabindex="0" title="Ver mensagem para enviar" data-msg="'+t.id+'"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg>Mensagem</span>':'')+'</span></span></button>').join(''):'<div class="empty">Nenhuma tarefa com esse filtro.</div>')+'</div></section>'}).join('');
  $('upd').textContent='ATUALIZADO ÀS '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
 }
 function buildFilters(){$('people').innerHTML=['Todos',...names()].map(n=>'<button class="chip" data-who="'+esc(n)+'" aria-pressed="'+(n===who)+'" style="--c:'+(n==='Todos'?'#D9AC55':col(n))+'">'+(n==='Todos'?'':'<i>'+esc(n[0])+'</i>')+esc(n)+'</button>').join('');
@@ -175,11 +183,18 @@ function copyText(txt){if(navigator.clipboard&&window.isSecureContext)return nav
 function openMsg(id){const t=tasks.find(x=>x.id===id);if(!t||!t.modelos||!t.modelos.length)return;closeSheet();
  const d=document.createElement('div');d.className='sheet';
  const img=t.imagem?'<div class="mimg"><img src="'+esc(t.imagem)+'" alt="Imagem para enviar junto"><div>Imagem para enviar junto com a mensagem.<br><br><a class="act" href="'+esc(t.imagem)+'" download>'+DL+'Baixar imagem</a></div></div>':'';
- d.innerHTML='<div class="bx msg" role="dialog" aria-label="Mensagem da tarefa"><h4>'+esc(t.responsavel.toUpperCase())+' · '+esc(t.frente.toUpperCase())+'</h4><p class="tt">'+esc(t.titulo)+'</p>'+img+'<p class="tip">Troque {{nome}} pelo primeiro nome e {{restantes}} pelo número real de cadeiras livres antes de enviar.</p>'+
-  t.modelos.map((m,i)=>'<h5>'+esc(m.titulo)+'</h5><pre>'+esc(m.texto)+'</pre><div class="row"><button type="button" class="act" data-copy="'+i+'"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="1"/><path d="M5 15V4h11"/></svg><span>Copiar</span></button><a class="act alt" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(m.texto)+'">Abrir no WhatsApp</a></div>').join('')+
+ d.innerHTML='<div class="bx msg" role="dialog" aria-label="Mensagem da tarefa"><h4>'+esc(t.responsavel.toUpperCase())+' · '+esc(t.frente.toUpperCase())+'</h4><p class="tt">'+esc(tok(t.titulo))+'</p>'+img+'<p class="tip">Troque {{nome}} pelo primeiro nome e {{restantes}} pelo número real de cadeiras livres antes de enviar.</p>'+
+  t.modelos.map((m,i)=>'<h5>'+esc(m.titulo)+'</h5><pre>'+esc(tok(m.texto))+'</pre><div class="row"><button type="button" class="act" data-copy="'+i+'"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="1"/><path d="M5 15V4h11"/></svg><span>Copiar</span></button><a class="act alt" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(tok(m.texto))+'">Abrir no WhatsApp</a></div>').join('')+
   '<button type="button" class="x">Fechar</button></div>';
  document.body.appendChild(d);
- d.addEventListener('click',e=>{e.stopPropagation();if(e.target===d||e.target.closest('.x'))return closeSheet();const c=e.target.closest('[data-copy]');if(c){const sp=c.querySelector('span');copyText(t.modelos[+c.dataset.copy].texto).then(()=>{sp.textContent='Copiado!';toast('Mensagem copiada');setTimeout(()=>{sp.textContent='Copiar'},1800)}).catch(()=>toast('Não deu para copiar. Selecione o texto.'))}})}
+ d.addEventListener('click',e=>{e.stopPropagation();if(e.target===d||e.target.closest('.x'))return closeSheet();const c=e.target.closest('[data-copy]');if(c){const sp=c.querySelector('span');copyText(tok(t.modelos[+c.dataset.copy].texto)).then(()=>{sp.textContent='Copiado!';toast('Mensagem copiada');setTimeout(()=>{sp.textContent='Copiar'},1800)}).catch(()=>toast('Não deu para copiar. Selecione o texto.'))}})}
+function openNovaData(){closeSheet();const d=document.createElement('div');d.className='sheet';
+ d.innerHTML='<div class="bx" role="dialog" aria-label="Nova data do evento"><h4>NOVA DATA DO EVENTO</h4><p class="tt">Hoje o evento está em '+EVENT_DAY.slice(8)+'/'+EVENT_DAY.slice(5,7)+'. Toda a agenda e as mensagens de disparo se ajustam à nova data, mantendo os mesmos dias antes e depois do evento.</p><form><input type="date" required value="'+EVENT_DAY+'" aria-label="Nova data"><button class="ok">Atualizar</button></form><button type="button" class="x">Cancelar</button></div>';
+ document.body.appendChild(d);d.addEventListener('click',e=>{e.stopPropagation();if(e.target===d||e.target.closest('.x'))closeSheet()});
+ d.querySelector('form').addEventListener('submit',async e=>{e.preventDefault();const v=d.querySelector('input').value;if(!v||v===EVENT_DAY)return closeSheet();
+  if(!confirm('Mudar o evento para '+v.slice(8)+'/'+v.slice(5,7)+'/'+v.slice(0,4)+'? Todas as tarefas serão movidas junto.'))return;
+  try{const r=await fetch(SB+'/rest/v1/rpc/lhn_nova_data',{method:'POST',headers:H,body:JSON.stringify({p_data:v})});if(!r.ok)throw 0;closeSheet();await load();buildFilters();setTimeout(()=>goDay(focusDay(),true),50);toast('Evento movido para '+v.slice(8)+'/'+v.slice(5,7))}
+  catch(_){toast('Não deu para salvar. Tente de novo.')}})}
 function closeSheet(){const s=document.querySelector('.sheet');if(s)s.remove()}
 function openSheet(id){const t=tasks.find(x=>x.id===id);if(!t)return;closeSheet();
  const d=document.createElement('div');d.className='sheet';d.innerHTML='<div class="bx" role="dialog" aria-label="Trocar responsável"><h4>RESPONSÁVEL</h4><p class="tt">'+esc(t.titulo)+'</p><div class="ops">'+names().map(n=>'<button type="button" class="chip" data-pick="'+esc(n)+'" aria-pressed="'+(n===t.responsavel)+'" style="--c:'+col(n)+'"><i>'+esc(n[0])+'</i>'+esc(n)+'</button>').join('')+'</div><form><input maxlength="30" placeholder="Novo responsável (nome)" aria-label="Novo responsável"><button class="ok">Salvar</button></form><button type="button" class="x">Cancelar</button></div>';
@@ -193,6 +208,7 @@ async function setResp(t,n){closeSheet();if(n===t.responsavel)return;const old=t
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet();const mg=e.target.closest&&e.target.closest('.msgb');if(mg&&(e.key==='Enter'||e.key===' ')){e.preventDefault();e.stopPropagation();openMsg(+mg.dataset.msg);return}const w=e.target.closest&&e.target.closest('.who');if(w&&(e.key==='Enter'||e.key===' ')){e.preventDefault();e.stopPropagation();openSheet(+w.dataset.resp)}},true);
 document.addEventListener('click',async e=>{
  const mg=e.target.closest('.msgb[data-msg]');if(mg){openMsg(+mg.dataset.msg);return}
+ if(e.target.closest('#novaData')){openNovaData();return}
  const w=e.target.closest('.who[data-resp]');if(w){openSheet(+w.dataset.resp);return}
  const c=e.target.closest('.chip');if(c){who=c.dataset.who;buildFilters();render();return}
  const g=e.target.closest('[data-go]');if(g){goDay(g.dataset.go,true);return}
