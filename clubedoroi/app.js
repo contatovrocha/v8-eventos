@@ -287,7 +287,56 @@ function authScreen() {
   root.innerHTML = `<div class="auth"><div class="hero"><img src="${HERO_IMG}" alt=""></div>
     ${LOGO('lg')}<h1>Network</h1><p class="muted" style="margin-bottom:24px;max-width:340px">A rede privada dos membros do Clube do RØI.</p>
     <div id="authBox">${spinner()}</div></div>`;
+  if (/^#\/cadastro/.test(location.hash)) return signupForm();
   sb.rpc('platform_has_admin').then(({ data }) => (data === false ? bootstrapForm() : loginForm()));
+}
+const SIGNUP_URL = APP_URL + '#/cadastro';
+/* ---------- cadastro público de novo membro (entra só depois da aprovação) ---------- */
+function signupForm() {
+  $('.auth').classList.add('signup');
+  $('.auth h1').textContent = 'Cadastro';
+  $('.auth > p.muted').textContent = 'Preencha seus dados para entrar na rede do Clube do RØI. Seu acesso é liberado depois da aprovação da equipe.';
+  $('#authBox').innerHTML = `<form id="sf" novalidate autocomplete="on">
+    ${field('full_name', 'Nome completo', '', 'text', 'autocomplete="name" maxlength="120"')}
+    ${field('email', 'E-mail', '', 'email', 'autocomplete="email" inputmode="email" maxlength="160"')}
+    <div class="f2">${field('password', 'Senha (mín. 8)', '', 'password', 'autocomplete="new-password" maxlength="72"')}${field('password2', 'Repita a senha', '', 'password', 'autocomplete="new-password" maxlength="72"')}</div>
+    ${field('phone', 'Seu WhatsApp pessoal', '', 'tel', 'autocomplete="tel" inputmode="tel" placeholder="(11) 90000-0000" maxlength="30"')}
+    <div class="hr"></div>
+    ${field('company', 'Nome da empresa', '', 'text', 'autocomplete="organization" maxlength="120"')}
+    ${field('company_phone', 'Telefone / WhatsApp da empresa', '', 'tel', 'inputmode="tel" placeholder="(11) 3000-0000" maxlength="30"')}
+    <div class="f2">${field('instagram', 'Instagram da empresa', '', 'text', 'placeholder="@empresa" autocapitalize="off" maxlength="80"')}${field('website', 'Site', '', 'text', 'placeholder="empresa.com.br" inputmode="url" autocapitalize="off" maxlength="200"')}</div>
+    ${field('bio', 'Biografia', '', 'textarea', 'maxlength="1500" placeholder="Quem você é, sua trajetória e como pode ajudar outros empresários"')}
+    <input name="website_confirm" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <label class="check"><input type="checkbox" name="lgpd"> Li e concordo com o tratamento dos meus dados conforme a LGPD.</label>
+    <button class="btn btn-gold btn-block" style="margin-top:10px">Enviar cadastro</button>
+    <button type="button" class="btn btn-block" id="tologin" style="margin-top:8px;color:var(--mut)">Já tenho conta · Entrar</button></form>`;
+  const f = $('#sf');
+  $('#tologin').onclick = () => { history.replaceState(null, '', APP_URL); authScreen(); };
+  f.onsubmit = (e) => { e.preventDefault();
+    const dig = (v) => v.replace(/\D/g, '');
+    if (!validate(f, { full_name: (v) => (v.length >= 3 ? '' : 'Informe o nome completo'), email: (v) => (isEmail(v) ? '' : 'E-mail inválido'),
+      password: (v) => (v.length >= 8 ? '' : 'Mínimo 8 caracteres'), password2: (v) => (v === f.password.value ? '' : 'As senhas não conferem'),
+      phone: (v) => (dig(v).length >= 10 ? '' : 'Informe o WhatsApp com DDD'), company: (v) => (v.length >= 2 ? '' : 'Informe a empresa'),
+      company_phone: (v) => (!v || dig(v).length >= 10 ? '' : 'Número inválido') })) return;
+    if (!f.lgpd.checked) return toast('Marque a concordância com a LGPD para continuar', true);
+    withBtn($('button.btn-gold', f), async () => {
+      const d = formData(f); delete d.password2; d.lgpd = true; d.password = f.password.value;
+      const { data, error } = await sb.functions.invoke('member-signup', { body: d });
+      let res = data;
+      if (error) { try { res = await error.context.json(); } catch (_) { res = { error: error.message }; } }
+      if (res && res.error) {
+        Object.entries(res.fields || {}).forEach(([k, m]) => { const el = f.elements[k]; if (el && el.closest('.f')) { const ff = el.closest('.f'); ff.classList.add('bad'); $('.err', ff).textContent = m; } });
+        throw new Error(res.error);
+      }
+      $('.auth h1').textContent = 'Recebido';
+      $('.auth > p.muted').textContent = '';
+      $('#authBox').innerHTML = `<div class="card"><b style="font-family:var(--display);font-size:20px">Cadastro enviado</b>
+        <p class="muted" style="margin-top:8px">A equipe do Clube do RØI vai analisar seus dados. Assim que for aprovado, você entra com <b style="color:var(--ink)">${h(d.email)}</b> e a senha que acabou de criar.</p></div>
+        <button class="btn btn-ghost btn-block" style="margin-top:12px" id="tologin2">Ir para a entrada</button>`;
+      $('#tologin2').onclick = () => { history.replaceState(null, '', APP_URL); authScreen(); };
+      window.scrollTo(0, 0);
+    });
+  };
 }
 function loginForm() {
   $('#authBox').innerHTML = `<form id="lf" novalidate>${field('email', 'E-mail', '', 'email', 'autocomplete="email" inputmode="email"')}${field('password', 'Senha', '', 'password', 'autocomplete="current-password"')}
@@ -1116,10 +1165,17 @@ async function admDash(box) {
     ${k('Negócios registrados', d.deals)}${k('Confirmados', d.confirmed)}${k('Intenções de negócio', d.intents)}${k('Publicações', d.posts)}${k('Eventos', d.events)}</div>
     ${can('users') ? `<button class="btn btn-gold btn-block" style="margin-top:16px" onclick="inviteMember()">${I('plus')} Cadastrar novo membro</button>` : ''}`;
 }
-let ADM_MEMBERS = [];
+let ADM_MEMBERS = []; let ADM_SEEN_PEND = false;
 async function admMembers(box) {
   const { data, error } = await sb.rpc('admin_members'); if (error) throw error; ADM_MEMBERS = data;
-  box.innerHTML = `${can('users') ? `<button class="btn btn-gold btn-block" onclick="inviteMember()">${I('plus')} Cadastrar novo membro</button>` : ''}
+  const pendN = data.filter((m) => m.status === 'pending').length;
+  const shareMsg = `Olá! Este é o link para você fazer seu cadastro no Clube do RØI Network:\n${SIGNUP_URL}\n\nPreencha seus dados e crie sua senha. Seu acesso é liberado depois da aprovação da equipe.`;
+  box.innerHTML = `${can('users') ? `<div class="card" style="margin-bottom:12px"><span class="eyebrow">Link de cadastro</span>
+      <p class="small muted" style="margin:6px 0 10px">Envie para novos membros. Eles preenchem os dados e criam a senha; o acesso só abre depois que você aprovar aqui.</p>
+      <div class="search" style="height:42px;font-size:13px"><span class="ell grow">${h(SIGNUP_URL)}</span></div>
+      <div class="f2" style="margin-top:10px"><button class="btn btn-ghost btn-sm" id="cpsign">${I('copy')} Copiar link</button><a class="btn btn-gold btn-sm" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(shareMsg)}">${I('whatsapp')} WhatsApp</a></div></div>
+    <button class="btn btn-line btn-block" onclick="inviteMember()">${I('plus')} Cadastrar membro eu mesmo</button>` : ''}
+    ${pendN ? `<div class="card" style="margin-top:12px;border-color:rgba(242,193,78,.35)"><div class="row"><span class="badge warn">${pendN}</span><b class="grow">${pendN === 1 ? 'Cadastro aguardando sua aprovação' : 'Cadastros aguardando sua aprovação'}</b><button class="btn btn-ghost btn-sm" id="seepend">Ver</button></div></div>` : ''}
     <label class="search" style="margin-top:12px">${I('search')}<input id="mq" placeholder="Buscar nome, empresa ou e-mail"></label>
     <div class="chips" style="margin-top:10px">${[['', 'Todos'], ['active', 'Ativos'], ['pending', 'Aguardando'], ['suspended', 'Suspensos']].map(([k, t]) => `<button class="chip ${k ? '' : 'on'}" data-s="${k}">${t}</button>`).join('')}</div><div class="tbl" id="mt"></div>`;
   let st = '';
@@ -1132,18 +1188,33 @@ async function admMembers(box) {
   };
   $('#mq').oninput = debounce(draw, 150);
   $$('[data-s]', box).forEach((b) => (b.onclick = () => { st = b.dataset.s; $$('[data-s]', box).forEach((x) => x.classList.toggle('on', x === b)); draw(); }));
+  const cp = $('#cpsign', box); if (cp) cp.onclick = async () => { try { await navigator.clipboard.writeText(SIGNUP_URL); toast('Link copiado'); } catch (_) { toast(SIGNUP_URL); } };
+  const sp = $('#seepend', box); if (sp) sp.onclick = () => $('[data-s="pending"]', box).click();
+  if (pendN && !ADM_SEEN_PEND) { ADM_SEEN_PEND = true; st = 'pending'; $$('[data-s]', box).forEach((x) => x.classList.toggle('on', x.dataset.s === 'pending')); }
   draw();
 }
 async function adminMemberSheet(id) {
   if (!ADM_MEMBERS.length) { const { data } = await sb.rpc('admin_members'); ADM_MEMBERS = data || []; }
   const m = ADM_MEMBERS.find((x) => x.id === id); if (!m) return toast('Membro não encontrado', true);
   const redirect = APP_URL;
-  sheet(`<div class="row">${av(m, 'lg')}<div class="grow"><h2 style="margin:0">${h(m.full_name)}</h2><div class="small muted">${h(m.email)}</div></div></div>
+  const [p, { data: priv }] = await Promise.all([getProfile(id, true), sb.from('profile_private').select('phone').eq('user_id', id).maybeSingle()]);
+  const c = one(p && p.companies) || {}; const phone = (priv && priv.phone) || '';
+  const row = (ic, label, val, href) => val ? `<div class="it">${I(ic, 18)}<div class="grow"><span class="small muted" style="display:block">${label}</span>${href ? `<a class="gold" href="${h(href)}" target="_blank" rel="noopener" style="word-break:break-all">${h(val)}</a>` : `<span>${h(val)}</span>`}</div></div>` : '';
+  sheet(`<div class="row">${av(m, 'lg')}<div class="grow"><h2 style="margin:0">${h(m.full_name)}</h2><div class="small muted">${h(m.email)}</div>
+      ${m.status === 'pending' ? '<span class="badge warn" style="margin-top:6px">Aguardando aprovação</span>' : ''}</div></div>
+    <div class="card" style="margin-top:12px;padding:6px 14px"><div class="list">
+      ${row('whatsapp', 'WhatsApp pessoal', phone, phone ? waLink(phone) : '')}
+      ${row('deal', 'Empresa', c.name)}
+      ${row('phone', 'Telefone da empresa', c.whatsapp, c.whatsapp ? waLink(c.whatsapp) : '')}
+      ${row('instagram', 'Instagram', c.instagram, c.instagram ? igLink(c.instagram) : '')}
+      ${row('globe', 'Site', c.website, c.website ? safeUrl(c.website) : '')}
+      ${row('clock', 'Cadastro em', fdate(m.created_at) + ' · ' + ftime(m.created_at))}
+    </div>${p && p.bio ? `<p class="small" style="white-space:pre-wrap;padding:6px 0 10px;color:#d1d1d6">${h(p.bio)}</p>` : ''}</div>
+    ${m.status === 'pending' && can('users') ? `<div class="f2" style="margin-top:12px"><button class="btn btn-bad" data-a="del">Recusar</button><button class="btn btn-gold" data-a="approve">${I('check')} Aprovar</button></div>` : ''}
     <div class="menu" style="margin-top:12px">
       <a class="it" href="#/u/${id}" data-close>${I('eye')}<span class="grow">Visualizar perfil</span></a>
       ${can('users') ? `<button class="it" data-a="edit">${I('edit')}<span class="grow">Editar dados, fotos e empresa</span></button>
       <button class="it" data-a="svc">${I('deal')}<span class="grow">Serviços</span></button><button class="it" data-a="links">${I('link')}<span class="grow">Contatos</span></button>
-      ${m.status === 'pending' ? `<button class="it" data-a="approve">${I('check')}<span class="grow">Aprovar acesso</span></button>` : ''}
       ${m.status === 'active' ? `<button class="it" data-a="suspend">${I('lock')}<span class="grow">Suspender</span></button>` : ''}${m.status === 'suspended' ? `<button class="it" data-a="reactivate">${I('check')}<span class="grow">Reativar</span></button>` : ''}
       <button class="it" data-a="invite">${I('link')}<span class="grow">Gerar novo link de acesso</span></button>` : ''}
       ${can('support') || can('users') ? `<button class="it" data-a="reset">${I('lock')}<span class="grow">Gerar link de nova senha</span></button>` : ''}
@@ -1156,16 +1227,28 @@ async function adminMemberSheet(id) {
       if (a === 'svc') { close(); return manageServices(id); }
       if (a === 'links') { close(); return manageLinks(id); }
       if (a === 'role') { close(); return roleSheet(m); }
-      if (a === 'del' && !(await confirmSheet('Excluir conta?', `${m.full_name} perderá o acesso e todos os dados serão removidos.`, 'Excluir definitivamente', true))) return;
+      if (a === 'del' && !(await (m.status === 'pending' ? confirmSheet('Recusar cadastro?', `O cadastro de ${m.full_name} será excluído. A pessoa não terá acesso.`, 'Recusar e excluir', true) : confirmSheet('Excluir conta?', `${m.full_name} perderá o acesso e todos os dados serão removidos.`, 'Excluir definitivamente', true)))) return;
       if (a === 'suspend' && !(await confirmSheet('Suspender acesso?', 'O membro não conseguirá entrar até ser reativado.', 'Suspender', true))) return;
       withBtn(b, async () => {
         const action = { approve: 'approve', suspend: 'suspend', reactivate: 'reactivate', invite: 'resend_invite', reset: 'reset_password', del: 'delete' }[a];
         const res = await fn('admin-users', { action, user_id: id, email: m.email, redirect });
         if (a === 'invite' || a === 'reset') { close(); return accessLinkSheet(res, a === 'reset' ? 'reset' : 'invite'); }
+        if (a === 'approve') { close(); refresh(); return approvedSheet(m, phone); }
         toast({ approve: 'Acesso aprovado', suspend: 'Membro suspenso', reactivate: 'Membro reativado', invite: 'Convite reenviado', reset: 'E-mail de redefinição enviado', del: 'Conta excluída' }[a]);
         close(); refresh();
       });
     }));
+  });
+}
+function approvedSheet(m, phone) {
+  const first = (m.full_name || '').split(' ')[0];
+  const msg = `Olá${first ? ', ' + first : ''}! Seu cadastro no Clube do RØI Network foi aprovado. 🎉\n\nEntre em ${APP_URL} com seu e-mail (${m.email}) e a senha que você criou.\n\nNo celular, use "Adicionar à tela inicial" para ter o app sempre à mão.`;
+  const wa = phone ? waLink(phone) : 'https://wa.me/';
+  sheet(`<h2>Cadastro aprovado</h2><p class="muted small" style="margin:-6px 0 14px">${h(m.full_name)} já pode entrar. Avise pelo WhatsApp:</p>
+    <div class="f"><label>Mensagem</label><textarea id="apm" style="min-height:170px;font-size:14px">${h(msg)}</textarea></div>
+    <div class="f2"><button class="btn btn-ghost" id="apc">${I('copy')} Copiar</button><a class="btn btn-gold" id="apw" target="_blank" rel="noopener" href="${h(wa)}">${I('whatsapp')} WhatsApp</a></div>`, (el) => {
+    $('#apc', el).onclick = async () => { const t = $('#apm', el); try { await navigator.clipboard.writeText(t.value); toast('Mensagem copiada'); } catch (_) { t.select(); } };
+    $('#apw', el).onclick = () => { $('#apw', el).href = wa.split('?')[0] + '?text=' + encodeURIComponent($('#apm', el).value); };
   });
 }
 function roleSheet(m) {
@@ -1284,11 +1367,16 @@ async function admLogs(box) {
 }
 async function admConfig(box) {
   const { data } = await sb.from('platform_settings').select('*').eq('key', 'email').maybeSingle(); const cfg = (data && data.value) || {};
-  box.innerHTML = `<div class="sec"><h3>E-mails</h3></div><div class="card"><form>
+  const { data: su } = await sb.from('platform_settings').select('*').eq('key', 'signup').maybeSingle(); const signupOn = !su || (su.value || {}).enabled !== false;
+  box.innerHTML = `<div class="sec"><h3>Cadastro de novos membros</h3></div><div class="card">
+    <label class="check"><input type="checkbox" id="sgon" ${signupOn ? 'checked' : ''}> Link de cadastro aberto</label>
+    <p class="small muted">Com o link fechado, ninguém consegue enviar cadastro. Quem já se cadastrou continua aguardando sua aprovação.</p></div>
+    <div class="sec"><h3>E-mails</h3></div><div class="card"><form>
     <label class="check"><input type="checkbox" name="enabled" ${cfg.enabled !== false ? 'checked' : ''}> Enviar e-mails automáticos (intenções e negócios)</label>
     ${field('from', 'Remetente', cfg.from || 'Clube do RØI <onboarding@resend.dev>')}
     <p class="small muted" style="margin-bottom:12px">O envio usa o Resend. Cadastre a chave RESEND_API_KEY nos segredos das Edge Functions do Supabase e verifique seu domínio no Resend.</p>
     <button class="btn btn-gold btn-block">Salvar</button></form></div>`;
+  $('#sgon', box).onchange = async (e) => { const { error } = await sb.from('platform_settings').update({ value: { enabled: e.target.checked } }).eq('key', 'signup'); if (error) { e.target.checked = !e.target.checked; return toast(errMsg(error), true); } await sb.rpc('log_admin', { p_action: e.target.checked ? 'signup_opened' : 'signup_closed', p_type: 'settings', p_id: 'signup' }); toast(e.target.checked ? 'Cadastro aberto' : 'Cadastro fechado'); };
   const f = $('form', box); f.onsubmit = (e) => { e.preventDefault(); withBtn($('button', f), async () => { const { error } = await sb.from('platform_settings').update({ value: { enabled: f.enabled.checked, from: f.from.value.trim() } }).eq('key', 'email'); if (error) throw error; await sb.rpc('log_admin', { p_action: 'settings_email', p_type: 'settings', p_id: 'email' }); toast('Ajustes salvos'); }); };
 }
 

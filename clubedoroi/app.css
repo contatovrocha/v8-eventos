@@ -319,3 +319,7 @@ a.gold{text-decoration:underline;text-underline-offset:3px;text-decoration-color
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 .dtop .pills .icon-btn{position:sticky;right:0;background:rgba(28,28,32,.92);box-shadow:-10px 0 14px 4px #000}
+/* cadastro (formulário longo): foto só no topo, campos sobre fundo preto */
+.auth.signup{justify-content:flex-start;padding-top:calc(150px + var(--safe-t))}
+.auth.signup .hero img{height:300px}
+.auth.signup .hero::after{background:linear-gradient(to top,#000 calc(100% - 300px),rgba(0,0,0,.45) calc(100% - 120px),rgba(0,0,0,.3))}
