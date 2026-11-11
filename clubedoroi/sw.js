@@ -1,7 +1,8 @@
-// Service worker: app instalável e funcionando offline (shell em cache).
-const CACHE = 'cdr-v2';
-const SHELL = ['./', 'index.html', 'app.css?v=2', 'app.js?v=2', 'config.js?v=2', 'manifest.webmanifest',
-  'icons/icon.svg', 'icons/icon-192.png', 'img/hero.jpg', 'img/xadrez.jpg', 'img/auditorio.jpg'];
+// Service worker: deixa o app instalável e abre a casca sem internet.
+// O Supabase (outro domínio) e as fontes vão sempre direto para a rede.
+const CACHE = 'cdr-net-v3';
+const SHELL = ['./', 'index.html', 'app.css?v=3', 'app.js?v=3', 'vendor/supabase-2.65.0.js', 'manifest.webmanifest',
+  'icons/icon.svg', 'icons/icon-192.png', 'img/hero.jpg'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -14,9 +15,9 @@ self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
-  if (url.origin !== location.origin) return; // Supabase, fontes: direto na rede
+  if (url.origin !== location.origin) return;
   if (req.mode === 'navigate') {
-    e.respondWith(fetch(req).then(r => { caches.open(CACHE).then(c => c.put('index.html', r.clone())); return r; })
+    e.respondWith(fetch(req).then(r => { const cp = r.clone(); caches.open(CACHE).then(c => c.put('index.html', cp)); return r; })
       .catch(() => caches.match('index.html')));
     return;
   }

@@ -1,40 +1,27 @@
-# Clube do ROI — plataforma de membros (web app)
+# Clube do RØI Network
 
-Web app instalável (PWA) para os membros do Clube do ROI. Funciona como aplicativo no celular ("Adicionar à tela inicial"), sem precisar de Play Store ou App Store.
+Rede privada dos membros do Clube do RØI. É um web app instalável (PWA): no celular, use "Adicionar à tela inicial", sem loja de aplicativos.
 
 Endereço: https://eventos.v8.ia.br/clubedoroi/
 
 ## O que tem
+- Feed com publicações (conquistas, cases, oportunidades), curtidas, comentários e compartilhamento.
+- Diretório de membros, perfis com empresa, serviços, contatos e indicadores de negócios.
+- Conexões, seguidores, interesse em fazer negócio e registro de negócios com confirmação da outra parte.
+- Eventos com calendário, destaques e interessados.
+- Notificações em tempo real, configurações de privacidade e exportação de dados (LGPD).
+- Painel administrativo com papéis e permissões, banners, moderação, negócios, eventos e auditoria.
 
-Segue o documento "Experiência do membro e processo de onboarding".
+## Identidade visual
+Fundo preto, superfícies de vidro fosco, títulos grandes em caixa alta (Inter Tight), pílulas com borda fina, botão principal branco e barra de navegação flutuante. Nas páginas de perfil e de evento, a imagem da capa tinge o fundo.
 
-**Fase 1 (essencial)**
-- **Etapa 1, cadastro no jantar** (`Admin › Novo membro`): nome, telefone, e-mail, empresa, responsável pelo relacionamento, data da aquisição e observações.
-- **Etapa 2, contato individualizado:** a ficha do membro traz a mensagem de boas-vindas pronta, com os botões *Copiar mensagem*, *Abrir no WhatsApp* e *Gerar acesso*.
-- **Etapa 3, primeiro acesso:** login individual, só para e-mails cadastrados pela equipe, seguido da apresentação do clube e da jornada.
-- **Etapa 4, formulário de onboarding:** os 5 blocos com as 31 perguntas e a pergunta estratégica dos 90 dias. As respostas são salvas automaticamente, com indicador de progresso.
-- **Etapa 5, conclusão:** tela "Você está oficialmente integrado" com o botão *Acessar Grupo VIP*. A entrada pode ser controlada: o membro solicita e a equipe libera.
-- **Painel administrativo:** funil por status, alerta de membro parado no processo e todas as respostas.
+## Arquivos
+- `index.html`: casca do app, metatags de PWA e fontes.
+- `app.css`: identidade visual.
+- `app.js`: o app inteiro (rotas, telas e chamadas ao Supabase).
+- `vendor/supabase-2.65.0.js`: cliente oficial do Supabase.
+- `sw.js`, `manifest.webmanifest`, `icons/`: instalação no celular.
 
-**Etapas seguintes**
-- **Etapa 6, ficha estratégica** (interna): perfil, segmento, porte, desafios, objetivos, oportunidades, conexões sugeridas a partir das respostas, mentores e próximos passos.
-- **Etapa 7, reunião estratégica:** agendamento com a pauta do documento. O membro é avisado e a etapa fecha quando a reunião é marcada como realizada.
-- **Etapa 8, Meu Plano de Desenvolvimento:** objetivos, prioridades, oportunidades, ações com responsável e prazo, e histórico de evolução.
-- **Etapa 9, experiência contínua:** comunidade (liberada após o onboarding), conexões e mensagens, mentores, agenda, biblioteca e relatórios.
-- **Equipe:** responsáveis por cada parte do processo (`Admin › Equipe`).
-
-## Modos de dados
-- **Demonstração** (`config.js` vazio): os dados ficam no navegador (localStorage). Contas de teste:
-  - membro em onboarding (falta o bloco 5): `ricardo@clubedoroi.com.br` / `roi2025`
-  - mentora: `mentor@clubedoroi.com.br` / `mentor2025`
-  - admin: `admin@clubedoroi.com.br` / `admin2025`
-- **Produção (Supabase):**
-  1. Crie um projeto no Supabase (região `sa-east-1`).
-  2. Rode `supabase/schema.sql` no SQL Editor.
-  3. Em Authentication › URL Configuration, coloque `https://eventos.v8.ia.br/clubedoroi/` como Site URL.
-  4. Preencha `config.js` com a Project URL e a chave publishable/anon.
-  5. Crie sua conta em "Primeiro acesso" (o primeiro usuário é liberado mesmo sem convite) e promova-a a admin com o comando no fim do `schema.sql`. A partir daí, só entra quem a equipe cadastrar em `Admin › Novo membro`.
-  6. Em `Admin › Grupo VIP`, cole o link do grupo. No WhatsApp, ative "Aprovar novos participantes" para que ninguém entre sem aprovação, mesmo que o link vaze.
-
-## Publicação
-GitHub Pages do repositório `v8-eventos`, na pasta `/clubedoroi/`. Todos os caminhos são relativos, então a pasta pode ir para um subdomínio próprio (ex.: `clubedoroi.v8.ia.br`) sem mudar o código.
+## Backend
+Supabase do projeto `fazwyyjgnpcicoicwagn`. A URL e a chave publicável ficam no topo do `app.js`.
+Para os links de convite e de redefinição de senha voltarem para o app, inclua `https://eventos.v8.ia.br/clubedoroi/` em Authentication › URL Configuration (Site URL ou Redirect URLs) desse projeto.
