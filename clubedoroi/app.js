@@ -233,6 +233,16 @@ async function boot() {
     if (ev === 'PASSWORD_RECOVERY') return setPasswordScreen('Crie sua nova senha');
     if (ev === 'SIGNED_OUT') { S.user = null; S.me = null; authScreen(); }
   });
+  // Link de acesso gerado pela equipe (?th=token&tp=invite|recovery): o app valida direto, sem depender do redirecionamento do Supabase.
+  const qs = new URLSearchParams(location.search); const th = qs.get('th');
+  if (th) {
+    const tp = qs.get('tp') === 'recovery' ? 'recovery' : 'invite';
+    history.replaceState(null, '', APP_URL + '#/feed');
+    const { data, error } = await sb.auth.verifyOtp({ token_hash: th, type: tp });
+    if (error || !data || !data.user) { authScreen(); toast('Este link expirou ou já foi usado. Peça um novo link à equipe do Clube.', true); return; }
+    S.user = data.user;
+    return setPasswordScreen(tp === 'invite' ? 'Bem-vindo ao Clube. Crie sua senha' : 'Crie sua nova senha');
+  }
   const { data: { session } } = await sb.auth.getSession();
   if (!session) return authScreen();
   S.user = session.user;
