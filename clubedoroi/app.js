@@ -1135,8 +1135,8 @@ async function adminMemberSheet(id) {
       <button class="it" data-a="svc">${I('deal')}<span class="grow">Serviços</span></button><button class="it" data-a="links">${I('link')}<span class="grow">Contatos</span></button>
       ${m.status === 'pending' ? `<button class="it" data-a="approve">${I('check')}<span class="grow">Aprovar acesso</span></button>` : ''}
       ${m.status === 'active' ? `<button class="it" data-a="suspend">${I('lock')}<span class="grow">Suspender</span></button>` : ''}${m.status === 'suspended' ? `<button class="it" data-a="reactivate">${I('check')}<span class="grow">Reativar</span></button>` : ''}
-      <button class="it" data-a="invite">${I('mail')}<span class="grow">Reenviar convite de acesso</span></button>` : ''}
-      ${can('support') || can('users') ? `<button class="it" data-a="reset">${I('lock')}<span class="grow">Enviar redefinição de senha</span></button>` : ''}
+      <button class="it" data-a="invite">${I('link')}<span class="grow">Gerar novo link de acesso</span></button>` : ''}
+      ${can('support') || can('users') ? `<button class="it" data-a="reset">${I('lock')}<span class="grow">Gerar link de nova senha</span></button>` : ''}
       ${isSuper() && m.role !== 'super_admin' ? `<button class="it" data-a="role">${I('shield')}<span class="grow">Papel e permissões</span><span class="cnt">${m.role === 'admin' ? 'Admin' : 'Membro'}</span></button>` : ''}
       ${can('users') && m.role !== 'super_admin' ? `<button class="it" data-a="del">${I('trash')}<span class="grow" style="color:var(--bad)">Excluir conta</span></button>` : ''}</div>`, (el, close) => {
     $$('[data-close]', el).forEach((a) => a.addEventListener('click', close));
@@ -1150,7 +1150,8 @@ async function adminMemberSheet(id) {
       if (a === 'suspend' && !(await confirmSheet('Suspender acesso?', 'O membro não conseguirá entrar até ser reativado.', 'Suspender', true))) return;
       withBtn(b, async () => {
         const action = { approve: 'approve', suspend: 'suspend', reactivate: 'reactivate', invite: 'resend_invite', reset: 'reset_password', del: 'delete' }[a];
-        await fn('admin-users', { action, user_id: id, email: m.email, redirect });
+        const res = await fn('admin-users', { action, user_id: id, email: m.email, redirect });
+        if (a === 'invite' || a === 'reset') { close(); return accessLinkSheet(res, a === 'reset' ? 'reset' : 'invite'); }
         toast({ approve: 'Acesso aprovado', suspend: 'Membro suspenso', reactivate: 'Membro reativado', invite: 'Convite reenviado', reset: 'E-mail de redefinição enviado', del: 'Conta excluída' }[a]);
         close(); refresh();
       });
@@ -1166,16 +1167,30 @@ function roleSheet(m) {
     f.onsubmit = (e) => { e.preventDefault(); withBtn($('button', f), async () => { await fn('admin-users', { action: 'set_role', user_id: m.id, role: f.role.value, permissions: $$('[name=p]:checked', f).map((x) => x.value) }); close(); toast('Permissões atualizadas'); ADM_MEMBERS = []; route(); }); };
   });
 }
+function accessLinkSheet(r, kind) {
+  const first = (r.name || '').split(' ')[0] || '';
+  const msg = kind === 'reset'
+    ? `Olá${first ? ', ' + first : ''}! Segue seu link para criar uma nova senha no Clube do RØI Network:\n\n${r.link}\n\nO link vale por tempo limitado e só pode ser usado uma vez.`
+    : `Olá${first ? ', ' + first : ''}! Seu acesso ao Clube do RØI Network está liberado.\n\nToque no link para criar sua senha e entrar:\n${r.link}\n\nDepois, é só usar seu e-mail e a senha que você criou. O link vale por tempo limitado e só pode ser usado uma vez.`;
+  const wa = r.phone ? waLink(r.phone) : 'https://wa.me/';
+  sheet(`<h2>${kind === 'reset' ? 'Link para nova senha' : 'Acesso liberado'}</h2>
+    <p class="muted small" style="margin:-6px 0 14px">Envie esta mensagem para ${h(r.name || 'o membro')} pelo WhatsApp. Cada link funciona uma vez; se expirar, gere outro na ficha do membro.</p>
+    <div class="f"><label>Mensagem</label><textarea id="alm" style="min-height:190px;font-size:14px">${h(msg)}</textarea></div>
+    <div class="f2"><button class="btn btn-ghost" id="alc">${I('copy')} Copiar</button><a class="btn btn-gold" id="alw" target="_blank" rel="noopener" href="${h(wa)}">${I('whatsapp')} WhatsApp</a></div>`, (el) => {
+    $('#alc', el).onclick = async () => { const t = $('#alm', el); try { await navigator.clipboard.writeText(t.value); toast('Mensagem copiada'); } catch (_) { t.select(); toast('Texto selecionado: copie com o menu do celular'); } };
+    $('#alw', el).onclick = () => { $('#alw', el).href = wa.split('?')[0] + '?text=' + encodeURIComponent($('#alm', el).value); };
+  });
+}
 function inviteMember() {
-  sheet(`<h2>Novo membro</h2><p class="muted small" style="margin:-6px 0 14px">O membro recebe um e-mail para criar a própria senha. Ninguém vê senhas.</p><form novalidate>
+  sheet(`<h2>Novo membro</h2><p class="muted small" style="margin:-6px 0 14px">Ao salvar, o app gera o link de acesso para você enviar ao membro pelo WhatsApp. Ele cria a própria senha; ninguém vê senhas.</p><form novalidate>
     ${field('full_name', 'Nome completo')}${field('email', 'E-mail de acesso', '', 'email')}<div class="f2">${field('company', 'Empresa')}${field('phone', 'Telefone/WhatsApp', '', 'tel')}</div>
     ${isSuper() ? `${selectField('role', 'Papel', [['member', 'Membro'], ['admin', 'Administrador']])}<div id="perms" class="hide">${Object.entries(PERM_LABELS).map(([k, t]) => `<label class="check"><input type="checkbox" name="p" value="${k}"> ${t}</label>`).join('')}</div>` : ''}
-    <button class="btn btn-gold btn-block" style="margin-top:8px">Enviar convite</button></form>`, (el, close) => {
+    <button class="btn btn-gold btn-block" style="margin-top:8px">Cadastrar e gerar link</button></form>`, (el, close) => {
     const f = $('form', el); if (f.role) f.role.onchange = () => $('#perms', el).classList.toggle('hide', f.role.value !== 'admin');
     f.onsubmit = (e) => { e.preventDefault(); if (!validate(f, { full_name: (v) => (v.length >= 3 ? '' : 'Informe o nome'), email: (v) => (isEmail(v) ? '' : 'E-mail inválido') })) return;
       withBtn($('button', f), async () => { const d = formData(f);
-        await fn('admin-users', { action: 'create', ...d, permissions: $$('[name=p]:checked', f).map((x) => x.value), redirect: APP_URL });
-        close(); toast('Convite enviado para ' + d.email); ADM_MEMBERS = []; if (location.hash.startsWith('#/admin')) route(); }); };
+        const r = await fn('admin-users', { action: 'create', ...d, permissions: $$('[name=p]:checked', f).map((x) => x.value), redirect: APP_URL });
+        close(); ADM_MEMBERS = []; if (location.hash.startsWith('#/admin')) route(); accessLinkSheet(r, 'invite'); }); };
   });
 }
 async function admBanners(box) {
