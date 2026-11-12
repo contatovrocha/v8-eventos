@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>LHN · 8ª Edição - Mesa Empresarial · 18/11</title>
-<meta name="description" content="Mesa Empresarial do LHN: bate-papo seleto com Tiago Almeida para 40 empresários. Quarta, 18/11, Marçal Tower, Alphaville. Ingresso para duas pessoas por R$ 47.">
+<meta name="description" content="Mesa Empresarial do LHN: bate-papo seleto com Tiago Almeida para 40 empresários. Quarta, 18/11, Marçal Tower, Alphaville. Entrada gratuita, com vagas por seleção.">
 <meta property="og:title" content="De frente com Tiago Almeida · Mesa Empresarial do LHN">
 <meta property="og:description" content="8ª Edição - Empresarial · 18/11 · Alphaville · 40 cadeiras.">
 <meta property="og:image" content="https://eventos.v8.ia.br/lhn-ingresso/img/grupo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* Layout: identidade dos criativos do LHN. Quiz de 5 perguntas com o Tiago no topo; depois, página de vendas do ingresso de R$ 47 para 2 pessoas. A barra de cadeiras fica no topo das duas telas. */
+/* Layout: identidade dos criativos do LHN. Quiz de 5 perguntas com o Tiago no topo; depois, página de candidatura gratuita (vagas por seleção). A barra de cadeiras fica no topo das duas telas. */
 :root{--g1:#FBE9B5;--g2:#D9AC55;--g3:#94692A;--ink:#050505;--s:#0d0c0a;--s2:#14120e;--ln:rgba(217,172,85,.28);--tx:#F1E9D6;--mu:#B3A584;--max:1120px}
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
@@ -60,8 +60,8 @@ img{max-width:100%;display:block}
 .seats.hide{visibility:hidden}
 .cta2{display:flex;justify-content:center;margin-top:36px}.cta2 .btn{min-width:min(100%,420px)}
 @media (max-width:900px){.cta2{margin-top:26px}.cta2 .btn{width:100%;font-size:13.5px;letter-spacing:.05em;padding:17px 10px;text-align:center;white-space:nowrap}}
-.seats .grid{grid-template-columns:repeat(24,minmax(0,1fr))!important}
-.ticket .seats .grid{grid-template-columns:repeat(12,minmax(0,1fr))!important;gap:5px}
+.seats .grid{grid-template-columns:repeat(40,minmax(0,1fr))!important}
+.ticket .seats .grid{grid-template-columns:repeat(10,minmax(0,1fr))!important;gap:5px}
 .seats .s.l2{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23120c04' stroke-width='2.6' stroke-linecap='round'%3E%3Crect x='5' y='11' width='14' height='10' rx='2' fill='%23120c04'/%3E%3Cpath d='M8 11V8a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E") center/72% no-repeat,linear-gradient(180deg,#C9902E,#8A5A12);border-color:#B07A1E;opacity:.6}
 .seats .lg .d{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23120c04' stroke-width='2.6' stroke-linecap='round'%3E%3Crect x='5' y='11' width='14' height='10' rx='2' fill='%23120c04'/%3E%3Cpath d='M8 11V8a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E") center/80% no-repeat,linear-gradient(180deg,#C9902E,#8A5A12);opacity:.7}
 .lots{display:flex;align-items:stretch;width:100%;margin-top:18px;gap:0}
@@ -335,7 +335,7 @@ footer .logo{font-size:40px;margin-bottom:8px}
 <div class="topbar"><div class="wrap">
 <a href="#topo" style="text-decoration:none"><span class="logo gold">L<i>•</i>H<i>•</i>N</span></a>
 <div class="seats hide" data-seats=""></div>
-<a class="btn" href="#ingresso">GARANTIR INGRESSO</a>
+<a class="btn" href="#ingresso">CANDIDATAR-SE</a>
 </div></div>
 <section class="hero" id="topo" style="padding:0">
 <div class="stage framed">
@@ -350,8 +350,8 @@ footer .logo{font-size:40px;margin-bottom:8px}
 <span class="kick left seqk"><span>8<span class="ord">ª</span> EDIÇÃO - LEVANTANDO HOMENS DE NEGÓCIO COM A VISÃO DO REINO</span></span>
 <h1 class="cz">O ÚNICO ENCONTRO DE EMPRESÁRIOS PARA <span class="gold">ESCALAR SEU NEGÓCIO COM A VISÃO DO REINO.</span></h1>
 <p class="sub">Uma noite com Tiago Almeida e 40 empresários para ampliar visão, liderança e conexões, com tecnologia, IA e princípios do Reino.</p>
-<div class="lots" ><a class="l1" href="#ingresso"><b>LOTE 01 · R$ 47,00</b><small data-l1left>ingresso para 2 · últimas cadeiras</small></a><span class="l2" aria-disabled="true"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><b>LOTE 02</b><span>R$ 197,00</span></span></div>
-<p class="price"><b>R$ 47</b> · ingresso para 2 pessoas · <span class="up">depois, R$ 197</span></p>
+<a class="btn" href="#ingresso" data-buy2="">QUERO ME CANDIDATAR</a>
+<p class="price"><b>Gratuito</b> · vagas por seleção · <span class="up">só 40 cadeiras</span></p>
 <ul class="facts">
 <li><svg viewbox="0 0 24 24"><rect height="16" rx="2" width="18" x="3" y="5"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg><span><b>Quarta, 18/11</b> · abertura 18h30 · início 19h</span></li>
 <li><svg viewbox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg><span><b>Marçal Tower</b> · Alphaville, Barueri/SP</span></li>
@@ -372,7 +372,7 @@ footer .logo{font-size:40px;margin-bottom:8px}
 <div class="vbox"><video controls="" playsinline="" poster="img/dep-3.jpg" preload="none" src="img/dep-3.mp4"></video></div>
 </div>
 </div>
-<div class="wrap cta2"><a class="btn" data-buy2="" href="#">GARANTIR MINHA CADEIRA · R$ 47,00</a></div>
+<div class="wrap cta2"><a class="btn" data-buy2="" href="#">QUERO ME CANDIDATAR · GRATUITO</a></div>
 </section>
 <section>
 <div class="wrap"><div class="sh">
@@ -381,17 +381,17 @@ footer .logo{font-size:40px;margin-bottom:8px}
 <p class="lead">O LHN reúne homens que constroem empresas, lideram pessoas e tomam decisões. A cada encontro, empresários ampliam a visão, trocam experiências e constroem relacionamentos que abrem novas oportunidades.</p>
 <div class="pillars"><span class="gold">NEGÓCIOS</span><span class="gold">CONEXÕES</span><span class="gold">TECNOLOGIA</span><span class="gold">IA</span><span class="gold">REINO</span></div>
 </div></div>
-<div class="wrap cta2"><a class="btn" data-buy2="" href="#">GARANTIR MINHA CADEIRA · R$ 47,00</a></div>
+<div class="wrap cta2"><a class="btn" data-buy2="" href="#">QUERO ME CANDIDATAR · GRATUITO</a></div>
 </section>
 <section class="band">
 <div class="wrap">
 <div class="sh"><span class="kick">COMO FUNCIONA NESTA EDIÇÃO</span><h2 class="cz">CADEIRA RESERVADA É <span class="gold">CADEIRA OCUPADA</span>.</h2></div>
 <div class="two">
-<div class="box"><div class="big gold">R$ 47</div><h3>UM VALOR SIMBÓLICO, DE PROPÓSITO</h3><p>São só 40 cadeiras. O ingresso garante que cada lugar seja de quem vai, de fato, estar na mesa. Quem reserva se compromete com a noite, e a conversa fica no nível de quem decidiu estar ali.</p></div>
-<div class="box"><div class="big gold">2 PESSOAS</div><h3>TRAGA QUEM CONSTRÓI COM VOCÊ</h3><p>Decisões importantes não se tomam sozinho. Seu ingresso vale para você e mais um: seu sócio, um diretor, quem vai assumir o negócio com você ou um empresário que precisa estar nessa conversa.</p></div>
+<div class="box"><div class="big gold" style="font-size:clamp(34px,10vw,56px)">GRÁTIS</div><h3>ENTRADA GRATUITA, POR SELEÇÃO</h3><p>São só 40 cadeiras. Não se paga para sentar à mesa: cada lugar é de quem foi selecionado e vai, de fato, estar presente. Assim a conversa fica no nível de quem decidiu estar ali.</p></div>
+<div class="box"><div class="big gold">40</div><h3>SÓ SENTA QUEM FOI SELECIONADO</h3><p>Você responde o diagnóstico, envia a candidatura e a equipe analisa o seu perfil. Os selecionados recebem a confirmação da cadeira pelo WhatsApp.</p></div>
 </div>
 </div>
-<div class="wrap cta2"><a class="btn" data-buy2="" href="#">GARANTIR MINHA CADEIRA · R$ 47,00</a></div>
+<div class="wrap cta2"><a class="btn" data-buy2="" href="#">QUERO ME CANDIDATAR · GRATUITO</a></div>
 </section>
 <section>
 <div class="wrap">
@@ -402,7 +402,7 @@ footer .logo{font-size:40px;margin-bottom:8px}
 <div class="box"><b class="gold">PERGUNTAS</b><h3>MESA ABERTA</h3><p>Um grupo pequeno permite perguntar e conversar sobre o momento real da sua empresa.</p></div>
 </div>
 </div>
-<div class="wrap cta2"><a class="btn" data-buy2="" href="#">GARANTIR MINHA CADEIRA · R$ 47,00</a></div>
+<div class="wrap cta2"><a class="btn" data-buy2="" href="#">QUERO ME CANDIDATAR · GRATUITO</a></div>
 </section>
 <div class="room framed">
 <div class="ph"></div>
@@ -434,7 +434,7 @@ footer .logo{font-size:40px;margin-bottom:8px}
 <p class="quote gold">O futuro dos negócios será construído por homens capazes de unir visão, tecnologia e princípios.</p>
 </div>
 </div>
-<div class="wrap cta2"><a class="btn" data-buy2="" href="#">GARANTIR MINHA CADEIRA · R$ 47,00</a></div>
+<div class="wrap cta2"><a class="btn" data-buy2="" href="#">QUERO ME CANDIDATAR · GRATUITO</a></div>
 </section>
 <section style="padding-top:0">
 <div class="wrap">
@@ -444,29 +444,29 @@ footer .logo{font-size:40px;margin-bottom:8px}
 <div class="box no"><h3>NÃO É PARA VOCÊ SE</h3><ul><li>Procura só mais uma palestra</li><li>Espera negócio fechado na noite</li><li>Não pretende estar presente às 19h</li></ul></div>
 </div>
 </div>
-<div class="wrap cta2"><a class="btn" data-buy2="" href="#">GARANTIR MINHA CADEIRA · R$ 47,00</a></div>
+<div class="wrap cta2"><a class="btn" data-buy2="" href="#">QUERO ME CANDIDATAR · GRATUITO</a></div>
 </section>
 <section class="bonusband">
 <div class="wrap"><div class="bb framed"><span class="cn a"></span><span class="cn d"></span>
 <span class="pill seq"><span class="gold">BÔNUS PARA QUEM ESTÁ NA MESA</span></span>
 <h2 class="cz">LISTA PREFERENCIAL DO <span class="gold">PODCAST DO TIAGO ALMEIDA</span></h2>
 <p>Quem participa do LHN entra na lista preferencial do podcast do Tiago.</p>
-<p class="bv">Valor de <s>R$ 2.500</s> · <b class="gold">incluso no seu ingresso de R$ 47</b></p>
+<p class="bv">Valor de <s>R$ 2.500</s> · <b class="gold">incluso para quem for selecionado</b></p>
 </div></div>
-<div class="wrap cta2"><a class="btn" data-buy2="" href="#">GARANTIR MINHA CADEIRA · R$ 47,00</a></div>
+<div class="wrap cta2"><a class="btn" data-buy2="" href="#">QUERO ME CANDIDATAR · GRATUITO</a></div>
 </section>
 <section class="band" id="ingresso">
 <div class="wrap">
-<div class="sh"><span class="kick">INGRESSO · 18/11</span><h2 class="cz">GARANTA A SUA CADEIRA <span class="gold">E A DO SEU CONVIDADO</span>.</h2></div>
+<div class="sh"><span class="kick">CANDIDATURA · 18/11</span><h2 class="cz">CANDIDATE-SE A <span class="gold">UMA CADEIRA NA MESA</span>.</h2></div>
 <div class="ticket framed">
 <span class="cn a"></span><span class="cn d"></span>
 <div class="th"><span class="pill seq"><span class="gold">8<span class="ord">ª</span> EDIÇÃO - LEVANTANDO HOMENS DE NEGÓCIO COM A VISÃO DO REINO</span></span><h3>DE FRENTE COM <span class="gold">TIAGO ALMEIDA</span></h3></div>
 <div class="tb">
 <div class="seats hide" data-seats=""></div>
-<ul><li>Entrada para 2 pessoas: você + 1 convidado</li><li>Bate-papo seleto com Tiago Almeida</li><li>Mesa aberta para perguntas sobre o seu negócio</li><li>Conexões com empresários da região</li></ul>
-<div class="bonus"><span class="bt">BÔNUS PARA QUEM ESTÁ NA MESA</span><b class="gold">LISTA PREFERENCIAL DO PODCAST DO TIAGO ALMEIDA</b><p>Quem participa do LHN entra na lista preferencial do podcast.</p><span class="bv">Valor de <s>R$ 2.500</s> · <em>incluso no seu ingresso</em></span></div>
-<div class="pv"><small>LOTE 01 · INGRESSO PARA 2 PESSOAS</small><div class="num gold"><sup>R$</sup>47</div><small class="nx">Lote 02: R$ 197 · abre quando o lote 01 fechar</small><em>Quarta, 18/11 · 19h · Marçal Tower, Alphaville</em></div>
-<div class="lots" ><a class="l1" data-buy="" href="#"><b>LOTE 01 · R$ 47,00</b><small data-l1left>ingresso para 2 · últimas cadeiras</small></a><span class="l2" aria-disabled="true"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><b>LOTE 02</b><span>R$ 197,00</span></span></div>
+<ul><li>Entrada gratuita para os selecionados</li><li>Bate-papo seleto com Tiago Almeida</li><li>Mesa aberta para perguntas sobre o seu negócio</li><li>Conexões com empresários da região</li></ul>
+<div class="bonus"><span class="bt">BÔNUS PARA QUEM ESTÁ NA MESA</span><b class="gold">LISTA PREFERENCIAL DO PODCAST DO TIAGO ALMEIDA</b><p>Quem participa do LHN entra na lista preferencial do podcast.</p><span class="bv">Valor de <s>R$ 2.500</s> · <em>incluso para os selecionados</em></span></div>
+<div class="pv"><small>ENTRADA</small><div class="num gold" style="font-size:clamp(38px,11vw,64px);white-space:nowrap">GRATUITA</div><small class="nx">Vagas por seleção · a equipe analisa cada candidatura</small><em>Quarta, 18/11 · 19h · Marçal Tower, Alphaville</em></div>
+<a class="btn" data-buy="" href="#" style="width:100%">ENVIAR MINHA CANDIDATURA</a>
 <p class="tmsg" id="buyMsg" role="status"></p>
 </div>
 </div>
@@ -476,27 +476,27 @@ footer .logo{font-size:40px;margin-bottom:8px}
 <div class="wrap">
 <div class="sh"><span class="kick">DÚVIDAS</span><h2 class="cz">ANTES DE GARANTIR <span class="gold">O SEU LUGAR</span></h2></div>
 <div class="faq">
-<details><summary>O ingresso vale para quantas pessoas?</summary><p>Para duas: você e mais um convidado. Pode ser seu sócio, um diretor ou um empresário que precisa estar nessa conversa.</p></details>
-<details><summary>Por que o encontro tem ingresso?</summary><p>Porque são só 40 cadeiras. O valor simbólico garante que cada lugar seja ocupado por quem realmente vai estar presente.</p></details>
+<details><summary>O evento é pago?</summary><p>Não. A entrada é gratuita. Como são só 40 cadeiras, as vagas são preenchidas por seleção.</p></details>
+<details><summary>Como funciona a seleção?</summary><p>Você responde o diagnóstico e envia a sua candidatura. A equipe analisa o perfil e, se você for selecionado, confirma a sua cadeira pelo WhatsApp.</p></details>
 <details><summary>Preciso ser dono de empresa?</summary><p>A mesa é pensada para donos, sócios, fundadores e líderes de negócios. Quem está estruturando o próprio negócio também pode participar.</p></details>
 <details><summary>Quando e onde acontece?</summary><p>Quarta-feira, 18 de novembro. Abertura às 18h30 e início às 19h, na Marçal Tower, em Alphaville, Barueri/SP. A confirmação e as orientações de chegada são enviadas pelo WhatsApp.</p></details>
 <details><summary>É transmitido online?</summary><p>Não. O LHN é presencial e seleto, só para quem está na mesa.</p></details>
 </div>
 </div>
-<div class="wrap cta2"><a class="btn" data-buy2="" href="#">GARANTIR MINHA CADEIRA · R$ 47,00</a></div>
+<div class="wrap cta2"><a class="btn" data-buy2="" href="#">QUERO ME CANDIDATAR · GRATUITO</a></div>
 </section>
 <footer><div class="wrap"><div class="logo gold">L<i>•</i>H<i>•</i>N</div><p>Levantando Homens de Negócio · Um movimento conduzido por Tiago Almeida</p><p>Marçal Tower · Alphaville, Barueri/SP</p><p style="margin-top:14px;letter-spacing:.3em;font-size:11px">NÃO É SOBRE ASSISTIR. É SOBRE PERTENCER.</p></div></footer>
 </div>
 <div aria-labelledby="popT" aria-modal="false" class="pop hidden" id="pop" role="dialog">
 <div class="pc"><button aria-label="Fechar" class="x" id="popX">×</button>
 <h3 id="popT"><span class="gold" id="popH">CADEIRAS LIMITADAS</span></h3>
-<p>Mesa Empresarial de 18/11 · ingresso para 2 pessoas. <a href="#ingresso" id="popBtn">Garantir agora →</a></p>
+<p>Mesa Empresarial de 18/11 · entrada gratuita por seleção. <a href="#ingresso" id="popBtn">Candidatar-se →</a></p>
 </div>
 </div>
 <script>
 /* ============ CONFIGURAÇÃO — edite só este bloco ============ */
 const CONFIG = {
-  checkout: "",        // link do checkout do ingresso de R$ 47 (vazio = o botão só registra o interesse)
+  checkout: "",        // sem checkout: o evento é gratuito, o botão só registra a candidatura
   popupAfterSec: 6     // segundos na página até o aviso aparecer (uma vez por visita)
 };
 /* A barra de cadeiras lê o número real de reservas da tabela lhn_cadeiras (Supabase). */
@@ -514,14 +514,11 @@ const $=id=>document.getElementById(id);
 
 /* ---- cadeiras: número real de reservas ---- */
 let SEATS=null;
-function paintSeats(){if(!SEATS)return;const T=SEATS.lote1_total||12,V=Math.min(SEATS.lote1_vendidas||0,T),left=Math.max(0,T-V),over=left===0,pad=n=>String(n).padStart(2,'0');
- document.querySelectorAll('[data-seats]').forEach(el=>{el.classList.remove('hide');let g='';for(let k=0;k<2*T;k++)g+='<span class="s'+(k<T?(k<V?' on':(k===V?' me':'')):(over?'':' l2'))+'"></span>';
-  el.innerHTML='<div class="st"><span>'+(over?'Lote 02':'Lote 01')+'</span><b>'+(over?'Lote 01 esgotado':(el.closest('.topbar')?'Restam '+pad(left):(left===1?'Resta 01 cadeira no lote 01':'Restam '+pad(left)+' no lote 01')))+'</b></div><div class="grid" role="img" aria-label="Lote 01: '+V+' de '+T+' cadeiras vendidas">'+g+'</div><div class="lg"><span><i class="a"></i>Vendidas</span><span><i class="c"></i>Lote 01 · R$ 47</span><span><i class="d"></i>Lote 02 · R$ 197</span></div>'});
- document.querySelectorAll('.lots').forEach(l=>l.classList.toggle('over',over));
- document.querySelectorAll('[data-l1left]').forEach(e=>e.textContent=over?'esgotado':(left===1?'resta 01 neste valor':'restam '+pad(left)+' neste valor'));
- document.querySelectorAll('[data-lotmsg]').forEach(e=>e.textContent=over?'o lote 01 esgotou: agora o ingresso é R$ 197':'restam '+pad(left)+' cadeiras neste valor; depois, o ingresso vai para R$ 197');
- $('popH').textContent=over?'Lote 01 esgotado':'Restam '+pad(left)+' cadeiras no lote 01';}
-function loadSeats(){fetch(SB+'/rest/v1/lhn_cadeiras?select=total,reservadas,lote1_total,lote1_vendidas&id=eq.1',{headers:H}).then(r=>r.ok?r.json():null).then(d=>{if(d&&d[0]&&(!SEATS||d[0].lote1_vendidas!==SEATS.lote1_vendidas)){SEATS=d[0];paintSeats()}}).catch(()=>{})}
+function paintSeats(){if(!SEATS)return;const T=SEATS.total||40,V=Math.min(SEATS.reservadas||0,T),left=Math.max(0,T-V),pad=n=>String(n).padStart(2,'0');
+ document.querySelectorAll('[data-seats]').forEach(el=>{el.classList.remove('hide');let g='';for(let k=0;k<T;k++)g+='<span class="s'+(k<V?' on':(k===V&&left?' me':''))+'"></span>';
+  el.innerHTML='<div class="st"><span>Cadeiras</span><b>'+(left?(el.closest('.topbar')?'Restam '+pad(left):'Restam '+pad(left)+' cadeiras na mesa'):'Mesa completa')+'</b></div><div class="grid" role="img" aria-label="'+V+' de '+T+' cadeiras confirmadas">'+g+'</div><div class="lg"><span><i class="a"></i>Confirmadas</span><span><i class="b"></i>A sua</span><span><i class="c"></i>Livres</span></div>'});
+ $('popH').textContent=left?'Restam '+pad(left)+' cadeiras na mesa':'Mesa completa';}
+function loadSeats(){fetch(SB+'/rest/v1/lhn_cadeiras?select=total,reservadas&id=eq.1',{headers:H}).then(r=>r.ok?r.json():null).then(d=>{if(d&&d[0]&&(!SEATS||d[0].reservadas!==SEATS.reservadas)){SEATS=d[0];paintSeats()}}).catch(()=>{})}
 loadSeats();setInterval(()=>{if(!document.hidden)loadSeats()},60000);
 
 /* ---- quiz ---- */
@@ -553,9 +550,9 @@ $('popBtn').addEventListener('click',()=>$('pop').classList.add('hidden'));
 /* ---- compra ---- */
 document.querySelectorAll('[data-buy2]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();track('lhn_cta_dobra');const t=document.querySelector('.ticket [data-buy]');if(t)t.click();if(!CONFIG.checkout){const k=document.querySelector('.ticket');if(k)k.scrollIntoView({behavior:'smooth',block:'center'})}}));
 document.querySelectorAll('[data-buy]').forEach(b=>b.addEventListener('click',e=>{
- e.preventDefault();const lead=loadLead()||{};track('lhn_clique_checkout');try{window.fbq&&fbq('track','InitiateCheckout',{value:47,currency:'BRL'})}catch(_){}
- if(lead.nome)insertRow({tipo:'clique_checkout',nome:lead.nome,whatsapp:lead.whatsapp,page:location.pathname,...utm}).catch(()=>{});
- if(CONFIG.checkout){location.href=CONFIG.checkout}else{$('buyMsg').textContent='Recebemos seu interesse! Nossa equipe vai te chamar no WhatsApp para finalizar o seu ingresso.'}
+ e.preventDefault();const lead=loadLead()||{};track('lhn_candidatura');try{window.fbq&&fbq('track','SubmitApplication')}catch(_){}
+ if(lead.nome)insertRow({tipo:'candidatura',nome:lead.nome,whatsapp:lead.whatsapp,page:location.pathname,...utm}).catch(()=>{});
+ if(CONFIG.checkout){location.href=CONFIG.checkout}else{$('buyMsg').textContent='Candidatura enviada! A equipe analisa o seu perfil e, se você for selecionado, confirma a sua cadeira pelo WhatsApp.'}
 }));
 
 /* ---- depoimento principal: toca sem som (regra dos navegadores) e liga o áudio no primeiro toque ---- */
