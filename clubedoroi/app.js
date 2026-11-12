@@ -81,6 +81,9 @@ const P = {
   target: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/>',
   ticket: '<path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"/><path d="M13 6v12" stroke-dasharray="2 2"/>',
   download: '<path d="M12 4v11M7 10.5l5 5 5-5M4 20h16"/>',
+  camera: '<path d="M4 8h3l2-2.5h6L17 8h3a1 1 0 0 1 1 1v9.5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.7"/>',
+  music: '<path d="M9 18V6l11-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/>',
+  type: '<path d="M5 6V4.5h14V6M12 4.5V20M9 20h6"/>',
 };
 const I = (n, w) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"${w ? ` style="width:${w}px;height:${w}px"` : ''}>${P[n] || ''}</svg>`;
 const LOGO = (cls = '') => `<span class="logo ${cls}"><small>CLUBE DO</small><b>RØI</b></span>`;
@@ -419,11 +422,25 @@ async function viewFeed() {
   const hr = new Date().getHours();
   const v = shell('', `<p class="eyebrow" style="margin-top:4px">${hr < 12 ? 'Bom dia' : hr < 18 ? 'Boa tarde' : 'Boa noite'}</p><h1 class="hd lg" style="margin:6px 0 16px">${h((S.me.full_name || '').split(' ')[0] || 'Network')}</h1>
     <div id="banners"></div><div class="stories" id="stories"></div>
+    <div id="mbanners"></div>
     <button class="composer-btn" onclick="composer()">${av(S.me, 'sm')}<span class="grow">Compartilhe uma conquista, projeto ou oportunidade</span>${I('image', 20)}</button>
     <div class="seg" style="margin-top:16px"><button data-t="todos" class="${FEED_TAB === 'todos' ? 'on' : ''}">Para você</button><button data-t="seguindo" class="${FEED_TAB === 'seguindo' ? 'on' : ''}">Seguindo</button></div>
     <div id="posts">${spinner()}</div>`);
   $$('.seg button', v).forEach((b) => (b.onclick = () => { FEED_TAB = b.dataset.t; $$('.seg button', v).forEach((x) => x.classList.toggle('on', x === b)); loadPosts(); }));
   loadBanners(); loadStories(); await loadPosts();
+}
+/* galeria com o banner (capa) de cada membro: passa sozinha, desliza para os lados e abre o perfil */
+function loadMemberBanners(list) {
+  const box = $('#mbanners'); if (!box) return;
+  const ms = list.filter((p) => p.cover_url || p.avatar_url);
+  if (!ms.length) return (box.innerHTML = '');
+  ms.sort((a, b) => (b.cover_url ? 1 : 0) - (a.cover_url ? 1 : 0));
+  box.innerHTML = `<div class="sec" style="margin-top:22px"><h3>Empresas do clube</h3><a href="#/membros">Ver todos</a></div>
+    <div class="carousel mb"><div class="track">${ms.map((p) => { const c = one(p.companies) || {};
+      return `<a class="mslide" href="#/u/${p.id}" aria-label="${h(p.full_name)}">${p.cover_url ? `<img class="bg" src="${h(p.cover_url)}" alt="" loading="lazy">` : `<img class="bg blur" src="${h(p.avatar_url)}" alt="" loading="lazy">`}
+        <div class="cap">${av(p, 'sm')}<span class="grow" style="min-width:0"><b class="ell">${h(c.name || p.full_name)}</b><small class="ell">${h(c.name ? p.full_name : (p.role_title || ''))}${c.segment ? ' · ' + h(c.segment) : ''}</small></span></div></a>`; }).join('')}</div>
+    <div class="dots">${ms.map((_, i) => `<i class="${i ? '' : 'on'}"></i>`).join('')}</div></div>`;
+  autoCarousel($('.track', box), $$('.dots i', box), 3500);
 }
 async function loadBanners() {
   const { data } = await sb.from('banners').select('*').eq('active', true).order('featured', { ascending: false }).order('position');
@@ -437,21 +454,120 @@ async function loadBanners() {
     <div class="dots">${data.map((_, i) => `<i class="${i ? '' : 'on'}"></i>`).join('')}</div></div>`;
   autoCarousel($('.track', box), $$('.dots i', box));
 }
-function autoCarousel(track, dots) {
+function autoCarousel(track, dots, every = 5000) {
   if (!track) return; let i = 0, paused = false; const n = track.children.length;
+  track.addEventListener('mouseenter', () => (paused = true)); track.addEventListener('mouseleave', () => (paused = false));
   const sync = () => { i = Math.round(track.scrollLeft / (track.children[0].offsetWidth + 12)); dots.forEach((d, k) => d.classList.toggle('on', k === i)); };
   track.addEventListener('scroll', debounce(sync, 60), { passive: true });
   track.addEventListener('touchstart', () => (paused = true), { passive: true });
   track.addEventListener('touchend', () => setTimeout(() => (paused = false), 4000), { passive: true });
   dots.forEach((d, k) => (d.onclick = () => track.scrollTo({ left: k * (track.children[0].offsetWidth + 12), behavior: 'smooth' })));
   if (n < 2) return;
-  const t = setInterval(() => { if (!document.body.contains(track)) return clearInterval(t); if (paused) return; i = (i + 1) % n; track.scrollTo({ left: i * (track.children[0].offsetWidth + 12), behavior: 'smooth' }); }, 5000);
+  const t = setInterval(() => { if (!document.body.contains(track)) return clearInterval(t); if (paused) return; const maxI = Math.max(0, Math.round((track.scrollWidth - track.clientWidth) / (track.children[0].offsetWidth + 12))); i = i >= maxI ? 0 : i + 1; track.scrollTo({ left: i * (track.children[0].offsetWidth + 12), behavior: 'smooth' }); }, every);
 }
+/* ---------- stories (48 h) ---------- */
+const STORY_BG = { noir: 'Grafite', ouro: 'Ouro', oceano: 'Oceano', vinho: 'Vinho', mata: 'Mata', aurora: 'Aurora' };
+const seenStories = () => { try { return new Set(JSON.parse(localStorage.getItem('cdr:seen-stories') || '[]')); } catch (_) { return new Set(); } };
+const markSeen = (id) => { try { const s2 = seenStories(); s2.add(id); localStorage.setItem('cdr:seen-stories', JSON.stringify([...s2].slice(-500))); } catch (_) {} };
+async function fetchStories() {
+  const { data } = await sb.from('stories').select('*').gt('expires_at', new Date().toISOString()).order('created_at');
+  const by = new Map(); (data || []).forEach((st) => { if (!by.has(st.author_id)) by.set(st.author_id, []); by.get(st.author_id).push(st); });
+  S.stories = by; return by;
+}
+const storyState = (uid) => { const l = (S.stories && S.stories.get(uid)) || []; if (!l.length) return ''; const seen = seenStories(); return l.every((x) => seen.has(x.id)) ? 'seen' : 'live'; };
 async function loadStories() {
-  const { data } = await sb.from('profiles').select(PROFILE_COLS).eq('status', 'active').order('created_at', { ascending: false }).limit(30);
+  const [{ data }] = await Promise.all([sb.from('profiles').select(PROFILE_COLS).eq('status', 'active').order('created_at', { ascending: false }).limit(80), fetchStories()]);
   (data || []).forEach((p) => S.cache.set(p.id, p));
   const box = $('#stories'); if (!box) return;
-  box.innerHTML = (data || []).filter((p) => p.id !== S.user.id).map((p) => `<a class="story" href="#/u/${p.id}"><div class="ring">${av(p)}</div><b class="ell">${h((p.full_name || '').split(' ')[0])}</b><span class="ell">${h(coName(p))}</span></a>`).join('');
+  const others = (data || []).filter((p) => p.id !== S.user.id);
+  const rank = (p) => ({ live: 0, seen: 1, '': 2 }[storyState(p.id)]);
+  others.sort((a, b) => rank(a) - rank(b));
+  const mineSt = storyState(S.user.id);
+  box.innerHTML = `<button class="story" id="mystory"><div class="ring ${mineSt || 'add'}">${av(S.me)}<i class="plusb">${I('plus', 12)}</i></div><b class="ell">Seu story</b><span class="ell">${mineSt ? 'Ver ou criar' : 'Publicar'}</span></button>`
+    + others.map((p) => { const st = storyState(p.id); return `<${st ? 'button' : 'a'} class="story" ${st ? `data-story="${p.id}"` : `href="#/u/${p.id}"`}><div class="ring ${st || 'none'}">${av(p)}</div><b class="ell">${h((p.full_name || '').split(' ')[0])}</b><span class="ell">${h(coName(p))}</span></${st ? 'button' : 'a'}>`; }).join('');
+  const queue = others.filter((p) => storyState(p.id)).map((p) => p.id);
+  $$('[data-story]', box).forEach((b) => (b.onclick = () => openStories(queue, queue.indexOf(b.dataset.story))));
+  $('#mystory', box).onclick = () => mineSt ? sheet(`<h2>Seu story</h2><div class="menu"><button class="it" data-a="v">${I('eye')}<span class="grow">Ver meus stories</span></button><button class="it" data-a="n">${I('plus')}<span class="grow">Novo story</span></button></div>`, (el, close) => {
+      $('[data-a=v]', el).onclick = () => { close(); openStories([S.user.id], 0); }; $('[data-a=n]', el).onclick = () => { close(); storyComposer(); }; }) : storyComposer();
+  loadMemberBanners(data || []);
+}
+function musicChip(o, cls = '') { if (!o.music_title) return ''; const u = o.music_url ? safeUrl(o.music_url) : ''; return `<${u ? `a href="${h(u)}" target="_blank" rel="noopener"` : 'span'} class="music ${cls}">${I('music', 14)}<span class="ell">${h(o.music_title)}</span></${u ? 'a' : 'span'}>`; }
+function openStories(authors, ai = 0) {
+  if (!authors.length || ai < 0) return;
+  let si = 0, timer = null, t0 = 0, left = 0, paused = false;
+  const wrap = document.createElement('div'); wrap.className = 'sv'; document.body.appendChild(wrap); document.body.style.overflow = 'hidden';
+  const close = () => { clearTimeout(timer); wrap.remove(); document.body.style.overflow = ''; if ((location.hash.split('/')[1] || 'feed') === 'feed') loadStories(); else if (location.hash.startsWith('#/u/')) route(); };
+  const list = () => (S.stories.get(authors[ai]) || []);
+  const next = () => { clearTimeout(timer); if (si < list().length - 1) si++; else if (ai < authors.length - 1) { ai++; si = 0; } else return close(); show(); };
+  const prev = () => { clearTimeout(timer); if (si > 0) si--; else if (ai > 0) { ai--; si = list().length - 1; } show(); };
+  const arm = (ms) => { clearTimeout(timer); left = ms; t0 = Date.now(); timer = setTimeout(next, ms); const bar = $('.sv-bars i.cur b', wrap); if (bar) { bar.style.transition = 'none'; bar.style.width = '0%'; requestAnimationFrame(() => { bar.style.transition = `width ${ms}ms linear`; bar.style.width = '100%'; }); } };
+  const pause = (on) => { const v = $('video', wrap); const bar = $('.sv-bars i.cur b', wrap); if (on && !paused) { paused = true; clearTimeout(timer); left -= Date.now() - t0; if (bar) { const w = getComputedStyle(bar).width; bar.style.transition = 'none'; bar.style.width = w; } if (v) v.pause(); }
+    else if (!on && paused) { paused = false; t0 = Date.now(); timer = setTimeout(next, Math.max(300, left)); if (bar) { requestAnimationFrame(() => { bar.style.transition = `width ${Math.max(300, left)}ms linear`; bar.style.width = '100%'; }); } if (v) v.play().catch(() => {}); } };
+  const show = () => {
+    const st = list()[si]; if (!st) return close(); markSeen(st.id);
+    const p = S.cache.get(st.author_id) || { full_name: 'Membro' }; const mine = st.author_id === S.user.id;
+    wrap.innerHTML = `<div class="sv-box">
+      <div class="sv-bars">${list().map((_, k) => `<i class="${k < si ? 'done' : k === si ? 'cur' : ''}"><b></b></i>`).join('')}</div>
+      <div class="sv-head"><a href="#/u/${st.author_id}" class="row grow" style="gap:10px;min-width:0" data-go>${av(p, 'sm')}<span style="min-width:0"><b class="ell" style="display:block;font-size:13.5px">${h(p.full_name)}</b><small class="ell" style="display:block;color:rgba(255,255,255,.75);font-size:11.5px">${ago(st.created_at)}${st.location ? ' · ' + h(st.location) : ''}</small></span></a>
+        ${mine ? `<button class="icon-btn" data-del aria-label="Excluir story">${I('trash', 17)}</button>` : ''}<button class="icon-btn" data-x aria-label="Fechar">${I('x', 18)}</button></div>
+      <div class="sv-media">${st.media_type === 'video' ? `<video src="${h(st.media_url)}" playsinline autoplay></video>` : st.media_type === 'image' ? `<img src="${h(st.media_url)}" alt="">` : `<div class="sv-text bg-${h(st.bg || 'noir')}"><p>${h(st.content)}</p></div>`}</div>
+      ${st.media_type !== 'text' && st.content ? `<div class="sv-cap">${h(st.content)}</div>` : ''}
+      <div class="sv-foot">${musicChip(st)}</div>
+      <button class="sv-tap l" aria-label="Anterior"></button><button class="sv-tap r" aria-label="Próximo"></button></div>`;
+    $('[data-x]', wrap).onclick = close;
+    $('[data-go]', wrap).onclick = () => { clearTimeout(timer); wrap.remove(); document.body.style.overflow = ''; };
+    const d = $('[data-del]', wrap); if (d) d.onclick = async () => { pause(true); if (!(await confirmSheet('Excluir story?', 'Ele some para todos os membros.', 'Excluir', true))) return pause(false);
+      const { error } = await sb.from('stories').delete().eq('id', st.id); if (error) return toast(errMsg(error), true); S.stories.set(st.author_id, list().filter((x) => x.id !== st.id)); toast('Story excluído'); if (!list().length) return close(); si = Math.min(si, list().length - 1); show(); };
+    $('.sv-tap.l', wrap).onclick = prev; $('.sv-tap.r', wrap).onclick = next;
+    const box = $('.sv-box', wrap);
+    box.addEventListener('pointerdown', (e) => { if (e.target.closest('button,a')) return; pause(true); });
+    box.addEventListener('pointerup', () => pause(false)); box.addEventListener('pointerleave', () => pause(false));
+    $$('.music', wrap).forEach((a) => a.addEventListener('click', () => pause(true)));
+    const v = $('video', wrap);
+    if (v) { v.onloadedmetadata = () => arm(Math.min(60000, Math.max(3000, (v.duration || 15) * 1000))); v.onerror = () => arm(5000); v.play().catch(() => { v.muted = true; v.play().catch(() => {}); }); } else arm(st.media_type === 'text' ? 6000 : 5500);
+  };
+  wrap.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+  show();
+}
+/* criar story: câmera frontal, traseira, galeria ou texto */
+function storyComposer() {
+  let file = null, bg = 'noir';
+  sheet(`<h2>Novo story</h2><p class="muted small" style="margin:-6px 0 14px">Fica visível para os membros por 48 horas.</p>
+    <div class="pick">
+      <label class="pk">${I('user', 22)}<span>Câmera frontal</span><input type="file" accept="image/*,video/*" capture="user" hidden data-f></label>
+      <label class="pk">${I('camera', 22)}<span>Câmera traseira</span><input type="file" accept="image/*,video/*" capture="environment" hidden data-f></label>
+      <label class="pk">${I('image', 22)}<span>Galeria</span><input type="file" accept="image/*,video/*" hidden data-f></label>
+      <button type="button" class="pk" data-text>${I('type', 22)}<span>Texto</span></button>
+    </div>
+    <form novalidate class="hide" id="sform">
+      <div class="sprev" id="sprev"></div>
+      <div id="sbgs" class="bgs hide">${Object.entries(STORY_BG).map(([k, t]) => `<button type="button" class="bgsw bg-${k} ${k === bg ? 'on' : ''}" data-bg="${k}" aria-label="${t}"></button>`).join('')}</div>
+      ${field('content', 'Legenda', '', 'textarea', 'maxlength="500" placeholder="Escreva algo (opcional)" style="min-height:70px"')}
+      ${field('location', 'Localização (opcional)', '', 'text', 'maxlength="120" placeholder="Ex.: São Paulo, SP"')}
+      <div class="f2">${field('music_title', 'Música (opcional)', '', 'text', 'maxlength="120" placeholder="Nome · Artista"')}${field('music_url', 'Link da música', '', 'url', 'maxlength="500" placeholder="Spotify ou YouTube"')}</div>
+      <button class="btn btn-gold btn-block">Publicar story</button>
+    </form>`, (el, close) => {
+    const f = $('#sform', el); const prevBox = $('#sprev', el);
+    const textMode = () => { file = null; $('#sbgs', el).classList.remove('hide'); $('label', f.content.closest('.f')).textContent = 'Texto do story';
+      f.content.placeholder = 'O que você quer contar?'; prevBox.innerHTML = `<div class="sv-text bg-${bg}"><p>${h(f.content.value) || 'Seu texto aparece aqui'}</p></div>`; f.classList.remove('hide'); $('.pick', el).classList.add('hide'); };
+    $$('[data-f]', el).forEach((inp) => inp.addEventListener('change', () => { const fl = inp.files[0]; if (!fl) return;
+      if (!/^(image|video)\//.test(fl.type)) return toast('Formato não suportado', true);
+      if (fl.type.startsWith('video/') && fl.size > 50 * 1024 * 1024) return toast('Vídeo acima de 50 MB', true);
+      file = fl; const u = URL.createObjectURL(fl);
+      prevBox.innerHTML = fl.type.startsWith('video/') ? `<video src="${u}" playsinline muted autoplay loop></video>` : `<img src="${u}" alt="">`;
+      f.classList.remove('hide'); $('.pick', el).classList.add('hide'); }));
+    $('[data-text]', el).onclick = textMode;
+    f.content.addEventListener('input', () => { const t = $('.sv-text p', prevBox); if (t) t.textContent = f.content.value || 'Seu texto aparece aqui'; });
+    $$('[data-bg]', el).forEach((b) => (b.onclick = () => { bg = b.dataset.bg; $$('[data-bg]', el).forEach((x) => x.classList.toggle('on', x === b)); const t = $('.sv-text', prevBox); if (t) t.className = 'sv-text bg-' + bg; }));
+    f.onsubmit = (e) => { e.preventDefault();
+      if (!file && !f.content.value.trim()) return validate(f, { content: req('Escreva o texto do story') });
+      withBtn($('button.btn-gold', f), async () => {
+        const row = { author_id: S.user.id, content: f.content.value.trim() || null, location: f.location.value.trim() || null, music_title: f.music_title.value.trim() || null, music_url: f.music_url.value.trim() || null };
+        if (file) { row.media_url = await upload(file, 'stories'); row.media_type = file.type.startsWith('video/') ? 'video' : 'image'; } else { row.media_type = 'text'; row.bg = bg; }
+        const { error } = await sb.from('stories').insert(row); if (error) throw error;
+        close(); toast('Story publicado por 48 horas'); if ((location.hash.split('/')[1] || 'feed') === 'feed') loadStories(); else route();
+      }); };
+  });
 }
 async function loadPosts() {
   const box = $('#posts'); box.innerHTML = spinner();
@@ -481,10 +597,10 @@ async function renderPosts(list) {
   const posts = await hydratePosts(list);
   return posts.map((p) => { const liked = p.likes.some((l) => l.user_id === S.user.id); const mine = p.author_id === S.user.id;
     return `<article class="card post" data-id="${p.id}">
-      <div class="head"><a href="#/u/${p.author_id}">${av(p.author)}</a><a class="grow" href="#/u/${p.author_id}"><b class="ell" style="display:block">${h(p.author.full_name)}</b><span class="small muted ell" style="display:block">${h(coName(p.author))} · ${ago(p.created_at)}${p.updated_at > p.created_at && new Date(p.updated_at) - new Date(p.created_at) > 60000 ? ' · editado' : ''}</span></a>
+      <div class="head"><a href="#/u/${p.author_id}">${av(p.author)}</a><a class="grow" href="#/u/${p.author_id}"><b class="ell" style="display:block">${h(p.author.full_name)}</b><span class="small muted ell" style="display:block">${h(coName(p.author))} · ${ago(p.created_at)}${p.updated_at > p.created_at && new Date(p.updated_at) - new Date(p.created_at) > 60000 ? ' · editado' : ''}</span>${p.location ? `<span class="small muted ell" style="display:flex;align-items:center;gap:4px">${I('pin', 12)}${h(p.location)}</span>` : ''}</a>
         ${KIND[p.kind] ? `<span class="badge gold">${KIND[p.kind]}</span>` : ''}${mine || can('content') ? `<button class="icon-btn" style="width:34px;height:34px" data-more>${I('more')}</button>` : ''}</div>
       ${p.hidden ? '<div class="badge bad" style="margin-top:8px">Oculto pela moderação</div>' : ''}
-      ${p.content ? `<div class="body">${h(p.content)}</div>` : ''}${mediaHtml(p)}
+      ${p.content ? (p.bg && !p.media_url && !p.shared_post_id ? `<div class="tpost bg-${h(p.bg)}"><p>${h(p.content)}</p></div>` : `<div class="body">${h(p.content)}</div>`) : ''}${mediaHtml(p)}${musicChip(p, 'inpost')}
       ${p.shared ? `<a class="shared" href="#/post/${p.shared.id}" style="display:block"><div class="row">${av(p.sharedAuthor, 'sm')}<b class="small">${h(p.sharedAuthor.full_name)}</b></div>${p.shared.content ? `<div class="body small">${h(p.shared.content.slice(0, 280))}</div>` : ''}${mediaHtml(p.shared)}</a>` : (p.shared_post_id ? '<div class="shared small muted">Publicação original removida</div>' : '')}
       <div class="acts"><button data-like class="${liked ? 'on' : ''}">${I('heart')}<span>${p.likes.length || ''}</span></button>
         <button data-com>${I('msg')}<span>${p.ncom || ''}</span></button><button data-share>${I('repost')}</button></div></article>`; }).join('');
@@ -513,18 +629,36 @@ async function postMenu(id, el) {
   });
 }
 function composer(existing = {}) {
-  const editing = !!existing.id;
-  sheet(`<h2>${editing ? 'Editar publicação' : existing.shared_post_id ? 'Compartilhar' : 'Nova publicação'}</h2><form novalidate>
+  const editing = !!existing.id; const shared = !!existing.shared_post_id;
+  let file = null, bg = existing.bg || '';
+  sheet(`<h2>${editing ? 'Editar publicação' : shared ? 'Compartilhar' : 'Nova publicação'}</h2>
+    ${editing || shared ? '' : `<div class="seg"><button type="button" class="on">Publicação</button><button type="button" id="tostory">Story · 48 h</button></div>`}
+    <form novalidate>
     ${selectField('kind', 'Tipo', Object.entries({ post: 'Publicação', conquista: 'Conquista', novidade: 'Novidade', projeto: 'Projeto', case: 'Case', oportunidade: 'Oportunidade comercial', evento: 'Evento' }), existing.kind || 'post')}
     ${field('content', 'Texto', existing.content || '', 'textarea', 'maxlength="3000" placeholder="O que você quer compartilhar?"')}
-    ${existing.shared_post_id ? '' : uploadField('media', 'Foto ou vídeo', existing.media_type === 'image' ? existing.media_url : '', true, 'image/*,video/*')}
+    ${shared ? '' : `<div class="f" id="bgwrap"><label>Fundo colorido (só para texto, sem foto)</label><div class="bgs"><button type="button" class="bgsw none ${bg ? '' : 'on'}" data-bg="" aria-label="Sem fundo">${I('x', 14)}</button>${Object.entries(STORY_BG).map(([k, t]) => `<button type="button" class="bgsw bg-${k} ${k === bg ? 'on' : ''}" data-bg="${k}" aria-label="${t}"></button>`).join('')}</div></div>
+    <div class="f"><label>Foto ou vídeo</label><div class="sprev small" id="pprev">${existing.media_url ? (existing.media_type === 'video' ? `<video src="${h(existing.media_url)}" muted playsinline></video>` : `<img src="${h(existing.media_url)}" alt="">`) : ''}</div>
+      <div class="pick row3">
+        <label class="pk sm">${I('camera', 18)}<span>Câmera</span><input type="file" accept="image/*,video/*" capture="environment" hidden data-f></label>
+        <label class="pk sm">${I('user', 18)}<span>Selfie</span><input type="file" accept="image/*,video/*" capture="user" hidden data-f></label>
+        <label class="pk sm">${I('image', 18)}<span>Galeria</span><input type="file" accept="image/*,video/*" hidden data-f></label></div></div>
+    ${field('location', 'Localização (opcional)', existing.location || '', 'text', 'maxlength="120" placeholder="Ex.: Faria Lima, São Paulo"')}
+    <div class="f2">${field('music_title', 'Música (opcional)', existing.music_title || '', 'text', 'maxlength="120" placeholder="Nome · Artista"')}${field('music_url', 'Link da música', existing.music_url || '', 'url', 'maxlength="500" placeholder="Spotify ou YouTube"')}</div>`}
     <button class="btn btn-gold btn-block">${editing ? 'Salvar' : 'Publicar'}</button></form>`, (el, close) => {
-    bindUploadPreviews(el); const f = $('form', el);
-    f.onsubmit = (e) => { e.preventDefault(); const file = f.media && f.media.files[0];
-      if (!f.content.value.trim() && !file && !existing.media_url && !existing.shared_post_id) return validate(f, { content: req('Escreva algo ou envie uma mídia') });
+    const f = $('form', el);
+    const ts = $('#tostory', el); if (ts) ts.onclick = () => { close(); storyComposer(); };
+    $$('[data-bg]', el).forEach((b) => (b.onclick = () => { bg = b.dataset.bg; $$('[data-bg]', el).forEach((x) => x.classList.toggle('on', x === b)); }));
+    $$('[data-f]', el).forEach((inp) => inp.addEventListener('change', () => { const fl = inp.files[0]; if (!fl) return;
+      if (!/^(image|video)\//.test(fl.type)) return toast('Formato não suportado', true);
+      if (fl.type.startsWith('video/') && fl.size > 50 * 1024 * 1024) return toast('Vídeo acima de 50 MB', true);
+      file = fl; const u = URL.createObjectURL(fl); $('#pprev', el).innerHTML = fl.type.startsWith('video/') ? `<video src="${u}" muted playsinline autoplay loop></video>` : `<img src="${u}" alt="">`; }));
+    f.onsubmit = (e) => { e.preventDefault();
+      if (!f.content.value.trim() && !file && !existing.media_url && !shared) return validate(f, { content: req('Escreva algo ou envie uma mídia') });
       withBtn($('button.btn-gold', f), async () => {
         const row = { kind: f.kind.value, content: f.content.value.trim() };
+        if (!shared) { row.location = f.location.value.trim() || null; row.music_title = f.music_title.value.trim() || null; row.music_url = f.music_url.value.trim() || null; }
         if (file) { row.media_url = await upload(file, 'posts'); row.media_type = file.type.startsWith('video/') ? 'video' : 'image'; }
+        if (!shared) row.bg = !file && !existing.media_url && bg ? bg : null;
         const { error } = editing ? await sb.from('social_posts').update(row).eq('id', existing.id) : await sb.from('social_posts').insert({ ...row, author_id: S.user.id, shared_post_id: existing.shared_post_id || null });
         if (error) throw error; close(); toast(editing ? 'Publicação atualizada' : 'Publicado'); if ((location.hash.split('/')[1] || 'feed') === 'feed') loadPosts(); else route();
       }); };
@@ -573,7 +707,7 @@ async function viewProfile(id) {
   if (!p) return (v.innerHTML = empty('user', 'Membro não encontrado.'));
   const c = one(p.companies) || {}; const mine = id === S.user.id;
   const [counts, metrics, services, links, rel, posts] = await Promise.all([
-    sb.rpc('social_counts', { p_user: id }), sb.rpc('member_metrics', { p_user: id }),
+    sb.rpc('social_counts', { p_user: id }).then(async (r) => { await fetchStories().catch(() => {}); return r; }), sb.rpc('member_metrics', { p_user: id }),
     sb.from('services').select('*').eq('owner_id', id).order('position').order('created_at'),
     sb.from('contact_links').select('*').eq('owner_id', id).order('position'),
     mine ? null : relationship(id),
@@ -592,7 +726,7 @@ async function viewProfile(id) {
         ${mine ? `<a class="icon-btn" style="width:34px;height:34px" href="#/eu" aria-label="Meu painel">${I('gear', 16)}</a>` : ''}${can('users') && !mine ? `<button class="icon-btn" style="width:34px;height:34px" id="adm" aria-label="Administrar membro">${I('shield', 16)}</button>` : ''}</div></div>
     <div class="cover">${p.cover_url ? `<img src="${h(p.cover_url)}" alt="">` : ''}</div>
     <div class="pf-head">
-      <div class="row" style="align-items:flex-end;justify-content:space-between">${p.avatar_url ? `<img class="pf-av" src="${h(p.avatar_url)}" alt="">` : `<div class="pf-av av-ph" style="display:grid;place-items:center;font-size:30px">${h(initials(p.full_name))}</div>`}
+      <div class="row" style="align-items:flex-end;justify-content:space-between"><button class="pf-ring ${storyState(id) || 'none'}" id="pfst" aria-label="${storyState(id) ? 'Ver stories' : 'Foto de perfil'}">${p.avatar_url ? `<img class="pf-av" src="${h(p.avatar_url)}" alt="">` : `<div class="pf-av av-ph" style="display:grid;place-items:center;font-size:26px">${h(initials(p.full_name))}</div>`}${mine ? `<i class="plusb">${I('plus', 12)}</i>` : ''}</button>
         ${c.logo_url ? `<img src="${h(c.logo_url)}" style="width:52px;height:52px;border-radius:14px;object-fit:cover;background:#fff;margin-bottom:6px" alt="">` : ''}</div>
       <div class="pf-name">${h(p.full_name)}</div>
       <div class="pf-sub">${[p.role_title, c.name].filter(Boolean).map(h).join(' · ')}</div>
@@ -600,7 +734,9 @@ async function viewProfile(id) {
       ${p.bio ? `<p class="clamp muted" id="bio" style="margin-top:12px;white-space:pre-wrap;color:#d1d1d6">${h(p.bio)}</p><button class="readmore" id="bioMore" hidden>Ler mais</button>` : ''}
       <div class="stats"><button data-net="seguidores"><b>${ct.followers ?? 0}</b><span>Seguidores</span></button><button data-net="seguindo"><b>${ct.following ?? 0}</b><span>Seguindo</span></button>
         <button data-net="conexoes"><b>${ct.connections ?? 0}</b><span>Conexões</span></button>${!mine && ct.mutual ? `<div><b>${ct.mutual}</b><span>Em comum</span></div>` : ''}</div>
-      ${mine ? `<div class="pf-actions"><button class="btn btn-gold" onclick="editProfile()">Editar perfil</button><a class="btn btn-ghost" href="#/eu">Meu painel</a></div>` : `
+      ${mine ? `<div class="pf-actions">
+        <button class="btn btn-gold" onclick="composer()">${I('plus')} Nova publicação</button><button class="btn btn-ghost" onclick="storyComposer()">${I('camera')} Novo story</button>
+        <button class="btn btn-ghost" onclick="editProfile()">${I('edit')} Editar perfil</button><a class="btn btn-ghost" href="#/eu">${I('gear')} Meu painel</a></div>` : `
       <div class="pf-actions">
         <button class="btn ${rel.following ? 'btn-ghost' : 'btn-line'}" id="fol">${rel.following ? 'Seguindo' : 'Seguir'}</button>
         <button class="btn btn-ghost" id="con">${rel.connected ? 'Conectado' : rel.sent ? 'Solicitado' : rel.received ? 'Aceitar conexão' : 'Conectar'}</button>
@@ -610,11 +746,11 @@ async function viewProfile(id) {
       </div>`}
     </div>
 
-    ${Object.keys(m).some((k) => ['deals', 'volume', 'companies'].includes(k)) ? `<div class="sec"><h3>Negócios no ecossistema</h3></div>
-      <div class="kpis">${m.volume !== undefined ? `<div class="kpi big"><span>Volume movimentado</span><b>${compact(m.volume)}</b></div>
-        <div class="kpi"><span>Recebido</span><b>${compact(m.received)}</b></div><div class="kpi"><span>Gerado p/ membros</span><b>${compact(m.generated)}</b></div>` : ''}
-        ${m.deals !== undefined ? `<div class="kpi"><span>Negócios</span><b>${m.deals}</b></div>` : ''}${m.companies !== undefined ? `<div class="kpi"><span>Empresas</span><b>${m.companies}</b></div>` : ''}
-        ${m.volume !== undefined && Number(m.referral) ? `<div class="kpi"><span>Via indicação</span><b>${compact(m.referral)}</b></div>` : ''}</div>
+    ${Object.keys(m).some((k) => ['deals', 'volume', 'companies'].includes(k)) ? `<div class="biz">
+        <div class="biz-top"><span class="eyebrow">Negócios no ecossistema</span>${m.volume !== undefined ? `<div class="biz-vol"><b>${compact(m.volume)}</b><small>volume movimentado</small></div>` : ''}</div>
+        <div class="biz-grid">${m.volume !== undefined ? `<div><b>${compact(m.received)}</b><small>Recebido</small></div><div><b>${compact(m.generated)}</b><small>Gerado p/ membros</small></div>` : ''}
+          ${m.deals !== undefined ? `<div><b>${m.deals}</b><small>Negócios</small></div>` : ''}${m.companies !== undefined ? `<div><b>${m.companies}</b><small>Empresas</small></div>` : ''}
+          ${m.volume !== undefined && Number(m.referral) ? `<div><b>${compact(m.referral)}</b><small>Via indicação</small></div>` : ''}</div></div>
       ${m.history_public ? `<div id="hist"></div>` : ''}` : ''}
 
     ${c.name || c.description ? `<div class="sec"><h3>Empresa</h3></div><div class="card"><div class="company">${c.logo_url ? `<img class="lg" src="${h(c.logo_url)}" alt="">` : `<div class="lg av-ph" style="display:grid;place-items:center;background:var(--card2)">${h(initials(c.name))}</div>`}
@@ -634,6 +770,7 @@ async function viewProfile(id) {
     $('#hist').innerHTML = `<div class="card" style="margin-top:8px"><div class="list">${data.slice(0, 6).map((d) => `<div class="it"><div class="grow"><b class="small ell" style="display:block">${h(d.description)}</b><span class="small muted">${d.role === 'vendeu' ? 'Vendeu para' : 'Contratou'} <a class="gold" href="#/u/${d.other_id}">${h(d.other_name)}</a> · ${fdate(d.closed_on, { month: 'short', year: 'numeric' })}</span></div><b class="gold small">${compact(d.amount)}</b></div>`).join('')}</div></div>`; });
 
   readMore($('#bio'), $('#bioMore'));
+  const pfst = $('#pfst'); if (pfst) pfst.onclick = async () => { if (!S.stories) await fetchStories(); if (storyState(id)) openStories([id], 0); else if (mine) storyComposer(); };
   $$('[data-svc]', v).forEach((b) => (b.onclick = () => serviceModal((services.data || []).find((s) => s.id === b.dataset.svc), mine)));
   $$('[data-net]', v).forEach((b) => (b.onclick = () => peopleSheet(id, b.dataset.net)));
   if (mine) return;
