@@ -490,7 +490,20 @@ header.nav .seats .st>span:first-child{display:none}
 .gs-card .lb{position:absolute;left:0;right:0;bottom:0;padding:11px 6px;background:rgba(10,12,12,.88);color:#fff;font-weight:800;font-size:15px}
 #genderStep.hidden{display:none}
 @media (max-height:700px){.gs-brand{margin-top:14px}.gs-h{font-size:23px;margin-top:16px}.gs-p{font-size:14px;margin-top:10px}.gs-cards{margin-top:16px}.gs-card{aspect-ratio:157/190}}
-</style>
+.opp{background:var(--bg2);border-block:1px solid var(--line)}
+.opp-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:30px}
+.opp-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px}
+.opp-card .ic{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--green);color:#04140C;font-weight:800}
+.opp-card h3{font-size:19px;margin:14px 0 8px}.opp-card p{font-size:15px;color:var(--muted);line-height:1.5}
+.proj{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.proj-card{border:1.5px solid var(--green);border-radius:20px;padding:22px;background:linear-gradient(180deg,rgba(46,230,140,.10),transparent 60%),var(--surface)}
+.proj-card>small{font-size:12px;font-weight:800;letter-spacing:.14em;color:#7CF5B9}
+.calc{display:flex;align-items:center;gap:12px;margin-top:16px;font-size:15px;color:var(--muted);flex-wrap:wrap}.calc b{display:block;font-size:24px;color:var(--text)}.calc i{font-style:normal;font-size:22px;color:var(--green);font-weight:800}
+.res{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);display:flex;align-items:baseline;justify-content:space-between}.res small{color:var(--muted);font-size:13px}.res b{font-size:40px;font-weight:800;color:var(--green);letter-spacing:-.02em}
+.proj-card p{font-size:14.5px;color:var(--muted);margin-top:8px}
+.opp-note{text-align:center;font-size:13px;color:var(--muted);margin:22px auto 0;max-width:640px;line-height:1.5}
+@media (max-width:960px){.opp-grid,.proj{grid-template-columns:1fr}.opp-card{padding:18px}.res b{font-size:34px}}
+header.nav .seats .grid{grid-template-columns:repeat(30,minmax(0,1fr))!important;gap:1.5px}.ticket .seats .grid{grid-template-columns:repeat(10,minmax(0,1fr))!important}</style>
 </head>
 <body>
 <!-- ABERTURA: ponto → 4 feixes → 4 pilares → logo Escala IA (toque para pular) -->
@@ -608,27 +621,35 @@ header.nav .seats .st>span:first-child{display:none}
     </div>
   </section>
 
-  <!-- DOR INTERNA -->
-  <section class="pain">
-    <div class="wrap pain-grid">
-      <div>
-        <span class="eyebrow">Você se identifica?</span>
-        <h2 style="margin-top:14px">Você tem uma ideia. <span class="g">Mas trava no primeiro passo.</span></h2>
-        <p class="lead" style="margin-top:20px">Você vê pessoas começando no digital todos os dias. Mas, quando pensa em fazer o seu, esbarra em site, design, vídeo, programação, e acha que precisa contratar uma equipe inteira.</p>
-        <p class="quote">Você não precisa mais saber fazer tudo. Precisa aprender a usar a IA.</p>
+  <!-- OPORTUNIDADE DE MERCADO -->
+  <section class="opp">
+    <div class="wrap">
+      <div class="sec-head center">
+        <span class="eyebrow">A grande oportunidade do mercado</span>
+        <h2>As empresas já precisam de IA. <span class="g">Falta gente que saiba aplicar.</span></h2>
+        <p class="lead">A inteligência artificial evoluiu rápido. As empresas querem atender melhor, vender mais e gastar menos, mas ainda faltam soluções prontas e pessoas que entendam de IA para entregar isso. É aí que você entra.</p>
       </div>
-      <div class="phone" aria-label="Pensamentos comuns de quem quer começar no digital">
-        <div class="phone-top"><span class="av">VC</span><span><b>Você, antes de dormir</b><span>pensando no próximo passo</span></span></div>
-        <div class="chats">
-          <div class="msg">Eu queria começar algo meu na internet.<time>23:41</time></div>
-          <div class="msg">Mas não sei criar um site.<time>23:42</time></div>
-          <div class="msg">Não sei mexer com design nem editar vídeo.<time>23:43</time></div>
-          <div class="unread">tudo parece difícil demais</div>
-          <div class="msg">Contratar uma equipe é caro.<time>23:45</time></div>
-          <div class="msg">Será que a IA faz isso por mim?<time>23:46</time></div>
-          <div class="msg">Eu só preciso de alguém que me mostre o caminho.<time>23:47</time></div>
+      <div class="opp-grid">
+        <div class="opp-card"><span class="ic">01</span><h3>Prestar serviços com IA</h3><p>Sites, páginas, conteúdo, atendimento automático e agentes de IA: serviços que pequenas e médias empresas já procuram e não sabem fazer.</p></div>
+        <div class="opp-card"><span class="ic">02</span><h3>Vagas PJ em IA</h3><p>Empresas contratam profissionais PJ que dominam ferramentas de IA para criar, automatizar e implantar soluções, e pagam bem por quem entrega.</p></div>
+        <div class="opp-card"><span class="ic">03</span><h3>Criar um aplicativo próprio</h3><p>Uma solução simples, criada com IA, que resolve um problema comum de quase toda empresa e é vendida por assinatura mensal.</p></div>
+      </div>
+      <div class="sec-head center" style="margin-top:44px"><span class="eyebrow">Faça as contas</span><h2 style="font-size:clamp(24px,3vw,34px)">Dois cenários de projeção</h2></div>
+      <div class="proj">
+        <div class="proj-card">
+          <small>CENÁRIO 1 · PRESTAÇÃO DE SERVIÇOS</small>
+          <div class="calc"><span><b>3</b> empresas atendidas</span><i>×</i><span><b>R$ 3.500</b> por mês cada</span></div>
+          <div class="res"><small>por mês</small><b>R$ 10.500</b></div>
+          <p>Só prestando serviços de IA para 3 clientes fixos.</p>
+        </div>
+        <div class="proj-card">
+          <small>CENÁRIO 2 · APLICATIVO POR ASSINATURA</small>
+          <div class="calc"><span><b>100</b> assinaturas</span><i>×</i><span><b>R$ 100</b> por mês</span></div>
+          <div class="res"><small>por mês</small><b>R$ 10.000</b></div>
+          <p>Uma solução que quase toda empresa precisa, cobrada todo mês.</p>
         </div>
       </div>
+      <p class="opp-note">Projeções ilustrativas, só para mostrar a conta. Não são promessa de ganho: o resultado depende da sua dedicação, do seu mercado e de como você aplica o que aprende.</p>
     </div>
   </section>
 
