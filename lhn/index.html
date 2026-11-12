@@ -154,7 +154,7 @@ let tasks=[],who='Todos',front='Todas',busy=new Set();
 const $=id=>document.getElementById(id);
 const POSTS_REL=[[-3,'lhn-1-3dias','Faltam 3 dias'],[-2,'lhn-2-2dias','Faltam 2 dias'],[-1,'lhn-3-amanha','É amanhã'],[0,'lhn-4-hoje','É hoje!']];let POSTS={};
 const DL='<svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>';
-function postCard(d){const p=POSTS[d];if(!p)return '';const b='img/posts/'+p[0];const V='?v=1811';return '<div class="post"><a class="ph" href="'+b+'-feed.jpg'+V+'" aria-label="Ver post '+p[1]+'"><img src="'+b+'-feed.jpg'+V+'" alt="Post '+p[1]+'" loading="lazy"></a><span class="pt">POST · '+p[1].toUpperCase()+'</span><div class="pb"><a href="'+b+'-feed.jpg'+V+'" download>'+DL+'Feed</a><a href="'+b+'-story.jpg'+V+'" download>'+DL+'Stories</a></div></div>'}
+function postCard(d){const p=POSTS[d];if(!p)return '';const b='img/posts/'+p[0];const V='?v=free';return '<div class="post"><a class="ph" href="'+b+'-feed.jpg'+V+'" aria-label="Ver post '+p[1]+'"><img src="'+b+'-feed.jpg'+V+'" alt="Post '+p[1]+'" loading="lazy"></a><span class="pt">POST · '+p[1].toUpperCase()+'</span><div class="pb"><a href="'+b+'-feed.jpg'+V+'" download>'+DL+'Feed</a><a href="'+b+'-story.jpg'+V+'" download>'+DL+'Stories</a></div></div>'}
 const PAL=['#E0915A','#7FC7C0','#E57A9A','#A6C25A','#8C9BE8','#D6B24A'];
 function col(n){if(PEOPLE[n])return PEOPLE[n];let h=0;for(const ch of n)h=(h*31+ch.charCodeAt(0))>>>0;return PAL[h%PAL.length]}
 function names(){return [...new Set([...Object.keys(PEOPLE),...tasks.map(t=>t.responsavel)])]}
