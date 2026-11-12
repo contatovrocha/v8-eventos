@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>IA na Prática · Tiago Almeida · 11 de dezembro · Online</title>
 <meta name="description" content="Evento online e ao vivo para iniciantes: aprenda a criar sites, imagens, vídeos e seu primeiro produto digital usando inteligência artificial, mesmo sem experiência. 11/12, online, ingresso por R$ 19,90.">
-<meta property="og:title" content="IA na Prática · Crie sites, imagens, vídeos e seu primeiro produto digital com IA">
+<meta property="og:title" content="IA na Prática · Em 1 dia, aprenda a usar a IA para criar seu negócio digital do zero">
 <meta property="og:description" content="11/12, online. Com Tiago Almeida, fundador da Devzapp.">
 <meta property="og:image" content="https://eventos.v8.ia.br/escala-ia/img/preview.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -478,7 +478,19 @@ header.nav .seats .st>span:first-child{display:none}
   .hero-seats{display:none}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
-.pillars.p7{grid-template-columns:repeat(4,minmax(0,1fr))}.pillars.p7 .pillar::after{display:none}@media (max-width:960px){.pillars.p7{grid-template-columns:repeat(2,minmax(0,1fr))}}</style>
+.pillars.p7{grid-template-columns:repeat(4,minmax(0,1fr))}.pillars.p7 .pillar::after{display:none}@media (max-width:960px){.pillars.p7{grid-template-columns:repeat(2,minmax(0,1fr))}}#genderStep{min-height:100dvh;max-width:440px;margin:0 auto;padding:18px 18px 28px;background:#0A0B0B;display:flex;flex-direction:column}
+.gs-top{display:flex;align-items:center;gap:14px;padding-bottom:16px;border-bottom:1px solid #1d2422}.gs-bar{flex:1;height:4px;background:#1d2422;border-radius:4px;overflow:hidden}.gs-bar span{display:block;height:100%;background:var(--green)}.gs-top b{font-size:13px;color:var(--muted)}
+.gs-brand{text-align:center;margin-top:22px;line-height:1}.gs-brand small{display:block;font-size:12px;letter-spacing:.45em;color:var(--muted);padding-left:.45em}.gs-brand b{display:block;font-size:30px;font-weight:800;letter-spacing:.18em;margin-top:6px;padding-left:.18em}
+.gs-h{font-size:27px;line-height:1.2;text-align:center;margin-top:26px;font-weight:800}
+.gs-p{text-align:center;color:var(--muted);font-size:15.5px;line-height:1.5;margin-top:14px}
+.gs-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
+.gs-card{position:relative;border:1.5px solid rgba(255,255,255,.75);border-radius:16px;overflow:hidden;padding:0;background:#fff;cursor:pointer;aspect-ratio:157/210;transition:transform .15s,border-color .15s}
+.gs-card:hover,.gs-card:focus-visible{transform:translateY(-2px);border-color:var(--green);outline:none}
+.gs-card .ph,.gs-card .ph svg{display:block;width:100%;height:100%}
+.gs-card .lb{position:absolute;left:0;right:0;bottom:0;padding:11px 6px;background:rgba(10,12,12,.88);color:#fff;font-weight:800;font-size:15px}
+#genderStep.hidden{display:none}
+@media (max-height:700px){.gs-brand{margin-top:14px}.gs-h{font-size:23px;margin-top:16px}.gs-p{font-size:14px;margin-top:10px}.gs-cards{margin-top:16px}.gs-card{aspect-ratio:157/190}}
+</style>
 </head>
 <body>
 <!-- ABERTURA: ponto → 4 feixes → 4 pilares → logo Escala IA (toque para pular) -->
@@ -515,7 +527,28 @@ header.nav .seats .st>span:first-child{display:none}
 </script>
 
 <!-- ================= QUIZ ================= -->
-<main id="quizScreen">
+<!-- PRIMEIRA TELA DO QUIZ: escolha de gênero (modelo O Novo Contrato) -->
+<section id="genderStep">
+  <div class="gs-top"><div class="gs-bar"><span style="width:3%"></span></div><b>3%</b></div>
+  <div class="gs-brand"><small>IA NA</small><b>PRÁTICA</b></div>
+  <h1 class="gs-h">Em 1 dia, aprenda a usar a IA para criar seu <span class="g">negócio digital do zero</span>.</h1>
+  <p class="gs-p">Em 1 minuto, este diagnóstico mostra o melhor caminho para você começar com IA, mesmo sem experiência.</p>
+  <div class="gs-cards">
+    <button type="button" class="gs-card" data-gen="Mulher"><span class="ph"><svg viewBox="0 0 200 220" aria-hidden="true"><defs><linearGradient id="bgw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E8F5EE"/><stop offset="1" stop-color="#CFE9DC"/></linearGradient></defs><rect width="200" height="220" fill="url(#bgw)"/>
+<path d="M58 120c-6-50 14-82 42-82s48 32 42 82c-4 26-16 40-42 40s-38-14-42-40z" fill="#2B1D16"/>
+<path d="M30 220c4-38 32-58 70-58s66 20 70 58z" fill="#2E6BA8"/><path d="M84 160h32v18c0 8-8 14-16 14s-16-6-16-14z" fill="#E6B69A"/>
+<ellipse cx="100" cy="112" rx="32" ry="38" fill="#F0C7AA"/><path d="M66 106c4-34 22-46 40-44 20 2 32 18 30 44-14-14-34-22-70 0z" fill="#2B1D16"/>
+<circle cx="88" cy="114" r="3" fill="#2B1D16"/><circle cx="112" cy="114" r="3" fill="#2B1D16"/><path d="M89 132q11 9 22 0" stroke="#B5634B" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M76 196l24 10 24-10" stroke="#1F4F7E" stroke-width="3" fill="none"/></svg></span><span class="lb">Sou mulher</span></button>
+    <button type="button" class="gs-card" data-gen="Homem"><span class="ph"><svg viewBox="0 0 200 220" aria-hidden="true"><defs><linearGradient id="bgm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E8F5EE"/><stop offset="1" stop-color="#CFE9DC"/></linearGradient></defs><rect width="200" height="220" fill="url(#bgm)"/>
+<path d="M30 220c4-38 32-58 70-58s66 20 70 58z" fill="#2E6BA8"/><path d="M84 160h32v18c0 8-8 14-16 14s-16-6-16-14z" fill="#D9A07F"/>
+<ellipse cx="100" cy="112" rx="32" ry="38" fill="#E6B391"/><path d="M68 108c-2-30 12-48 34-48 24 0 34 18 30 46-6-16-18-22-32-22s-26 8-32 24z" fill="#1E1A17"/>
+<path d="M72 124c4 22 14 32 28 32s24-10 28-32c-4 8-14 14-28 14s-24-6-28-14z" fill="#3A2C24" opacity=".55"/>
+<circle cx="88" cy="114" r="3" fill="#1E1A17"/><circle cx="112" cy="114" r="3" fill="#1E1A17"/><path d="M89 133q11 8 22 0" stroke="#8E4E3B" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M76 196l24 10 24-10" stroke="#1F4F7E" stroke-width="3" fill="none"/></svg></span><span class="lb">Sou homem</span></button>
+  </div>
+</section>
+<main id="quizScreen" class="hidden">
   <div class="wrap">
     <div class="quiz-col">
       <div class="quiz-visual">
@@ -523,7 +556,7 @@ header.nav .seats .st>span:first-child{display:none}
         <a class="brand" href="#"><span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="14" width="3.6" height="7" rx="1" fill="#03140B"/><rect x="8.1" y="10.5" width="3.6" height="10.5" rx="1" fill="#03140B"/><rect x="13.2" y="7" width="3.6" height="14" rx="1" fill="#03140B"/><rect x="18.3" y="3" width="3.6" height="18" rx="1" fill="#03140B"/></svg></span><span><b>IA NA PRÁTICA</b><small>11/12 · ONLINE · AO VIVO</small></span></a>
         <div class="vc">
           <span class="eyebrow">IA para iniciantes · 1 minuto</span>
-          <h1>Crie sites, vídeos e produtos digitais com IA, <span class="g">mesmo do zero</span>.</h1>
+          <h1>Aprenda a usar a IA para criar seu <span class="g">negócio digital do zero</span>.</h1>
         </div>
       </div>
       <div class="quiz-card">
@@ -572,8 +605,8 @@ header.nav .seats .st>span:first-child{display:none}
       </div>
       <div class="hero-txt">
         <span class="eyebrow">Evento online · IA para iniciantes</span>
-        <h1>Crie sites, imagens, vídeos e seu primeiro <span class="g">produto digital com IA</span>, mesmo começando do zero.</h1>
-        <p class="lead">Em 1 dia, <b>Tiago Almeida</b> mostra o passo a passo para tirar sua ideia do papel. <b>Sem programação. Sem ser designer.</b></p>
+        <h1>Em 1 dia, aprenda como usar a IA para criar seu <span class="g">negócio digital do zero</span>, mesmo sem experiência.</h1>
+        <p class="lead">O mercado mudou e está procurando quem sabe usar a inteligência artificial. Você não precisa ser programador nem designer: com <b>Tiago Almeida</b>, você aprende a fazer a IA trabalhar por você.</p>
         <div class="lots"><a class="l1" href="#ingressos"><b>LOTE 01 · R$ 19,90</b><small data-l1left>últimas vagas neste valor</small></a><span class="l2" aria-disabled="true"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><b>LOTE 02</b><span>R$ 47,00</span></span></div>
         <p class="price-line">Acesso por apenas <b>R$ 19,90</b> · <span class="up">depois, R$ 47</span></p>
         <ul class="meta">
@@ -848,7 +881,7 @@ document.getElementById('backToQuiz').addEventListener('click',()=>{document.get
 document.getElementById('phone').addEventListener('input',e=>{let n=e.target.value.replace(/\D/g,'').slice(0,11);if(n.length>10)n=n.replace(/^(\d{2})(\d{5})(\d{4}).*/,'($1) $2-$3');else if(n.length>6)n=n.replace(/^(\d{2})(\d{4})(\d{0,4}).*/,'($1) $2-$3');else if(n.length>2)n=n.replace(/^(\d{2})(\d{0,5}).*/,'($1) $2');e.target.value=n;});
 
 function showEventPage(){
- document.getElementById('quizScreen').classList.add('hidden');
+ document.getElementById('quizScreen').classList.add('hidden');document.getElementById('genderStep').classList.add('hidden');
  document.getElementById('eventPage').classList.remove('hidden');
  window.scrollTo({top:0,behavior:'auto'});
 }
@@ -864,7 +897,7 @@ document.getElementById('leadForm').addEventListener('submit',async e=>{
  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){err.textContent='Informe um e-mail válido. É por ele que você recebe o link do evento.';return;}
  err.textContent='';sb.disabled=true;sb.textContent='Liberando…';
  const row={tipo:'inscricao',nome:name,whatsapp:phone,email:email||null,empresa:company||null,page:location.pathname,...utm};
- questions.forEach((q,i)=>{row[q.key]=answers[i]});
+ questions.forEach((q,i)=>{row[q.key]=answers[i]});row.genero=GENERO;
  try{await insertRow(row)}
  catch(_){err.textContent='Não conseguimos enviar agora. Tente de novo em instantes.';sb.disabled=false;sb.textContent='Liberar meu acesso →';track('lp_lead_error');return}
  track('lp_lead',{perfil:row.perfil,tamanho:row.tamanho});try{window.fbq&&fbq('track','Lead')}catch(_){}
@@ -874,6 +907,10 @@ document.getElementById('leadForm').addEventListener('submit',async e=>{
 
 /* Quem já se cadastrou neste navegador vai direto para a página */
 /* ?quiz na URL sempre mostra o quiz (útil para testar) */
+
+/* primeira tela: gênero */
+let GENERO=null;
+document.querySelectorAll('[data-gen]').forEach(b=>b.addEventListener('click',()=>{GENERO=b.dataset.gen;track('lp_genero',{genero:GENERO});document.getElementById('genderStep').classList.add('hidden');document.getElementById('quizScreen').classList.remove('hidden');window.scrollTo(0,0)}));
 if(qs.has('quiz')){try{localStorage.removeItem(LEAD_KEY)}catch(e){}}
 else if(loadLead())showEventPage();
 
