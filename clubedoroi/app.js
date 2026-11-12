@@ -214,11 +214,20 @@ function shell(title, body, opts = {}) {
     </header>`}
     <main class="page" id="view">${body}</main>
     <nav class="nav">
+      <a class="nav-logo dk" href="#/feed" aria-label="Início">${LOGO()}</a>
       ${tab('feed', 'home', 'Início', ['feed', 'post'])}
       ${tab('membros', 'users', 'Membros', ['membros'])}
-      <a class="plus" href="#/novo" aria-label="Publicar">${I('plus')}</a>
+      <a class="plus" href="#/novo" aria-label="Publicar">${I('plus')}<span class="dk">Publicar</span></a>
       ${tab('eventos', 'cal', 'Eventos', ['eventos', 'evento', 'meus-eventos'])}
-      ${tab('eu', 'user', 'Perfil', ['eu', 'u', 'negocios', 'oportunidades', 'rede', 'config', 'admin'])}
+      ${tab('eu', 'user', 'Perfil', ['eu', 'u'])}
+      <div class="nav-sep dk"></div>
+      <a href="#/negocios" class="dk ${r === 'negocios' ? 'on' : ''}">${I('chart')}<span>Negócios</span></a>
+      <a href="#/oportunidades" class="dk ${r === 'oportunidades' ? 'on' : ''}">${I('target')}<span>Oportunidades</span></a>
+      <a href="#/rede" class="dk ${r === 'rede' ? 'on' : ''}">${I('users')}<span>Conexões</span></a>
+      <a href="#/notificacoes" class="dk ${r === 'notificacoes' ? 'on' : ''}">${I('bell')}<span>Notificações</span>${S.unread ? `<b class="cnt">${S.unread > 9 ? '9+' : S.unread}</b>` : ''}</a>
+      ${isAdmin() ? `<a href="#/admin" class="dk ${r === 'admin' ? 'on' : ''}">${I('shield')}<span>Administração</span></a>` : ''}
+      <a href="#/config" class="dk ${r === 'config' ? 'on' : ''}">${I('gear')}<span>Configurações</span></a>
+      <a class="nav-me dk" href="#/u/${S.user.id}">${av(S.me, 'sm')}<span class="grow ell"><b class="ell">${h(S.me.full_name || '')}</b><small class="ell">${h(coName(S.me) || 'Meu perfil')}</small></span></a>
     </nav>`;
   window.scrollTo(0, 0);
   return $('#view');
