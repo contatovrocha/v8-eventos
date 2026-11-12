@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>O Corpo Fala · Carine Rodrigues · 14 de dezembro · Online</title>
+<meta name="description" content="Imersão online com a naturopata Carine Rodrigues: entenda o que o seu corpo está tentando dizer e conheça a Jornada do Terreno Biológico. Segunda, 14/12, ao vivo.">
+<meta property="og:title" content="O Corpo Fala · Imersão online com Carine Rodrigues">
+<meta property="og:description" content="14/12, online e ao vivo. Cansaço, intestino, sono, peso e hormônios: o que o seu corpo está tentando dizer.">
+<meta property="og:image" content="https://eventos.v8.ia.br/carine/img/carine-sorriso-bronze.jpg">
+<link rel="icon" href="img/simbolo-bronze.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Layout (padrão V8): quiz de 5 perguntas → cadastro → página de vendas longa:
+   dor interna → crenças → mecanismo (Jornada do Terreno Biológico) → para quem → autoridade → ingresso → FAQ.
+   Identidade: marca Carine Rodrigues (bronze e creme sobre café). */
+:root{
+  --bg:#120D0A;--bg2:#18120E;--surface:#1E1712;--surface2:#271E17;
+  --text:#F7EFE6;--muted:#C4B4A4;--dim:#8C7A6A;--line:#3A2D23;
+  --gold:#D9B07A;--gold2:#F3DDBA;--gold-d:#9C6A43;--gold-bg:rgba(217,176,122,.09);
+  --red:#E9A08F;--wa:#2A2019;--max:1120px;
+  --font:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+.hidden{display:none!important}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.g{color:var(--gold);font-style:italic}
+h1,h2,h3{margin:0;text-wrap:balance;line-height:1.05;font-family:var(--serif);font-weight:600;letter-spacing:-.01em}
+h2{font-size:clamp(34px,4.4vw,54px)}
+h3{font-family:var(--font);font-weight:800;letter-spacing:-.01em;line-height:1.2}
+.lead{color:var(--muted);font-size:18px;max-width:640px}
+section{padding-block:96px}
+.sec-head{display:flex;flex-direction:column;gap:14px;margin-bottom:44px}
+.sec-head.center{align-items:center;text-align:center}
+.sec-head.center .lead{margin:0 auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-weight:800;font-size:16px;border-radius:999px;padding:16px 28px;border:0;cursor:pointer;text-decoration:none;transition:transform .15s,box-shadow .15s,filter .15s}
+.btn-primary{background:linear-gradient(135deg,#E9C998,#C9945C 55%,#A8703F);color:#1A100A;box-shadow:0 12px 32px -12px rgba(217,176,122,.7)}
+.btn-primary:hover{transform:translateY(-1px);filter:brightness(1.06)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--muted)}
+.btn:focus-visible,.option:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{width:40px;height:40px}
+.brand b{display:block;font-family:var(--serif);font-size:20px;font-weight:600;font-style:italic;line-height:1}
+.brand small{display:block;font-size:10.5px;letter-spacing:.2em;color:var(--muted);font-weight:700;margin-top:3px}
+
+/* ===== ABERTURA: o símbolo da marca se desenha ===== */
+body.lock{overflow:hidden}
+#pre{position:fixed;inset:0;z-index:100;background:radial-gradient(560px 460px at 50% 46%,rgba(217,176,122,.14),transparent 70%),#0C0806;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;cursor:pointer;transition:opacity .6s ease,visibility .6s}
+#pre.off{opacity:0;visibility:hidden}
+#pre .sym{width:min(42vw,190px);aspect-ratio:1;position:relative}
+#pre .ring{position:absolute;inset:0;width:100%;height:100%}
+#pre .ring circle{fill:none;stroke:url(#preG);stroke-width:1.4;stroke-dasharray:600;stroke-dashoffset:600;animation:ring 1.4s cubic-bezier(.6,0,.2,1) .2s forwards}
+@keyframes ring{to{stroke-dashoffset:0}}
+#pre .sym img{position:absolute;inset:0;width:100%;height:100%;opacity:0;transform:scale(.92);animation:symIn .9s ease-out 1.1s forwards}
+@keyframes symIn{to{opacity:1;transform:none}}
+#pre .word{text-align:center;opacity:0;transform:translateY(8px);animation:word .7s ease-out 1.7s forwards}
+#pre .word b{display:block;font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(30px,7vw,44px);color:var(--gold2)}
+#pre .word small{display:block;margin-top:8px;font-size:11px;font-weight:700;letter-spacing:.26em;color:var(--muted)}
+@keyframes word{to{opacity:1;transform:none}}
+#pre .skip{position:absolute;bottom:calc(20px + env(safe-area-inset-bottom,0px));font-size:11px;letter-spacing:.16em;color:var(--dim)}
+@media (prefers-reduced-motion:reduce){#pre{display:none}}
+
+/* ===== QUIZ ===== */
+#quizScreen{min-height:100dvh;background:radial-gradient(900px 600px at 15% 0%,rgba(217,176,122,.12),transparent 60%),var(--bg);padding-block:16px 32px}
+.quiz-col{max-width:540px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.quiz-visual{position:relative;height:240px;border-radius:22px;overflow:hidden;border:1px solid var(--line)}
+.quiz-visual img.ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 22%}
+.quiz-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,13,10,.35) 0%,rgba(18,13,10,0) 30%,rgba(18,13,10,.94) 100%)}
+.quiz-visual .brand{position:absolute;z-index:1;top:16px;left:18px}
+.quiz-visual .vc{position:absolute;z-index:1;left:20px;right:20px;bottom:16px;display:flex;flex-direction:column;gap:6px}
+.quiz-visual h1{font-size:clamp(26px,3.2vw,34px)}
+.quiz-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px;display:flex;flex-direction:column}
+.qbar{display:flex;justify-content:space-between;font-size:12px;font-weight:800;letter-spacing:.14em;color:var(--muted)}
+.progress{height:5px;background:var(--line);border-radius:99px;margin:10px 0 18px;overflow:hidden}
+.progress span{display:block;height:100%;width:20%;background:linear-gradient(90deg,var(--gold-d),var(--gold));border-radius:99px;transition:width .3s}
+.q{display:none}.q.active{display:block}
+.qnum{font-size:12px;font-weight:800;letter-spacing:.16em;color:var(--gold);margin-bottom:10px}
+.q h2{font-family:var(--font);font-size:clamp(19px,2.2vw,22px);font-weight:800;letter-spacing:-.01em;line-height:1.2}
+.q p{color:var(--muted);margin:6px 0 14px;font-size:14px}
+.options{display:flex;flex-direction:column;gap:8px}
+.option{display:flex;align-items:center;gap:12px;text-align:left;font:inherit;font-size:15px;color:var(--text);background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:11px 14px;cursor:pointer;transition:border-color .15s,background .15s}
+.option:hover{border-color:#5A4636}
+.option .dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--dim);flex:none}
+.option.selected{border-color:var(--gold);background:var(--gold-bg)}
+.option.selected .dot{border-color:var(--gold);background:radial-gradient(circle,var(--gold) 45%,transparent 50%)}
+.hint{font-size:12px;color:var(--dim);margin:0;padding-top:12px}
+#leadForm{display:none}#leadForm.active{display:flex;flex-direction:column;gap:14px}
+#leadForm h2{font-size:32px}
+#leadForm>p{color:var(--muted);margin:0 0 6px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:14px;font-weight:700}
+.field input{font:inherit;color:var(--text);background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.field input::placeholder{color:var(--dim)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.form-actions .btn-primary{flex:1}
+#formError{color:var(--red);font-size:14px;min-height:20px;margin:0}
+.privacy{font-size:12px;color:var(--dim);margin:0}
+
+/* ===== PÁGINA DO EVENTO ===== */
+header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(18,13,10,.86);backdrop-filter:blur(12px);border-bottom:1px solid rgba(58,45,35,.6)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--bg)}
+header.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+header.nav .btn{padding:11px 18px;font-size:14px}
+
+.hero{padding-block:40px 72px;background:radial-gradient(1000px 640px at 85% 10%,rgba(217,176,122,.14),transparent 60%)}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.hero-txt{display:flex;flex-direction:column;align-items:flex-start}
+.hero h1{font-size:clamp(42px,5vw,66px);margin-top:14px}
+.hero .lead{margin-top:16px;font-size:19px}
+.hero .lead b{color:var(--text)}
+.hero-cta{margin-top:24px;min-width:300px}
+.price-line{margin:10px 0 0;font-size:15px;color:var(--muted)}
+.price-line b{color:var(--text);font-size:17px}
+.price-line .up{color:var(--gold);font-weight:700}
+.meta{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-direction:column;gap:8px;font-size:15px;color:var(--muted)}
+.meta li{display:flex;align-items:center;gap:10px}
+.meta b{color:var(--text)}
+.meta svg{width:18px;height:18px;flex:none;fill:none;stroke:var(--gold);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.hero-photo{position:relative;border-radius:200px 200px 24px 24px;overflow:hidden;border:1px solid var(--line);aspect-ratio:4/5;max-height:calc(100vh - 140px);width:100%}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.hero-photo .badge{position:absolute;left:14px;right:14px;bottom:14px;background:rgba(18,13,10,.82);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13px;color:var(--muted)}
+.hero-photo .badge b{color:var(--text);display:block;font-size:15px}
+
+/* Dor: conversa interna */
+.pain{background:var(--bg2);border-block:1px solid var(--line)}
+.pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.pain-grid .quote{font-family:var(--serif);font-style:italic;font-size:clamp(26px,2.8vw,34px);font-weight:500;line-height:1.2;border-left:2px solid var(--gold);padding-left:20px;margin-top:28px;color:var(--gold2)}
+.phone{background:#150F0B;border:1px solid var(--line);border-radius:28px;padding:18px;max-width:440px;margin-left:auto;width:100%}
+.phone-top{display:flex;align-items:center;gap:12px;padding:6px 6px 16px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.phone-top .av{width:38px;height:38px;border-radius:50%;background:var(--surface2);display:grid;place-items:center;font-weight:800;color:var(--gold);font-size:13px}
+.phone-top b{display:block;font-size:15px}
+.phone-top span{font-size:12px;color:var(--red)}
+.chats{display:flex;flex-direction:column;gap:9px}
+.msg{align-self:flex-start;max-width:88%;background:var(--wa);border-radius:4px 14px 14px 14px;padding:9px 12px 7px;font-size:15px;line-height:1.35}
+.msg time{display:block;text-align:right;font-size:11px;color:var(--dim);margin-top:2px}
+.unread{align-self:center;font-size:12px;font-weight:700;color:#1A100A;background:var(--gold);border-radius:99px;padding:3px 12px;margin-block:4px}
+
+/* Crenças */
+.myths{display:flex;flex-direction:column;gap:12px}
+.myth{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 24px}
+.myth .no{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(233,160,143,.7)}
+.myth .arrow{color:var(--gold);font-weight:800}
+.myth .yes{font-weight:700}
+.myth small{display:block;font-size:11px;letter-spacing:.14em;font-weight:800;text-transform:uppercase;margin-bottom:4px;text-decoration:none}
+.myth .no small{color:var(--red)} .myth .yes small{color:var(--gold)}
+
+/* Mecanismo: Jornada do Terreno Biológico */
+.mech{background:radial-gradient(900px 500px at 50% 0%,rgba(217,176,122,.10),transparent 60%)}
+.pillars{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.pillar{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px 22px;display:flex;flex-direction:column;gap:10px}
+.pillar .n{font-family:var(--serif);font-style:italic;font-size:30px;color:var(--gold);line-height:1}
+.pillar h3{font-size:19px}
+.pillar p{margin:0;color:var(--muted);font-size:15px}
+.mech-note{margin-top:28px;text-align:center;color:var(--muted)}
+.mech-note b{color:var(--text)}
+
+/* Etapas da imersão */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.step{display:flex;flex-direction:column;gap:10px;padding:26px 24px;background:var(--surface);border:1px solid var(--line);border-radius:18px}
+.step i{font-style:normal;font-size:11px;font-weight:800;letter-spacing:.18em;color:var(--gold)}
+.step p{margin:0;color:var(--muted);font-size:15px}
+
+/* Para quem */
+.fit{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}
+.fit-card{border-radius:18px;padding:30px;border:1px solid var(--line);background:var(--surface)}
+.fit-card.yes{border-color:rgba(217,176,122,.45);background:linear-gradient(180deg,var(--gold-bg),var(--surface) 70%)}
+.fit-card h3{font-size:20px;margin-bottom:18px}
+.fit-card ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.fit-card li{display:flex;gap:12px}
+.fit-card li::before{flex:none;font-weight:800}
+.fit-card.yes li::before{content:"✓";color:var(--gold)}
+.fit-card.no li::before{content:"✕";color:var(--red)}
+.fit-card.no li{color:var(--muted)}
+
+/* Autoridade */
+.about{background:var(--bg2);border-block:1px solid var(--line);padding:0}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;min-height:680px}
+.about-photo{position:relative;overflow:hidden}
+.about-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%}
+.about-txt{padding:80px 56px;display:flex;flex-direction:column;gap:18px;justify-content:center}
+.about-txt p{margin:0;color:var(--muted)}
+.about-txt p b{color:var(--text)}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:8px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.stat b{display:block;font-family:var(--serif);font-size:34px;font-weight:600;color:var(--gold);line-height:1.05}
+.stat span{font-size:13px;color:var(--muted)}
+.about-quote{font-family:var(--serif);font-style:italic;font-size:24px;font-weight:500;color:var(--gold2);border-left:2px solid var(--gold);padding-left:18px;margin-top:6px;line-height:1.25}
+
+/* Valores (prova de propósito) */
+.values{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:860px;margin:0 auto}
+.values span{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:10px 18px;font-size:14.5px;color:var(--muted)}
+.values span b{color:var(--gold);font-weight:700}
+
+/* Ingresso */
+.tickets{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;max-width:480px;margin:0 auto}
+.ticket{background:var(--surface);border:1px solid var(--gold);border-radius:22px;display:flex;flex-direction:column;overflow:hidden;position:relative;box-shadow:0 30px 60px -30px rgba(217,176,122,.4)}
+.t-head{padding:24px 26px 18px;border-bottom:1px dashed var(--line);background:linear-gradient(180deg,var(--gold-bg),transparent)}
+.t-head small{font-size:11px;letter-spacing:.18em;font-weight:800;color:var(--muted)}
+.t-head h3{font-family:var(--serif);font-size:34px;font-weight:600;margin-top:4px;color:var(--gold2)}
+.tag{position:absolute;top:20px;right:20px;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#1A100A;background:var(--gold);border-radius:99px;padding:4px 10px}
+.t-body{padding:22px 26px;display:flex;flex-direction:column;gap:16px;flex:1}
+.t-body>p{margin:0;color:var(--muted);font-size:15px}
+.t-body ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;font-size:15px}
+.t-body li{display:flex;gap:10px}.t-body li::before{content:"✓";color:var(--gold);font-weight:800}
+.price{margin-top:auto;padding-top:18px;border-top:1px solid var(--line)}
+.price small{font-size:12px;color:var(--muted)}
+.price .v{font-size:52px;font-weight:800;letter-spacing:-.03em;line-height:1.05;font-variant-numeric:tabular-nums}
+.price .v sup{font-size:18px;vertical-align:top;margin-right:4px;position:relative;top:10px}
+.price .nx{display:block;margin-top:6px;font-size:13px;color:var(--muted)}
+.price .inst{font-size:13px;color:var(--gold)}
+.ticket .btn{width:100%;margin-top:14px;font-size:15px}
+.t-msg{font-size:13px;color:var(--gold);min-height:0;margin:8px 0 0}
+.t-help{text-align:center;margin-top:24px;color:var(--muted);font-size:15px}
+.t-help a{color:var(--gold);font-weight:700}
+.vagas{display:flex;flex-direction:column;gap:6px;margin-top:14px}
+.vagas.hide{display:none}
+.vagas .st{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.16em;font-weight:800;text-transform:uppercase;color:var(--muted)}
+.vagas .st b{color:var(--gold);letter-spacing:.04em;font-size:12.5px}
+.vagas .bar{height:8px;border-radius:99px;background:var(--surface2);border:1px solid var(--line);overflow:hidden}
+.vagas .bar span{display:block;height:100%;background:linear-gradient(90deg,var(--gold-d),var(--gold),var(--gold2));border-radius:99px;transition:width .6s}
+
+/* CTA final */
+.final{padding-block:0 96px}
+.final-card{position:relative;border-radius:28px;overflow:hidden;border:1px solid var(--line);display:grid;grid-template-columns:1.2fr .8fr;background:var(--surface)}
+.final-txt{padding:60px 56px;display:flex;flex-direction:column;gap:18px;justify-content:center}
+.final-txt h2{font-size:clamp(34px,3.8vw,50px)}
+.final-txt p{margin:0;color:var(--muted)}
+.final-photo{position:relative;min-height:440px}
+.final-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 22%}
+.final-photo::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,var(--surface),transparent 40%)}
+.final-meta{font-size:14px;color:var(--dim)}
+
+/* FAQ */
+.faq{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:0 22px}
+summary{cursor:pointer;list-style:none;padding:20px 0;font-weight:700;font-size:17px;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--gold);font-size:22px;line-height:1;transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin:0 0 20px;color:var(--muted)}
+.disclaimer{max-width:800px;margin:28px auto 0;text-align:center;font-size:12.5px;color:var(--dim)}
+footer{border-top:1px solid var(--line);padding-block:32px;text-align:center;font-size:13px;color:var(--dim)}
+footer img{width:220px;height:auto;margin:0 auto 18px}
+
+@media (max-width:960px){
+  .pain-grid,.about-grid,.final-card,.fit{grid-template-columns:1fr}
+  .hero{position:relative;padding-block:0 56px;overflow:hidden;min-height:calc(100svh - 52px);display:flex;flex-direction:column}
+  .hero-grid{flex:1;display:flex;flex-direction:column;justify-content:flex-end}
+  .hero-photo{position:absolute;top:0;left:0;right:0;height:max(320px,calc(100% - 330px));max-height:none;aspect-ratio:auto;border:0;border-radius:0}
+  .hero-photo img{object-position:50% 18%}
+  .hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,13,10,0) 40%,var(--bg) 97%)}
+  .hero-photo .badge{display:none}
+  .hero-txt{position:relative;z-index:1;padding-top:210px}
+  .hero-cta{width:100%;min-width:0}
+  .price-line{align-self:center}
+  .phone{margin:0 auto}
+  .pillars{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .steps{grid-template-columns:1fr}
+  .about-photo{min-height:460px}
+  .about-txt{padding:48px 20px}
+  .final-photo{min-height:320px;order:-1}
+  .final-photo::before{background:linear-gradient(0deg,var(--surface),transparent 50%)}
+  .final-txt{padding:36px 24px 44px}
+  header.nav .brand small{display:none}
+  section{padding-block:72px}
+}
+@media (max-width:600px){
+  .two{grid-template-columns:1fr}
+  .quiz-card{padding:14px 14px 12px}
+  .progress{margin:10px 0 16px}
+  .q h2{font-size:18px}
+  .q p{margin:6px 0 12px;font-size:14px}
+  .option{padding:9px 12px;font-size:14px}
+  .hint{display:none}
+  #quizScreen{padding-block:0 24px}
+  #quizScreen>.wrap{padding-left:0;padding-right:0}
+  .quiz-col{gap:0}
+  .quiz-visual{height:270px;border-radius:0 0 22px 22px;border:0}
+  .quiz-card{margin:-8px 14px 0;position:relative}
+  #leadForm.active{gap:10px}
+  #leadForm h2{font-size:24px}
+  #leadForm>p{display:none}
+  .field{gap:4px}
+  .field label{font-size:13px}
+  .field input{padding:11px 13px}
+  .form-actions .btn{padding:13px 16px}
+  .privacy{font-size:11px}
+  .quiz-visual .brand{top:12px;left:16px}
+  .quiz-visual .brand img{width:34px;height:34px}
+  .quiz-visual .vc{left:16px;right:16px;bottom:14px}
+  .quiz-visual .eyebrow{display:none}
+  .quiz-visual h1{font-size:27px}
+  .hero h1{font-size:34px;margin-top:6px}
+  .hero .lead{font-size:15px;margin-top:10px;line-height:1.45}
+  .hero-cta{margin-top:16px;padding:15px 20px}
+  .price-line{margin-top:8px;font-size:14px}
+  .meta{margin-top:14px;gap:6px;font-size:14px}
+  header.nav .wrap{height:56px}
+  header.nav .btn{padding:9px 14px;font-size:13px}
+  header.nav .brand b{font-size:18px}
+  .pillars{grid-template-columns:1fr 1fr;gap:8px}
+  .myth{grid-template-columns:1fr;gap:8px}
+  .myth .arrow{display:none}
+  section{padding-block:44px}
+  .hero{padding-block:0 40px}
+  .sec-head{margin-bottom:22px;gap:8px}
+  h2{font-size:32px}
+  .lead{font-size:14.5px}
+  .eyebrow{font-size:10.5px}
+  .pain-grid{gap:24px}
+  .pain-grid .lead{display:none}
+  .pain-grid .quote{font-size:24px;margin-top:16px}
+  .phone{padding:12px;border-radius:20px}
+  .msg{font-size:13.5px}
+  .myths{gap:8px}
+  .myth{padding:14px 16px;font-size:14px}
+  .pillar{padding:14px;gap:4px;border-radius:14px}
+  .pillar .n{font-size:24px}
+  .pillar h3{font-size:15px}
+  .pillar p{font-size:12.5px}
+  .mech-note{font-size:14px;margin-top:16px}
+  .step{padding:16px 18px;gap:6px}
+  .step p{font-size:14px}
+  .fit-card{padding:18px}
+  .fit-card h3{font-size:17px;margin-bottom:12px}
+  .fit-card ul{gap:8px;font-size:14px}
+  .about-photo{min-height:380px}
+  .about-txt{padding:28px 20px 32px;gap:12px}
+  .about-txt p{font-size:14px}
+  .stat{padding:12px 14px}
+  .stat b{font-size:26px}
+  .stat span{font-size:12px}
+  .about-quote{font-size:20px}
+  .values span{font-size:13px;padding:8px 14px}
+  .t-head{padding:16px 18px 12px}
+  .t-head h3{font-size:28px}
+  .t-body{padding:16px 18px;gap:12px}
+  .t-body>p{font-size:13px}
+  .t-body ul{font-size:13.5px;gap:7px}
+  .price .v{font-size:42px}
+  .final{padding-block:0 44px}
+  .final-photo{min-height:300px}
+  .final-txt{padding:24px 20px 30px;gap:12px}
+  .final-txt h2{font-size:32px}
+  .final-txt p{font-size:14px}
+  summary{font-size:14.5px;padding:14px 0}
+  details{padding:0 16px}
+  details p{font-size:14px;margin-bottom:14px}
+}
+/* Celulares baixos (ex.: 360×640, 375×667): mantém a primeira dobra sem rolar */
+@media (max-width:600px) and (max-height:700px){
+  .quiz-visual{height:230px}
+  .quiz-visual h1{font-size:23px}
+  .quiz-card{padding:12px 14px}
+  .progress{margin:8px 0 12px}
+  .qnum{margin-bottom:6px}
+  .q h2{font-size:17px;margin-bottom:12px}
+  .q p{display:none}
+  .options{gap:6px}
+  .option{padding:8px 12px;font-size:13.5px}
+  .hero-photo{height:max(250px,calc(100% - 320px))}
+  .hero-txt{padding-top:150px}
+  .hero h1{font-size:30px}
+  .hero .lead{font-size:14px;margin-top:8px}
+  .hero-cta{margin-top:12px;padding:14px 18px}
+  .price-line{margin-top:6px}
+  .meta{margin-top:10px;gap:4px;font-size:13.5px}
+}
+@media (max-width:380px) and (max-height:650px){
+  .hero-photo{height:230px}
+  .hero-txt{padding-top:132px}
+  .hero h1{font-size:28px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<!-- ABERTURA: anel + símbolo CR + nome do evento (toque para pular) -->
+<div id="pre" role="presentation" aria-hidden="true">
+  <div class="sym">
+    <svg class="ring" viewBox="0 0 200 200"><defs><linearGradient id="preG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9C6A43"/><stop offset=".5" stop-color="#F3DDBA"/><stop offset="1" stop-color="#C9945C"/></linearGradient></defs><circle cx="100" cy="100" r="96" transform="rotate(-90 100 100)"/></svg>
+    <img src="img/simbolo-creme.svg" alt="">
+  </div>
+  <div class="word"><b>O Corpo Fala</b><small>IMERSÃO ONLINE · CARINE RODRIGUES</small></div>
+  <span class="skip">TOQUE PARA PULAR</span>
+</div>
+<script>
+(function(){var pre=document.getElementById('pre');if(!pre)return;
+ if(matchMedia('(prefers-reduced-motion:reduce)').matches){pre.remove();return}
+ document.body.classList.add('lock');
+ var done=function(){if(pre.classList.contains('off'))return;pre.classList.add('off');document.body.classList.remove('lock');setTimeout(function(){pre.remove()},700)};
+ setTimeout(done,3300);pre.addEventListener('click',done);})();
+</script>
+
+<!-- ================= QUIZ ================= -->
+<main id="quizScreen">
+  <div class="wrap">
+    <div class="quiz-col">
+      <div class="quiz-visual">
+        <img class="ph" src="img/carine-sorriso-bronze.jpg" alt="Carine Rodrigues sorrindo" fetchpriority="high">
+        <a class="brand" href="#"><img src="img/simbolo-creme.svg" alt=""><span><b>O Corpo Fala</b><small>14/12 · ONLINE · AO VIVO</small></span></a>
+        <div class="vc">
+          <span class="eyebrow">Diagnóstico rápido · 1 minuto</span>
+          <h1>O seu corpo fala. <span class="g">Você está escutando?</span></h1>
+        </div>
+      </div>
+      <div class="quiz-card">
+        <div id="quizFlow">
+          <div class="qbar"><span>O QUE SEU CORPO DIZ</span><span id="stepLabel">1 DE 5</span></div>
+          <div class="progress"><span id="progressBar"></span></div>
+          <div id="questions"></div>
+          <p class="hint">Escolha uma resposta para avançar automaticamente.</p>
+        </div>
+
+        <form id="leadForm" novalidate>
+          <span class="eyebrow">Última etapa</span>
+          <h2>Seu corpo já deu os sinais. <span class="g">Agora é hora de entender.</span></h2>
+          <p>Informe seus dados para ver a imersão O Corpo Fala, ao vivo em 14 de dezembro, e garantir sua vaga.</p>
+          <div class="field"><label for="name">Nome completo *</label><input id="name" autocomplete="name" placeholder="Seu nome"></div>
+          <div class="two">
+            <div class="field"><label for="phone">WhatsApp com DDD *</label><input id="phone" inputmode="tel" autocomplete="tel" placeholder="(11) 99999-9999"></div>
+            <div class="field"><label for="insta">Instagram (opcional)</label><input id="insta" autocomplete="off" placeholder="@seuperfil"></div>
+          </div>
+          <div class="field"><label for="email">E-mail (opcional)</label><input id="email" type="email" autocomplete="email" placeholder="voce@email.com"></div>
+          <p id="formError" role="alert"></p>
+          <div class="form-actions">
+            <button type="button" class="btn btn-ghost" id="backToQuiz">Voltar</button>
+            <button type="submit" class="btn btn-primary" id="submitLead">Liberar meu acesso →</button>
+          </div>
+          <p class="privacy">Ao continuar, você recebe contato da equipe da Carine Rodrigues sobre esta imersão. Seus dados não serão usados para outra finalidade.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ================= PÁGINA DO EVENTO ================= -->
+<div id="eventPage" class="hidden">
+  <header class="nav">
+    <div class="wrap">
+      <a class="brand" href="#topo"><img src="img/simbolo-creme.svg" alt=""><span><b>Carine Rodrigues</b><small>NATUROPATIA · SAÚDE INTEGRATIVA</small></span></a>
+      <a class="btn btn-primary" href="#ingresso">Garantir minha vaga</a>
+    </div>
+  </header>
+
+  <!-- HERO: foto, headline, subheadline, botão, valor e data/formato na primeira dobra -->
+  <section class="hero" id="topo">
+    <div class="wrap hero-grid">
+      <div class="hero-txt">
+        <span class="eyebrow">Imersão online · ao vivo</span>
+        <h1>O seu corpo fala. <span class="g">Aprenda a escutar</span> antes que ele precise gritar.</h1>
+        <p class="lead">Cansaço, intestino, sono, peso e hormônios: em uma noite, a naturopata <b>Carine Rodrigues</b> mostra o que seu corpo está tentando dizer e como cuidar dele <b>de dentro para fora</b>.</p>
+        <a class="btn btn-primary hero-cta" href="#ingresso">Quero participar da imersão →</a>
+        <p class="price-line">Lote 01 por apenas <b data-preco="lote1"></b> · <span class="up">depois, <span data-preco="lote2"></span></span></p>
+        <ul class="meta">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span><b>14 de dezembro</b> · segunda · <span data-horario>A confirmar</span></span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="13" height="14" rx="2"/><path d="M15.5 10l6-3.5v11l-6-3.5"/></svg><span><b>Online e ao vivo</b> · assista de onde estiver</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span><b>Carine Rodrigues</b> · 15+ anos em saúde integrativa</span></li>
+        </ul>
+      </div>
+      <div class="hero-photo">
+        <img src="img/carine-sorriso-branco.jpg" alt="Carine Rodrigues, naturopata">
+        <div class="badge"><b>Carine Rodrigues</b>Naturopata · fundadora do Instituto Integrativo Carine Rodrigues</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOR INTERNA -->
+  <section class="pain">
+    <div class="wrap pain-grid">
+      <div>
+        <span class="eyebrow">Você se identifica?</span>
+        <h2 style="margin-top:14px">Você faz tudo “certo”. <span class="g">E mesmo assim não se sente bem.</span></h2>
+        <p class="lead" style="margin-top:20px">Já trocou a alimentação, já tomou suplemento, já fez exame. Recebeu orientações genéricas e continua sem respostas. No fundo, a sensação é de que ninguém olhou para você por inteiro.</p>
+        <p class="quote">Saúde não é só a ausência de doença. É ter disposição para viver.</p>
+      </div>
+      <div class="phone" aria-label="Pensamentos comuns de quem não se sente bem">
+        <div class="phone-top"><span class="av">VC</span><span><b>Você, às 6h da manhã</b><span>acordou cansada de novo</span></span></div>
+        <div class="chats">
+          <div class="msg">Dormi a noite toda e acordei exausta.<time>06:02</time></div>
+          <div class="msg">Meu intestino não funciona direito há anos.<time>06:04</time></div>
+          <div class="msg">Faço dieta e o peso não sai.<time>06:05</time></div>
+          <div class="unread">já tentei de tudo</div>
+          <div class="msg">Os exames voltam “alterados” e ninguém me explica o porquê.<time>06:07</time></div>
+          <div class="msg">Tenho medo de envelhecer sem saúde.<time>06:08</time></div>
+          <div class="msg">Eu só queria entender o que está acontecendo comigo.<time>06:09</time></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CRENÇAS -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head center">
+        <span class="eyebrow">O que te fizeram acreditar</span>
+        <h2>Cinco crenças que <span class="g">mantêm você presa no sintoma</span>.</h2>
+        <p class="lead">O cuidado começa quando alguém olha para você por inteiro, e não só para o exame da vez.</p>
+      </div>
+      <div class="myths">
+        <div class="myth"><div class="no"><small>Crença</small>Cuidar da saúde é tratar o sintoma.</div><span class="arrow">→</span><div class="yes"><small>Na prática</small>O sintoma é um sinal. Ele aponta para algo que precisa ser olhado.</div></div>
+        <div class="myth"><div class="no"><small>Crença</small>Existe um protocolo que serve para todo mundo.</div><span class="arrow">→</span><div class="yes"><small>Na prática</small>Cada organismo tem sua história, seus hábitos e suas necessidades.</div></div>
+        <div class="myth"><div class="no"><small>Crença</small>Basta tomar o suplemento certo.</div><span class="arrow">→</span><div class="yes"><small>Na prática</small>Suplemento sozinho não sustenta saúde. Hábitos, sono e intestino contam.</div></div>
+        <div class="myth"><div class="no"><small>Crença</small>Prevenção é coisa para quando aparece uma doença.</div><span class="arrow">→</span><div class="yes"><small>Na prática</small>Quem cuida antes envelhece com mais autonomia e energia.</div></div>
+        <div class="myth"><div class="no"><small>Crença</small>Corpo e emoções são assuntos separados.</div><span class="arrow">→</span><div class="yes"><small>Na prática</small>Estresse, sono e emoções mexem diretamente com o seu metabolismo.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MECANISMO -->
+  <section class="mech" id="metodo">
+    <div class="wrap">
+      <div class="sec-head center">
+        <span class="eyebrow">O método da Carine</span>
+        <h2>A Jornada do <span class="g">Terreno Biológico</span>.</h2>
+        <p class="lead">Em vez de olhar um sintoma isolado, a Carine observa o terreno onde ele nasce. São 8 fatores que, juntos, mostram por onde começar.</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar"><span class="n">01</span><h3>Alimentação</h3><p>O que você come, quando come e como seu corpo responde.</p></div>
+        <div class="pillar"><span class="n">02</span><h3>Saúde intestinal</h3><p>O intestino como base da energia, da imunidade e do humor.</p></div>
+        <div class="pillar"><span class="n">03</span><h3>Hidratação</h3><p>O cuidado mais simples, e o mais esquecido no dia a dia.</p></div>
+        <div class="pillar"><span class="n">04</span><h3>Metabolismo</h3><p>Por que o peso trava e a disposição some.</p></div>
+        <div class="pillar"><span class="n">05</span><h3>Sono</h3><p>Dormir não é o mesmo que descansar e se recuperar.</p></div>
+        <div class="pillar"><span class="n">06</span><h3>Estresse</h3><p>Como a rotina e as emoções aparecem no corpo.</p></div>
+        <div class="pillar"><span class="n">07</span><h3>Hábitos</h3><p>Pequenas escolhas diárias que somam ou subtraem saúde.</p></div>
+        <div class="pillar"><span class="n">08</span><h3>Individualidade</h3><p>Sua história, sua fase da vida e suas necessidades.</p></div>
+      </div>
+      <p class="mech-note">Identificar necessidades, organizar prioridades e <b>construir um cuidado que faça sentido para você.</b></p>
+    </div>
+  </section>
+
+  <!-- O QUE ACONTECE NA IMERSÃO -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Na noite de 14 de dezembro</span>
+        <h2>Três momentos para você <span class="g">voltar a confiar no seu corpo</span>.</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><i>MOMENTO 1 · ESCUTAR</i><h3>O que seu corpo está dizendo</h3><p>Os sinais mais comuns (cansaço, intestino, sono, peso e hormônios) e o que eles podem estar mostrando sobre o seu terreno.</p></div>
+        <div class="step"><i>MOMENTO 2 · ENTENDER</i><h3>Por que nada funcionou até agora</h3><p>Onde as orientações genéricas falham e como os 8 fatores se conectam no seu dia a dia.</p></div>
+        <div class="step"><i>MOMENTO 3 · CUIDAR</i><h3>Seu primeiro passo de dentro para fora</h3><p>Como organizar prioridades e começar uma jornada de cuidado com consciência, constância e responsabilidade.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARA QUEM -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Para quem é</span>
+        <h2>Para quem quer viver mais <span class="g">e viver melhor</span>.</h2>
+      </div>
+      <div class="fit">
+        <div class="fit-card yes">
+          <h3>O Corpo Fala é para você se:</h3>
+          <ul>
+            <li>Vive cansada, mesmo tentando cuidar da saúde.</li>
+            <li>Está no climatério ou na menopausa e sente o corpo mudar.</li>
+            <li>Tem dificuldade para emagrecer, mesmo fazendo “tudo certo”.</li>
+            <li>Convive com desconfortos intestinais ou digestivos.</li>
+            <li>Tem exames com alterações e quer entender o que está acontecendo.</li>
+            <li>Quer envelhecer com autonomia, energia e vitalidade.</li>
+          </ul>
+        </div>
+        <div class="fit-card no">
+          <h3>Não é para você se:</h3>
+          <ul>
+            <li>Procura uma fórmula milagrosa ou resultado imediato.</li>
+            <li>Quer substituir o seu médico ou o seu tratamento atual.</li>
+            <li>Não está disposta a olhar para os próprios hábitos.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUTORIDADE -->
+  <section class="about">
+    <div class="about-grid">
+      <div class="about-photo"><img src="img/carine-bracos-cruzados.jpg" alt="Retrato de Carine Rodrigues"></div>
+      <div class="about-txt">
+        <span class="eyebrow">Quem conduz a imersão</span>
+        <h2>Carine Rodrigues</h2>
+        <p><b>Naturopata, empreendedora e especialista em saúde integrativa</b>, fundadora do Instituto Integrativo Carine Rodrigues. São mais de 15 anos dedicados ao desenvolvimento humano e a uma saúde mais profunda e consciente.</p>
+        <p>A missão nasceu da própria história. A perda da mãe para o câncer despertou uma busca intensa por conhecimento sobre saúde e qualidade de vida. Desafios físicos e emocionais, superação e reconstrução fizeram a Carine olhar para o ser humano com mais profundidade, empatia e respeito.</p>
+        <p>Hoje, ela conduz um atendimento individualizado e humanizado, que começa pela escuta e cuida de cada pessoa em sua totalidade: corpo, mente e espírito.</p>
+        <div class="stats">
+          <div class="stat"><b>15+ anos</b><span>em saúde integrativa e desenvolvimento humano</span></div>
+          <div class="stat"><b>Milhares</b><span>de pessoas impactadas pelo cuidado integrativo</span></div>
+        </div>
+        <p class="about-quote">“Porque o tratamento vai além. O cuidado começa quando alguém olha para você por inteiro.”</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALORES -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head center">
+        <span class="eyebrow">No que a Carine acredita</span>
+        <h2>Cuidar da saúde é <span class="g">um ato de amor à vida</span>.</h2>
+        <p class="lead">Nada de promessas milagrosas. Informação, responsabilidade, consciência e respeito à individualidade de cada pessoa.</p>
+      </div>
+      <div class="values">
+        <span><b>Fé</b> e propósito</span><span><b>Escuta</b> e acolhimento</span><span><b>Ética</b> e verdade</span><span><b>Ciência</b> e conhecimento</span><span><b>Individualidade</b> de cada pessoa</span><span><b>Excelência</b> no cuidado</span><span><b>Respeito</b> à vida</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- INGRESSO -->
+  <section id="ingresso" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head center">
+        <span class="eyebrow">Sua vaga</span>
+        <h2>Garanta seu lugar <span class="g">no dia 14</span>.</h2>
+        <p class="lead">Uma noite online e ao vivo para entender o que o seu corpo está dizendo e dar o primeiro passo no seu cuidado.</p>
+      </div>
+      <div class="tickets">
+        <div class="ticket">
+          <span class="tag">Lote 01</span>
+          <div class="t-head"><small>IMERSÃO ONLINE</small><h3>O Corpo Fala · 14/12</h3></div>
+          <div class="t-body">
+            <p>Acesso completo à imersão ao vivo com Carine Rodrigues.</p>
+            <ul><li>Imersão online e ao vivo na segunda, 14 de dezembro</li><li>A Jornada do Terreno Biológico: os 8 fatores explicados</li><li>Os três momentos: escutar, entender e cuidar</li><li>Link de acesso enviado pelo WhatsApp</li></ul>
+            <div class="price"><small>LOTE 01 · por pessoa</small><div class="v" data-preco-v="lote1"></div><small class="nx">Lote 02: <span data-preco="lote2"></span> · abre quando o lote 01 fechar</small><div class="inst" data-parcelas="lote1" hidden></div>
+              <div class="vagas hide" data-vagas><div class="st"><span>Lote 01</span><b data-vagas-txt></b></div><div class="bar"><span data-vagas-bar style="width:0"></span></div></div>
+              <a class="btn btn-primary" href="#" data-ticket="lote1">Garantir minha vaga →</a>
+              <p class="t-msg" data-msg="lote1"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="t-help">Ficou com alguma dúvida? <a id="waLink" href="#" hidden>Fale com a equipe no WhatsApp</a><span id="waFallback">A equipe da Carine fala com você pelo WhatsApp que você informou.</span></p>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="final">
+    <div class="wrap">
+      <div class="final-card">
+        <div class="final-txt">
+          <span class="eyebrow">Seu próximo passo</span>
+          <h2>O seu corpo fala. <span class="g">Nós escutamos.</span></h2>
+          <p>Você não precisa continuar convivendo com o cansaço, sem respostas. O próximo passo é entender o seu corpo, em uma noite, de onde você estiver.</p>
+          <div><a class="btn btn-primary" href="#ingresso">Quero participar →</a></div>
+          <span class="final-meta">14 de dezembro de 2026 · segunda · <span data-horario>A confirmar</span> · online e ao vivo</span>
+        </div>
+        <div class="final-photo"><img src="img/carine-olhar-acima-bronze.jpg" alt="Carine Rodrigues"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head center"><span class="eyebrow">Dúvidas frequentes</span><h2>Antes de participar</h2></div>
+      <div class="faq">
+        <details><summary>Como vou assistir?</summary><p>A imersão é online e ao vivo. O link de acesso chega pelo WhatsApp que você informou no cadastro.</p></details>
+        <details><summary>Quando acontece?</summary><p>Segunda-feira, 14 de dezembro de 2026. Horário: <span data-horario>A confirmar</span> (horário de Brasília).</p></details>
+        <details><summary>Preciso ter algum conhecimento sobre saúde?</summary><p>Não. Tudo é explicado de forma simples, para quem quer entender melhor o próprio corpo.</p></details>
+        <details><summary>A imersão substitui uma consulta ou o meu tratamento?</summary><p>Não. O conteúdo é educativo e não substitui avaliação, diagnóstico ou tratamento com profissionais de saúde. Não interrompa nenhum tratamento sem orientação.</p></details>
+        <details><summary>Serve para homens também?</summary><p>Sim. Os 8 fatores do terreno biológico valem para homens e mulheres adultos que querem cuidar da saúde de forma mais ampla.</p></details>
+        <details><summary>A imersão promete resultado garantido?</summary><p>Não. A Carine não trabalha com promessas milagrosas. Os resultados dependem de cada organismo, de acompanhamento profissional e da constância de cada pessoa.</p></details>
+      </div>
+      <p class="disclaimer">Conteúdo educativo sobre saúde integrativa e qualidade de vida. Não substitui consulta, diagnóstico ou tratamento médico.</p>
+    </div>
+  </section>
+
+  <footer><div class="wrap"><img src="img/logo-vertical-creme.svg" alt="Carine Rodrigues · Naturopatia e Saúde Integrativa">O Corpo Fala · Carine Rodrigues · 14 de dezembro de 2026 · online e ao vivo</div></footer>
+</div>
+
+<script>
+/* ============ CONFIGURAÇÃO — edite só este bloco ============ */
+const CONFIG = {
+  horario: "",                             // ex.: "20h" (vazio = "A confirmar")
+  whatsapp: "",                            // só números com DDI+DDD, ex.: "5511999999999"
+  precos: { lote1: "19,90", lote2: "47,00" }, // valores exibidos na página
+  checkout: { lote1: "", lote2: "" },      // links de checkout do lote 01 e do lote 02
+  parcelas: { lote1: "" }                  // ex.: "ou 3x de R$ 6,97" (vazio = oculto)
+};
+const EVENT_DATE = new Date(2026, 11, 14); // 14/12/2026 · segunda
+/* ============================================================ */
+
+/* leads e cliques gravados no Supabase (tabela leads_carine, só inserção) */
+const SUPABASE_URL='https://hmnhcinkmfwtutkbxejb.supabase.co';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtbmhjaW5rbWZ3dHV0a2J4ZWpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3ODM3ODcsImV4cCI6MjEwODM1OTc4N30.WRIigm-qiUAjfwYf7GjwTfJzjH_t8dWCWgFftRE07oo';
+const insertRow=row=>fetch(SUPABASE_URL+'/rest/v1/leads_carine',{method:'POST',headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(row),keepalive:true}).then(r=>{if(!r.ok)throw new Error(r.status)});
+const track=(ev,p={})=>{try{(window.dataLayer=window.dataLayer||[]).push({event:ev,...p});window.fbq&&fbq('trackCustom',ev,p)}catch(_){}};
+const qs=new URLSearchParams(location.search),utm={};['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid'].forEach(k=>{if(qs.get(k))utm[k]=qs.get(k)});
+
+const LEAD_KEY='carine_corpo_fala_lead';
+function loadLead(){try{return JSON.parse(localStorage.getItem(LEAD_KEY)||'null')}catch(e){return null}}
+function saveLead(l){try{localStorage.setItem(LEAD_KEY,JSON.stringify(l))}catch(e){}}
+
+/* Quiz — as chaves batem com as colunas da tabela leads_carine */
+const questions=[
+ {key:'perfil',title:"Qual frase descreve melhor o seu momento?",desc:"Vamos começar por você.",options:["Estou no climatério ou na menopausa","Quero emagrecer com acompanhamento","Vivo cansada e sem disposição","Quero prevenir e envelhecer com saúde","Faço um tratamento e quero um cuidado complementar"]},
+ {key:'sintoma',title:"Qual sinal do seu corpo mais incomoda hoje?",desc:"Escolha o que mais pesa no dia a dia.",options:["Cansaço que não passa","Intestino preso ou desconforto digestivo","Sono ruim","Peso que não sai","Alterações hormonais ou nos exames"]},
+ {key:'tentativas',title:"O que você já tentou para melhorar?",desc:"Não existe resposta certa ou errada.",options:["Dietas e restrições","Suplementos por conta própria","Consultas, mas recebi orientações genéricas","Ainda não tentei nada","Já tentei de tudo e nada resolveu"]},
+ {key:'objetivo',title:"O que você mais quer recuperar?",desc:"Pense no que faria diferença na sua rotina.",options:["Energia e disposição","Um intestino que funciona bem","Noites de sono de verdade","Meu peso e minha autoestima","Confiança no meu próprio corpo"]},
+ {key:'faixa_etaria',title:"Qual é a sua faixa de idade?",desc:"Isso ajuda a entender sua fase da vida.",options:["Até 34 anos","35 a 44 anos","45 a 54 anos","55 a 64 anos","65 anos ou mais"]}
+];
+let current=0;const answers=Array(questions.length).fill(null);const qRoot=document.getElementById('questions');
+questions.forEach((q,i)=>{
+ const section=document.createElement('div');section.className='q'+(i===0?' active':'');section.id='question-'+i;
+ section.innerHTML='<div class="qnum">PERGUNTA '+(i+1)+' DE '+questions.length+'</div><h2></h2><p></p><div class="options"></div>';
+ section.querySelector('h2').textContent=q.title;section.querySelector('p').textContent=q.desc;
+ const opts=section.querySelector('.options');
+ q.options.forEach(opt=>{
+  const b=document.createElement('button');b.type='button';b.className='option';b.innerHTML='<span class="dot"></span><span></span>';b.querySelectorAll('span')[1].textContent=opt;
+  b.addEventListener('click',()=>{
+   answers[i]=opt;opts.querySelectorAll('.option').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');
+   track('quiz_resposta',{pergunta:i+1});
+   window.setTimeout(()=>{if(current!==i)return;if(current<questions.length-1){current++;renderQuestion()}else{document.getElementById('quizFlow').classList.add('hidden');const lf=document.getElementById('leadForm');lf.classList.add('active');if(innerWidth<800)lf.scrollIntoView({behavior:'smooth',block:'start'});track('quiz_concluido')}},160);
+  });opts.appendChild(b);
+ });qRoot.appendChild(section);
+});
+function renderQuestion(){document.querySelectorAll('.q').forEach((el,i)=>el.classList.toggle('active',i===current));document.getElementById('stepLabel').textContent=(current+1)+' DE '+questions.length;document.getElementById('progressBar').style.width=((current+1)/questions.length*100)+'%';}
+document.getElementById('backToQuiz').addEventListener('click',()=>{document.getElementById('leadForm').classList.remove('active');document.getElementById('quizFlow').classList.remove('hidden');current=questions.length-1;renderQuestion();window.scrollTo({top:0,behavior:'smooth'});});
+document.getElementById('phone').addEventListener('input',e=>{let n=e.target.value.replace(/\D/g,'').slice(0,11);if(n.length>10)n=n.replace(/^(\d{2})(\d{5})(\d{4}).*/,'($1) $2-$3');else if(n.length>6)n=n.replace(/^(\d{2})(\d{4})(\d{0,4}).*/,'($1) $2-$3');else if(n.length>2)n=n.replace(/^(\d{2})(\d{0,5}).*/,'($1) $2');e.target.value=n;});
+
+function showEventPage(){
+ document.getElementById('quizScreen').classList.add('hidden');
+ document.getElementById('eventPage').classList.remove('hidden');
+ window.scrollTo({top:0,behavior:'auto'});
+}
+document.getElementById('leadForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const err=document.getElementById('formError'),sb=document.getElementById('submitLead');
+ const name=document.getElementById('name').value.trim();
+ const phone=document.getElementById('phone').value.trim();
+ const insta=document.getElementById('insta').value.trim();
+ const email=document.getElementById('email').value.trim();
+ if(name.length<2){err.textContent='Informe seu nome completo.';return;}
+ if(phone.replace(/\D/g,'').length<10){err.textContent='Informe um WhatsApp válido com DDD.';return;}
+ if(email&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){err.textContent='Confira o e-mail ou deixe em branco.';return;}
+ err.textContent='';sb.disabled=true;sb.textContent='Liberando…';
+ const row={tipo:'inscricao',nome:name,whatsapp:phone,email:email||null,instagram:insta||null,page:location.pathname,...utm};
+ questions.forEach((q,i)=>{row[q.key]=answers[i]});
+ try{await insertRow(row)}
+ catch(_){err.textContent='Não conseguimos enviar agora. Tente de novo em instantes.';sb.disabled=false;sb.textContent='Liberar meu acesso →';track('lp_lead_error');return}
+ track('lp_lead',{perfil:row.perfil,sintoma:row.sintoma});try{window.fbq&&fbq('track','Lead')}catch(_){}
+ saveLead({nome:name,whatsapp:phone,email:email||null});
+ showEventPage();
+});
+
+/* Quem já se cadastrou neste navegador vai direto para a página; ?quiz na URL sempre mostra o quiz */
+if(qs.has('quiz')){try{localStorage.removeItem(LEAD_KEY)}catch(e){}}
+else if(loadLead())showEventPage();
+
+/* Dados dinâmicos a partir do CONFIG */
+document.querySelectorAll('[data-horario]').forEach(el=>el.textContent=CONFIG.horario||'A confirmar');
+document.querySelectorAll('[data-preco]').forEach(el=>el.textContent='R$ '+CONFIG.precos[el.dataset.preco]);
+document.querySelectorAll('[data-preco-v]').forEach(el=>{const [r,c]=CONFIG.precos[el.dataset.precoV].split(',');el.innerHTML='<sup>R$</sup>'+r+(c&&c!=='00'?'<sup style="top:6px;margin-left:2px">,'+c+'</sup>':'')});
+Object.keys(CONFIG.parcelas).forEach(k=>{const el=document.querySelector('[data-parcelas="'+k+'"]');if(el&&CONFIG.parcelas[k]){el.textContent=CONFIG.parcelas[k];el.hidden=false}});
+if(CONFIG.whatsapp){
+ const wa=document.getElementById('waLink');
+ wa.href='https://wa.me/'+CONFIG.whatsapp+'?text='+encodeURIComponent('Olá! Tenho uma dúvida sobre a imersão O Corpo Fala.');
+ wa.target='_blank';wa.rel='noopener';wa.hidden=false;
+ document.getElementById('waFallback').hidden=true;
+}
+
+/* Lote: números reais da tabela carine_lotes. Lote 01 esgotado → o botão leva ao checkout do lote 02 */
+let LOTE_ESGOTADO=false;
+function paintLotes(L){const T=L.lote1_total||50,V=Math.min(L.lote1_vendidas||0,T),left=T-V,pad=n=>String(n).padStart(2,'0');LOTE_ESGOTADO=left<=0;
+ document.querySelectorAll('[data-vagas]').forEach(el=>el.classList.remove('hide'));
+ document.querySelectorAll('[data-vagas-txt]').forEach(el=>el.textContent=LOTE_ESGOTADO?'Lote 01 esgotado':'Restam '+pad(left)+' de '+T+' vagas');
+ document.querySelectorAll('[data-vagas-bar]').forEach(el=>el.style.width=Math.max(4,V/T*100)+'%');
+ if(LOTE_ESGOTADO){document.querySelectorAll('.tag').forEach(t=>t.textContent='Lote 02');document.querySelectorAll('[data-preco-v]').forEach(el=>{el.dataset.precoV='lote2'});document.querySelectorAll('[data-preco-v]').forEach(el=>{const [r,c]=CONFIG.precos.lote2.split(',');el.innerHTML='<sup>R$</sup>'+r+(c&&c!=='00'?'<sup style="top:6px;margin-left:2px">,'+c+'</sup>':'')});document.querySelectorAll('.price>small:first-child').forEach(s=>s.textContent='LOTE 02 · por pessoa');document.querySelectorAll('.nx').forEach(s=>s.hidden=true)}}
+function loadLotes(){fetch(SUPABASE_URL+'/rest/v1/carine_lotes?select=lote1_total,lote1_vendidas&id=eq.1',{headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}}).then(r=>r.ok?r.json():null).then(d=>{if(d&&d[0])paintLotes(d[0])}).catch(()=>{})}
+loadLotes();setInterval(()=>{if(!document.hidden)loadLotes()},60000);
+
+/* Clique no ingresso: registra a intenção e abre o checkout */
+document.querySelectorAll('[data-ticket]').forEach(btn=>{
+ btn.addEventListener('click',e=>{
+  e.preventDefault();
+  const t=LOTE_ESGOTADO?'lote2':btn.dataset.ticket,lead=loadLead()||{};
+  track('clique_ingresso',{ingresso:t});
+  if(lead.nome&&lead.whatsapp)insertRow({tipo:'clique_ingresso',ingresso:t,nome:lead.nome,whatsapp:lead.whatsapp,email:lead.email||null,page:location.pathname,...utm}).catch(()=>{});
+  const url=CONFIG.checkout[t];
+  if(url){window.location.href=url}
+  else{document.querySelector('[data-msg="lote1"]').textContent='Recebemos seu interesse! A equipe da Carine vai te chamar no WhatsApp para finalizar sua inscrição.'}
+ });
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
