@@ -539,11 +539,8 @@ header.nav .seats .st>span:first-child{display:none}
           <h2>Seu plano para começar com IA está pronto.</h2>
           <p>Informe seus dados para ver o evento e garantir seu ingresso do IA na Prática, em 11 de dezembro, online e ao vivo.</p>
           <div class="field"><label for="name">Nome completo *</label><input id="name" autocomplete="name" placeholder="Seu nome"></div>
-          <div class="two">
-            <div class="field"><label for="phone">WhatsApp com DDD *</label><input id="phone" inputmode="tel" autocomplete="tel" placeholder="(11) 99999-9999"></div>
-            <div class="field"><label for="company">Instagram (opcional)</label><input id="company" autocomplete="off" placeholder="@seuperfil"></div>
-          </div>
-          <div class="field"><label for="email">E-mail (opcional)</label><input id="email" type="email" autocomplete="email" placeholder="voce@email.com"></div>
+          <div class="field"><label for="email">E-mail *</label><input id="email" type="email" autocomplete="email" placeholder="voce@email.com"></div>
+          <div class="field"><label for="phone">WhatsApp com DDD *</label><input id="phone" inputmode="tel" autocomplete="tel" placeholder="(11) 99999-9999"></div>
           <p id="formError" role="alert"></p>
           <div class="form-actions">
             <button type="button" class="btn btn-ghost" id="backToQuiz">Voltar</button>
@@ -860,11 +857,11 @@ document.getElementById('leadForm').addEventListener('submit',async e=>{
  const err=document.getElementById('formError'),sb=document.getElementById('submitLead');
  const name=document.getElementById('name').value.trim();
  const phone=document.getElementById('phone').value.trim();
- const company=document.getElementById('company').value.trim();
+ const company='';
  const email=document.getElementById('email').value.trim();
  if(name.length<2){err.textContent='Informe seu nome completo.';return;}
  if(phone.replace(/\D/g,'').length<10){err.textContent='Informe um WhatsApp válido com DDD.';return;}
- if(email&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){err.textContent='Confira o e-mail ou deixe em branco.';return;}
+ if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){err.textContent='Informe um e-mail válido. É por ele que você recebe o link do evento.';return;}
  err.textContent='';sb.disabled=true;sb.textContent='Liberando…';
  const row={tipo:'inscricao',nome:name,whatsapp:phone,email:email||null,empresa:company||null,page:location.pathname,...utm};
  questions.forEach((q,i)=>{row[q.key]=answers[i]});
