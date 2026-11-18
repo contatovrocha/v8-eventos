@@ -277,7 +277,7 @@ async function enter() {
   S.following = new Set((fl || []).map((x) => x.following_id));
   refreshUnread(); listenNotifications();
   if (!location.hash || location.hash.includes('access_token') || location.hash === '#') history.replaceState(null, '', '#/feed');
-  window.onhashchange = route; route();
+  window.onhashchange = route; route(); setTimeout(() => surveyPopup(), 1200); syncPush();
 }
 
 async function refreshUnread() {
@@ -318,6 +318,9 @@ function signupForm() {
     ${field('company_phone', 'Telefone / WhatsApp da empresa', '', 'tel', 'inputmode="tel" placeholder="(11) 3000-0000" maxlength="30"')}
     <div class="f2">${field('instagram', 'Instagram da empresa', '', 'text', 'placeholder="@empresa" autocapitalize="off" maxlength="80"')}${field('website', 'Site', '', 'text', 'placeholder="empresa.com.br" inputmode="url" autocapitalize="off" maxlength="200"')}</div>
     ${field('bio', 'Biografia', '', 'textarea', 'maxlength="1500" placeholder="Quem você é, sua trajetória e como pode ajudar outros empresários"')}
+    <div class="hr"></div><p class="eyebrow" style="margin-bottom:10px">Pesquisa rápida</p>
+    ${field('birth_date', 'Data de nascimento (para celebrarmos seu aniversário)', '', 'date', `max="${new Date().toISOString().slice(0, 10)}" min="1900-01-01"`)}
+    ${field('podcast_guest', 'Com quem você sonharia em fazer um podcast?', '', 'text', 'maxlength="300" placeholder="Ex.: Abilio Diniz, Luiza Trajano..."')}
     <input name="website_confirm" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <label class="check"><input type="checkbox" name="lgpd"> Li e concordo com o tratamento dos meus dados conforme a LGPD.</label>
     <button class="btn btn-gold btn-block" style="margin-top:10px">Enviar cadastro</button>
@@ -406,6 +409,7 @@ const ROUTES = {
   feed: () => viewFeed(), post: (id) => viewPost(id), novo: () => { history.replaceState(null, '', '#/feed'); viewFeed().then(() => composer()); },
   membros: () => viewMembers(), u: (id) => viewProfile(id), eu: () => viewMe(),
   negocios: () => viewDeals(), oportunidades: () => viewIntents(), rede: (t) => viewNetwork(t), notificacoes: () => viewNotifications(),
+  pesquisa: () => { history.replaceState(null, '', '#/feed'); viewFeed().then(() => surveyPopup(true)); },
   config: () => viewSettings(), eventos: () => viewEvents(), evento: (id) => viewEvent(id), 'meus-eventos': () => viewMyEvents(), admin: (t) => viewAdmin(t),
 };
 async function route() {
@@ -421,13 +425,13 @@ let FEED_TAB = 'todos';
 async function viewFeed() {
   const hr = new Date().getHours();
   const v = shell('', `<p class="eyebrow" style="margin-top:4px">${hr < 12 ? 'Bom dia' : hr < 18 ? 'Boa tarde' : 'Boa noite'}</p><h1 class="hd lg" style="margin:6px 0 16px">${h((S.me.full_name || '').split(' ')[0] || 'Network')}</h1>
-    <div id="banners"></div><div class="stories" id="stories"></div>
+    <div id="pushcard"></div><div id="banners"></div><div class="stories" id="stories"></div>
     <div id="mbanners"></div>
     <button class="composer-btn" onclick="composer()">${av(S.me, 'sm')}<span class="grow">Compartilhe uma conquista, projeto ou oportunidade</span>${I('image', 20)}</button>
     <div class="seg" style="margin-top:16px"><button data-t="todos" class="${FEED_TAB === 'todos' ? 'on' : ''}">Para você</button><button data-t="seguindo" class="${FEED_TAB === 'seguindo' ? 'on' : ''}">Seguindo</button></div>
     <div id="posts">${spinner()}</div>`);
   $$('.seg button', v).forEach((b) => (b.onclick = () => { FEED_TAB = b.dataset.t; $$('.seg button', v).forEach((x) => x.classList.toggle('on', x === b)); loadPosts(); }));
-  loadBanners(); loadStories(); await loadPosts();
+  loadBanners(); loadStories(); renderPushCard(); await loadPosts();
 }
 /* galeria com o banner (capa) de cada membro: passa sozinha, desliza para os lados e abre o perfil */
 function loadMemberBanners(list) {
@@ -1074,9 +1078,11 @@ async function viewSettings() {
       ${[['deals', 'Quantidade de negócios'], ['volume', 'Valores (recebido, gerado, volume)'], ['companies', 'Empresas com quem negociou'], ['history', 'Histórico de negócios']].map(([k, t]) => `<label class="check"><input type="checkbox" data-mp="${k}" ${mp[k] !== false && (k !== 'history' || mp[k]) ? 'checked' : ''}> ${t}</label>`).join('')}
       <label class="check"><input type="checkbox" data-mp="interests" ${mp.interests !== false ? 'checked' : ''}> Mostrar meu nome nos eventos em que demonstro interesse</label></div>
     <div class="sec"><h3>Notificações</h3></div><div class="card"><label class="check"><input type="checkbox" id="em" ${p.email_notifications ? 'checked' : ''}> Receber e-mails de oportunidades e negócios</label></div>
+    <div class="sec"><h3>Notificações no celular</h3></div><div class="card"><div class="row"><div class="grow"><b style="display:block;font-size:14px">Avisos em pop-up</b><span class="small muted" id="pushst">Verificando…</span></div><button class="btn btn-sm btn-ghost" id="pushbtn">…</button></div></div>
     <div class="sec"><h3>Segurança</h3></div><div class="menu">
       <button class="it" id="pw">${I('lock')}<span class="grow">Alterar senha</span>${I('next', 16)}</button>
       <button class="it" id="mail">${I('mail')}<span class="grow">Alterar e-mail de acesso</span><span class="small muted ell" style="max-width:45%">${h(S.user.email)}</span></button>
+      <button class="it" onclick="surveyPopup(true)">${I('star')}<span class="grow">Pesquisa rápida (aniversário e podcast)</span>${I('next', 16)}</button>
       <button class="it" id="exp">${I('download')}<span class="grow">Exportar meus dados (LGPD)</span>${I('next', 16)}</button>
       <button class="it" id="out">${I('logout')}<span class="grow" style="color:var(--bad)">Sair da conta</span></button></div>`, { back: true });
   $$('[data-mp]', v).forEach((c) => (c.onchange = async () => { const nv = { ...(p.metrics_public || {}) }; $$('[data-mp]', v).forEach((x) => (nv[x.dataset.mp] = x.checked)); p.metrics_public = nv;
@@ -1097,6 +1103,7 @@ async function viewSettings() {
     const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(out, null, 2)], { type: 'application/json' })); a.download = 'meus-dados-clube-do-roi.json'; a.click();
   });
   $('#out').onclick = () => sb.auth.signOut();
+  pushSettingsUI();
 }
 
 /* ===================== EVENTOS ===================== */
@@ -1298,11 +1305,11 @@ async function viewMyEvents() {
 /* ===================== PAINEL MASTER ===================== */
 async function viewAdmin(tab = 'painel') {
   const tabs = [['painel', 'Painel', true], ['membros', 'Membros', can('users') || can('support')], ['banners', 'Banners', can('content')], ['conteudo', 'Conteúdo', can('content')],
-    ['negocios', 'Negócios', can('deals') || can('finance')], ['eventos', 'Eventos', can('events')], ['logs', 'Auditoria', isSuper() || can('support')], ['config', 'Ajustes', isSuper()]].filter((t) => t[2]);
+    ['negocios', 'Negócios', can('deals') || can('finance')], ['eventos', 'Eventos', can('events')], ['pesquisa', 'Pesquisa', can('users') || can('support')], ['logs', 'Auditoria', isSuper() || can('support')], ['config', 'Ajustes', isSuper()]].filter((t) => t[2]);
   if (!tabs.some((t) => t[0] === tab)) tab = 'painel';
   const v = shell('Administração', `<div class="atabs"><div class="chips">${tabs.map(([k, t]) => `<a class="chip ${k === tab ? 'on' : ''}" href="#/admin/${k}">${t}</a>`).join('')}</div></div><div id="adm">${spinner()}</div>`, { back: true });
   const box = $('#adm');
-  await ({ painel: admDash, membros: admMembers, banners: admBanners, conteudo: admPosts, negocios: admDeals, eventos: admEvents, logs: admLogs, config: admConfig }[tab])(box);
+  await ({ painel: admDash, membros: admMembers, banners: admBanners, conteudo: admPosts, negocios: admDeals, eventos: admEvents, logs: admLogs, config: admConfig, pesquisa: admSurvey }[tab])(box);
 }
 async function admDash(box) {
   const { data: d, error } = await sb.rpc('admin_dashboard'); if (error) throw error;
@@ -1524,6 +1531,124 @@ async function admConfig(box) {
     <button class="btn btn-gold btn-block">Salvar</button></form></div>`;
   $('#sgon', box).onchange = async (e) => { const { error } = await sb.from('platform_settings').update({ value: { enabled: e.target.checked } }).eq('key', 'signup'); if (error) { e.target.checked = !e.target.checked; return toast(errMsg(error), true); } await sb.rpc('log_admin', { p_action: e.target.checked ? 'signup_opened' : 'signup_closed', p_type: 'settings', p_id: 'signup' }); toast(e.target.checked ? 'Cadastro aberto' : 'Cadastro fechado'); };
   const f = $('form', box); f.onsubmit = (e) => { e.preventDefault(); withBtn($('button', f), async () => { const { error } = await sb.from('platform_settings').update({ value: { enabled: f.enabled.checked, from: f.from.value.trim() } }).eq('key', 'email'); if (error) throw error; await sb.rpc('log_admin', { p_action: 'settings_email', p_type: 'settings', p_id: 'email' }); toast('Ajustes salvos'); }); };
+}
+
+/* ===================== PESQUISA RÁPIDA ===================== */
+let SURVEY_SHOWN = false;
+async function surveyPopup(force = false) {
+  if (!S.user || (!force && SURVEY_SHOWN) || $('.pop-bg')) return;
+  const { data: sv } = await sb.from('member_survey').select('*').eq('user_id', S.user.id).maybeSingle();
+  if (!force) {
+    if (sv && sv.answered_at) return;
+    if (sv && sv.skipped_at && Date.now() - new Date(sv.skipped_at) < 3 * 864e5) return;
+  }
+  SURVEY_SHOWN = true;
+  const first = (S.me.full_name || '').split(' ')[0];
+  const bg = document.createElement('div'); bg.className = 'pop-bg';
+  bg.innerHTML = `<div class="pop" role="dialog" aria-modal="true" aria-labelledby="popt">
+    <button class="icon-btn pop-x" aria-label="Fechar" data-later>${I('x', 18)}</button>
+    <span class="pop-ic">${I('star', 26)}</span>
+    <p class="eyebrow">Pesquisa rápida · 30 segundos</p>
+    <h2 id="popt">${first ? h(first) + ', queremos' : 'Queremos'} te conhecer melhor</h2>
+    <p class="muted small" style="margin-bottom:16px">Duas perguntas para o clube celebrar com você e criar ações com os perfis que os membros admiram.</p>
+    <form novalidate>
+      ${field('birth_date', 'Data de nascimento', (sv && sv.birth_date) || '', 'date', `max="${new Date().toISOString().slice(0, 10)}" min="1900-01-01"`)}
+      <p class="small muted" style="margin:-8px 0 14px">Para celebrarmos e mandarmos uma mensagem no seu aniversário.</p>
+      ${field('podcast_guest', 'Com quem você sonharia em fazer um podcast?', (sv && sv.podcast_guest) || '', 'text', 'maxlength="300" placeholder="Ex.: Abilio Diniz, Luiza Trajano..."')}
+      <button class="btn btn-gold btn-block">Enviar respostas</button>
+      ${force ? '' : '<button type="button" class="btn btn-block" data-later style="margin-top:6px;color:var(--mut)">Responder depois</button>'}
+    </form></div>`;
+  document.body.appendChild(bg); document.body.style.overflow = 'hidden';
+  const close = () => { bg.remove(); if (!$('.sheet')) document.body.style.overflow = ''; };
+  $$('[data-later]', bg).forEach((b) => (b.onclick = async () => { close(); if (!force && !(sv && sv.answered_at)) await sb.from('member_survey').upsert({ user_id: S.user.id, skipped_at: new Date().toISOString(), updated_at: new Date().toISOString() }); }));
+  const f = $('form', bg);
+  f.onsubmit = (e) => { e.preventDefault();
+    if (!validate(f, { birth_date: (v) => (!v ? 'Informe sua data de nascimento' : (v < '1900-01-01' || v > new Date().toISOString().slice(0, 10)) ? 'Data inválida' : ''), podcast_guest: (v) => (v.length >= 2 ? '' : 'Conte pra gente quem seria') })) return;
+    withBtn($('button.btn-gold', f), async () => {
+      const { error } = await sb.from('member_survey').upsert({ user_id: S.user.id, birth_date: f.birth_date.value, podcast_guest: f.podcast_guest.value.trim(), answered_at: new Date().toISOString(), updated_at: new Date().toISOString() });
+      if (error) throw error; close(); toast('Obrigado! Respostas salvas');
+    }); };
+}
+async function admSurvey(box) {
+  const [{ data: rows, error }, { data: priv }] = await Promise.all([sb.from('member_survey').select('*'), sb.from('profile_private').select('user_id,phone')]);
+  if (error) throw error;
+  const get = await loadProfiles((rows || []).map((r) => r.user_id));
+  const phoneOf = new Map((priv || []).map((x) => [x.user_id, x.phone]));
+  const tz = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' })); tz.setHours(0, 0, 0, 0);
+  const nextBday = (d) => { const [y, m, dd] = d.split('-').map(Number); let n = new Date(tz.getFullYear(), m - 1, dd); if (n < tz) n = new Date(tz.getFullYear() + 1, m - 1, dd); return { date: n, days: Math.round((n - tz) / 864e5), age: n.getFullYear() - y }; };
+  const answered = (rows || []).filter((r) => r.answered_at);
+  const bdays = answered.filter((r) => r.birth_date).map((r) => ({ r, ...nextBday(r.birth_date) })).sort((a, b) => a.days - b.days);
+  const soon = bdays.filter((x) => x.days <= 30);
+  const { count: total } = await sb.from('profiles').select('id', { count: 'exact', head: true }).eq('status', 'active');
+  const wa = (x) => { const p = get(x.r.user_id); const first = (p.full_name || '').split(' ')[0]; const msg = `Feliz aniversário, ${first}! 🎉\n\nTodo o Clube do RØI deseja um novo ciclo de muita saúde, conquistas e grandes negócios. Conte sempre com a gente!`; const ph = phoneOf.get(x.r.user_id); return (ph ? waLink(ph) : 'https://wa.me/') + '?text=' + encodeURIComponent(msg); };
+  box.innerHTML = `<div class="kpis"><div class="kpi"><span>Responderam</span><b>${answered.length}/${total || 0}</b></div><div class="kpi"><span>Aniversários em 30 dias</span><b>${soon.length}</b></div></div>
+    ${can('users') && (total || 0) > answered.length ? `<button class="btn btn-gold btn-block" id="remind" style="margin-top:12px">${I('bell')} Lembrar quem não respondeu (${Math.max(0, (total || 0) - answered.length - 1)})</button><p class="small muted" style="margin-top:6px">Chega como notificação no app e como pop-up no celular de quem ativou os avisos.</p>` : ''}
+    <div class="sec"><h3>Próximos aniversários</h3></div>
+    ${soon.length ? `<div class="list">${soon.map((x) => { const p = get(x.r.user_id); return `<div class="it">${av(p, 'sm')}<div class="grow"><b class="ell" style="display:block">${h(p.full_name)}</b><span class="small muted">${x.days === 0 ? '<b style="color:#fff">Hoje 🎂</b>' : x.days === 1 ? 'Amanhã' : 'Em ' + x.days + ' dias'} · ${x.date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long' })} · ${x.age} anos</span></div>
+      <a class="btn ${x.days === 0 ? 'btn-gold' : 'btn-ghost'} btn-sm" target="_blank" rel="noopener" href="${h(wa(x))}">${I('whatsapp')} Parabéns</a></div>`; }).join('')}</div>` : '<p class="muted small">Nenhum aniversário nos próximos 30 dias.</p>'}
+    <div class="sec"><h3>Com quem sonham fazer um podcast</h3></div>
+    ${answered.filter((r) => r.podcast_guest).length ? `<div class="list">${answered.filter((r) => r.podcast_guest).map((r) => { const p = get(r.user_id); return `<a class="it" href="#/u/${r.user_id}">${av(p, 'sm')}<div class="grow"><b class="small" style="display:block">${h(r.podcast_guest)}</b><span class="small muted">${h(p.full_name)}${coName(p) ? ' · ' + h(coName(p)) : ''}</span></div></a>`; }).join('')}</div>` : '<p class="muted small">Ainda sem respostas.</p>'}
+    <div class="sec"><h3>Todos os aniversários</h3></div>
+    ${bdays.length ? `<div class="list">${bdays.map((x) => `<div class="it"><div class="grow small">${h(get(x.r.user_id).full_name)}</div><span class="small muted">${x.r.birth_date.split('-').reverse().slice(0, 2).join('/')}</span></div>`).join('')}</div>` : '<p class="muted small">Ainda sem respostas.</p>'}
+    <p class="small muted" style="margin-top:16px">Todo dia, de manhã, quem administra membros recebe uma notificação com os aniversariantes do dia.</p>`;
+  const rb = $('#remind', box); if (rb) rb.onclick = () => withBtn(rb, async () => { if (!(await confirmSheet('Enviar lembrete?', 'Todos os membros ativos que ainda não responderam recebem o aviso da pesquisa rápida.', 'Enviar'))) return;
+    const { data, error: e2 } = await sb.rpc('remind_survey'); if (e2) throw e2; toast(`Lembrete enviado para ${data} ${data === 1 ? 'membro' : 'membros'}`); });
+}
+
+/* ===================== NOTIFICAÇÕES PUSH (pop-up no celular) ===================== */
+const pushSupported = () => 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
+const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const isStandalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+const b64u = (s) => { const pad = '='.repeat((4 - (s.length % 4)) % 4); const raw = atob((s + pad).replace(/-/g, '+').replace(/_/g, '/')); return Uint8Array.from([...raw].map((c) => c.charCodeAt(0))); };
+async function saveSubscription(sub) {
+  const j = sub.toJSON();
+  await sb.from('push_subscriptions').delete().eq('endpoint', j.endpoint);
+  const { error } = await sb.from('push_subscriptions').insert({ user_id: S.user.id, endpoint: j.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth, user_agent: navigator.userAgent.slice(0, 300) });
+  if (error && !/duplicate/i.test(error.message)) throw error;
+}
+async function enablePush() {
+  if (!pushSupported()) throw new Error(isIOS() && !isStandalone() ? 'No iPhone, instale o app na tela inicial primeiro (Compartilhar › Adicionar à Tela de Início).' : 'Este navegador não aceita notificações.');
+  const perm = await Notification.requestPermission();
+  if (perm !== 'granted') throw new Error(perm === 'denied' ? 'Notificações bloqueadas. Libere nas configurações do navegador para este site.' : 'Permissão não concedida.');
+  const { data: key, error } = await sb.rpc('push_public_key'); if (error || !key) throw new Error('Serviço de notificações indisponível no momento.');
+  const reg = await navigator.serviceWorker.register('sw.js'); await navigator.serviceWorker.ready;
+  let sub = await reg.pushManager.getSubscription();
+  if (!sub) sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64u(key) });
+  await saveSubscription(sub);
+  try { localStorage.removeItem('cdr:push-later'); } catch (_) {}
+  return true;
+}
+async function disablePush() {
+  const reg = await navigator.serviceWorker.getRegistration(); const sub = reg && (await reg.pushManager.getSubscription());
+  if (sub) { await sb.from('push_subscriptions').delete().eq('endpoint', sub.endpoint); await sub.unsubscribe().catch(() => {}); }
+}
+async function syncPush() {
+  try { if (!pushSupported() || Notification.permission !== 'granted') return; const reg = await navigator.serviceWorker.getRegistration(); const sub = reg && (await reg.pushManager.getSubscription()); if (sub) await saveSubscription(sub); else await enablePush(); } catch (_) {}
+}
+function renderPushCard() {
+  const box = $('#pushcard'); if (!box) return;
+  let later = 0; try { later = Number(localStorage.getItem('cdr:push-later') || 0); } catch (_) {}
+  if (Date.now() - later < 5 * 864e5) return (box.innerHTML = '');
+  const iosNoInstall = isIOS() && !isStandalone();
+  if (!iosNoInstall && (!pushSupported() || Notification.permission !== 'default')) return (box.innerHTML = '');
+  box.innerHTML = `<div class="pushcard"><span class="pop-ic sm">${I('bell', 20)}</span><div class="grow"><b>Receba os avisos do clube no celular</b>
+    <p class="small muted">${iosNoInstall ? 'No iPhone: toque em Compartilhar e depois em <b style="color:#fff">Adicionar à Tela de Início</b>. Abra o app pelo ícone e ative aqui.' : 'Conexões, negócios, eventos e aniversários chegam como pop-up, mesmo com o app fechado.'}</p>
+    <div class="row" style="gap:8px;margin-top:10px">${iosNoInstall ? '' : `<button class="btn btn-gold btn-sm" id="pushon">Ativar notificações</button>`}<button class="btn btn-sm" id="pushlater" style="color:var(--mut)">Agora não</button></div></div></div>`;
+  const on = $('#pushon', box); if (on) on.onclick = () => withBtn(on, async () => { await enablePush(); box.innerHTML = ''; toast('Pronto! Você vai receber os avisos no celular'); });
+  $('#pushlater', box).onclick = () => { try { localStorage.setItem('cdr:push-later', String(Date.now())); } catch (_) {} box.innerHTML = ''; };
+}
+async function pushSettingsUI() {
+  const st = $('#pushst'), bt = $('#pushbtn'); if (!st || !bt) return;
+  const draw = async () => {
+    if (!pushSupported()) { st.textContent = isIOS() && !isStandalone() ? 'No iPhone, instale o app na tela inicial para ativar.' : 'Este navegador não aceita notificações.'; bt.hidden = true; return; }
+    const reg = await navigator.serviceWorker.getRegistration(); const sub = reg && (await reg.pushManager.getSubscription());
+    if (Notification.permission === 'denied') { st.textContent = 'Bloqueadas no navegador. Libere nas configurações do site.'; bt.hidden = true; return; }
+    const on = Notification.permission === 'granted' && !!sub;
+    st.textContent = on ? 'Ativadas neste aparelho.' : 'Desativadas neste aparelho.'; bt.hidden = false; bt.textContent = on ? 'Desativar' : 'Ativar';
+    bt.className = 'btn btn-sm ' + (on ? 'btn-ghost' : 'btn-gold');
+    bt.onclick = () => withBtn(bt, async () => { if (on) { await disablePush(); toast('Notificações desativadas'); } else { await enablePush(); toast('Notificações ativadas'); } draw(); });
+  };
+  draw();
 }
 
 boot();

@@ -1,7 +1,7 @@
 // Service worker: deixa o app instalável e abre a casca sem internet.
 // O Supabase (outro domínio) e as fontes vão sempre direto para a rede.
-const CACHE = 'cdr-net-v8';
-const SHELL = ['./', 'index.html', 'app.css?v=8', 'app.js?v=8', 'vendor/supabase-2.65.0.js', 'manifest.webmanifest',
+const CACHE = 'cdr-net-v10';
+const SHELL = ['./', 'index.html', 'app.css?v=10', 'app.js?v=10', 'vendor/supabase-2.65.0.js', 'manifest.webmanifest',
   'icons/icon.svg', 'icons/icon-192.png', 'img/hero.jpg'];
 
 self.addEventListener('install', e => {
@@ -25,4 +25,22 @@ self.addEventListener('fetch', e => {
     if (r.ok) { const cp = r.clone(); caches.open(CACHE).then(c => c.put(req, cp)); }
     return r;
   })));
+});
+
+// ---------- Notificações push (pop-up no celular, mesmo com o app fechado) ----------
+self.addEventListener('push', e => {
+  let d = {};
+  try { d = e.data ? e.data.json() : {}; } catch (_) { d = { title: 'Clube do RØI', body: e.data ? e.data.text() : '' }; }
+  e.waitUntil(self.registration.showNotification(d.title || 'Clube do RØI', {
+    body: d.body || '', icon: 'icons/icon-192.png', badge: 'icons/icon-192.png',
+    tag: d.tag || undefined, data: { link: d.link || '#/notificacoes' }, vibrate: [80, 40, 80],
+  }));
+});
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  const target = new URL('./', self.registration.scope).href + (e.notification.data && e.notification.data.link || '#/notificacoes');
+  e.waitUntil(self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(list => {
+    for (const c of list) { if (c.url.startsWith(self.registration.scope)) { c.navigate(target).catch(() => {}); return c.focus(); } }
+    return self.clients.openWindow(target);
+  }));
 });
