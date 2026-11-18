@@ -289,7 +289,7 @@ async function refreshUnread() {
 function listenNotifications() {
   if (S.chan) sb.removeChannel(S.chan);
   S.chan = sb.channel('notif-' + S.user.id)
-    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'notifications', filter: `user_id=eq.${S.user.id}` }, (p) => { toast(p.new.title); refreshUnread(); })
+    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'notifications', filter: `user_id=eq.${S.user.id}` }, (p) => { toast(p.new.title); playChime(); refreshUnread(); })
     .subscribe();
   setInterval(refreshUnread, 60000);
 }
@@ -1079,6 +1079,9 @@ async function viewSettings() {
       <label class="check"><input type="checkbox" data-mp="interests" ${mp.interests !== false ? 'checked' : ''}> Mostrar meu nome nos eventos em que demonstro interesse</label></div>
     <div class="sec"><h3>Notificações</h3></div><div class="card"><label class="check"><input type="checkbox" id="em" ${p.email_notifications ? 'checked' : ''}> Receber e-mails de oportunidades e negócios</label></div>
     <div class="sec"><h3>Notificações no celular</h3></div><div class="card"><div class="row"><div class="grow"><b style="display:block;font-size:14px">Avisos em pop-up</b><span class="small muted" id="pushst">Verificando…</span></div><button class="btn btn-sm btn-ghost" id="pushbtn">…</button></div></div>
+    <div class="card" style="margin-top:8px"><label class="check"><input type="checkbox" id="sndon"> Tocar o som do clube nas notificações com o app aberto</label>
+      <div class="row" style="gap:8px;margin-top:6px;flex-wrap:wrap"><button class="btn btn-ghost btn-sm" id="sndtest">${I('music')} Ouvir o som</button><a class="btn btn-ghost btn-sm" href="sounds/clube-do-roi.mp3" download="clube-do-roi.mp3">${I('download')} Baixar o som</a></div>
+      <p class="small muted" style="margin-top:10px">Com o app fechado, o celular usa o som de notificação dele. No Android dá para trocar pelo som do clube: baixe o arquivo e vá em Configurações do celular › Apps › Chrome › Notificações › eventos.v8.ia.br › Som. No iPhone, a Apple não permite trocar.</p></div>
     <div class="sec"><h3>Segurança</h3></div><div class="menu">
       <button class="it" id="pw">${I('lock')}<span class="grow">Alterar senha</span>${I('next', 16)}</button>
       <button class="it" id="mail">${I('mail')}<span class="grow">Alterar e-mail de acesso</span><span class="small muted ell" style="max-width:45%">${h(S.user.email)}</span></button>
@@ -1104,6 +1107,8 @@ async function viewSettings() {
   });
   $('#out').onclick = () => sb.auth.signOut();
   pushSettingsUI();
+  const sn = $('#sndon'); sn.checked = soundOn(); sn.onchange = () => { try { localStorage.setItem('cdr:sound', sn.checked ? '1' : '0'); } catch (_) {} if (sn.checked) playChime(true); };
+  $('#sndtest').onclick = () => playChime(true);
 }
 
 /* ===================== EVENTOS ===================== */
@@ -1650,5 +1655,24 @@ async function pushSettingsUI() {
   };
   draw();
 }
+
+/* ===================== som das notificações ("plin plin" do clube) ===================== */
+const soundOn = () => { try { return localStorage.getItem('cdr:sound') !== '0'; } catch (_) { return true; } };
+let CHIME = null, CHIME_AT = 0;
+function chimeEl() {
+  if (!CHIME) { CHIME = new Audio(); const m4a = CHIME.canPlayType('audio/mp4; codecs="mp4a.40.2"'); CHIME.src = m4a ? 'sounds/clube-do-roi.m4a' : 'sounds/clube-do-roi.mp3'; CHIME.preload = 'auto'; CHIME.volume = 0.85; }
+  return CHIME;
+}
+function playChime(force = false) {
+  if (!force && (!soundOn() || Date.now() - CHIME_AT < 1500)) return; // evita tocar várias vezes seguidas
+  CHIME_AT = Date.now();
+  try { const a = chimeEl(); a.muted = false; a.currentTime = 0; const pr = a.play(); if (pr) pr.catch(() => {}); } catch (_) {}
+  if (navigator.vibrate) try { navigator.vibrate([60, 50, 60]); } catch (_) {}
+}
+// celulares só liberam áudio depois de um toque: destrava o som no primeiro toque na tela
+document.addEventListener('pointerdown', function unlock() {
+  document.removeEventListener('pointerdown', unlock);
+  try { const a = chimeEl(); a.muted = true; const pr = a.play(); if (pr) pr.then(() => { if (Date.now() - CHIME_AT > 1000) { a.pause(); a.currentTime = 0; } a.muted = false; }).catch(() => { a.muted = false; }); } catch (_) {}
+}, { once: false });
 
 boot();
