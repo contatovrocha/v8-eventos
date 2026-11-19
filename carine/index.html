@@ -7,12 +7,13 @@
 <meta name="description" content="Imersão online com a naturopata Carine Rodrigues: entenda o que o seu corpo está tentando dizer e conheça a Jornada do Terreno Biológico. Dois dias ao vivo: sexta e sábado, 11 e 12/12.">
 <meta property="og:title" content="O Corpo Fala · Imersão online com Carine Rodrigues">
 <meta property="og:description" content="11 e 12/12, online e ao vivo. Cansaço, intestino, sono, peso e hormônios: o que o seu corpo está tentando dizer.">
-<meta property="og:image" content="https://eventos.v8.ia.br/carine/img/carine-sorriso-bronze.jpg">
+<meta property="og:image" content="https://eventos.v8.ia.br/criativos/carine-corpo-fala/02.jpg">
 <link rel="icon" href="img/simbolo-bronze.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/corm-n600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="img/carine-sorriso-bronze-640.webp" imagesrcset="img/carine-sorriso-bronze-640.webp 640w, img/carine-sorriso-bronze-1000.webp 1000w" imagesizes="(max-width:600px) 100vw, 540px" fetchpriority="high">
 <style>
+@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:500;font-display:swap;src:url(fonts/corm-i500.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/corm-n600.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Manrope';font-style:normal;font-weight:500 800;font-display:swap;src:url(fonts/manrope.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 /* Layout (padrão V8): quiz de 5 perguntas → cadastro → página de vendas longa:
    dor interna → crenças → mecanismo (Jornada do Terreno Biológico) → para quem → autoridade → ingresso → FAQ.
    Identidade: marca Carine Rodrigues (bronze e creme sobre café). */
@@ -52,59 +53,47 @@ section{padding-block:96px}
 .brand b{display:block;font-family:var(--serif);font-size:20px;font-weight:600;font-style:italic;line-height:1}
 .brand small{display:block;font-size:10.5px;letter-spacing:.2em;color:var(--muted);font-weight:700;margin-top:3px}
 
-/* ===== ABERTURA: o símbolo da marca se desenha ===== */
-body.lock{overflow:hidden}
-#pre{position:fixed;inset:0;z-index:100;background:radial-gradient(560px 460px at 50% 46%,rgba(217,176,122,.14),transparent 70%),#0C0806;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;cursor:pointer;transition:opacity .6s ease,visibility .6s}
-#pre.off{opacity:0;visibility:hidden}
-#pre .sym{width:min(42vw,190px);aspect-ratio:1;position:relative}
-#pre .ring{position:absolute;inset:0;width:100%;height:100%}
-#pre .ring circle{fill:none;stroke:url(#preG);stroke-width:1.4;stroke-dasharray:600;stroke-dashoffset:600;animation:ring 1.4s cubic-bezier(.6,0,.2,1) .2s forwards}
-@keyframes ring{to{stroke-dashoffset:0}}
-#pre .sym img{position:absolute;inset:0;width:100%;height:100%;opacity:0;transform:scale(.92);animation:symIn .9s ease-out 1.1s forwards}
-@keyframes symIn{to{opacity:1;transform:none}}
-#pre .word{text-align:center;opacity:0;transform:translateY(8px);animation:word .7s ease-out 1.7s forwards}
-#pre .word b{display:block;font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(30px,7vw,44px);color:var(--gold2)}
-#pre .word small{display:block;margin-top:8px;font-size:11px;font-weight:700;letter-spacing:.26em;color:var(--muted)}
-@keyframes word{to{opacity:1;transform:none}}
-#pre .skip{position:absolute;bottom:calc(20px + env(safe-area-inset-bottom,0px));font-size:11px;letter-spacing:.16em;color:var(--dim)}
-@media (prefers-reduced-motion:reduce){#pre{display:none}}
-
-/* ===== QUIZ ===== */
-#quizScreen{min-height:100dvh;background:radial-gradient(900px 600px at 15% 0%,rgba(217,176,122,.12),transparent 60%),var(--bg);padding-block:16px 32px}
-.quiz-col{max-width:540px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
-.quiz-visual{position:relative;height:240px;border-radius:22px;overflow:hidden;border:1px solid var(--line)}
-.quiz-visual img.ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 22%}
-.quiz-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,13,10,.35) 0%,rgba(18,13,10,0) 30%,rgba(18,13,10,.94) 100%)}
-.quiz-visual .brand{position:absolute;z-index:1;top:16px;left:18px}
-.quiz-visual .vc{position:absolute;z-index:1;left:20px;right:20px;bottom:16px;display:flex;flex-direction:column;gap:6px}
-.quiz-visual h1{font-size:clamp(26px,3.2vw,34px)}
-.quiz-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px;display:flex;flex-direction:column}
-.qbar{display:flex;justify-content:space-between;font-size:12px;font-weight:800;letter-spacing:.14em;color:var(--muted)}
-.progress{height:5px;background:var(--line);border-radius:99px;margin:10px 0 18px;overflow:hidden}
-.progress span{display:block;height:100%;width:20%;background:linear-gradient(90deg,var(--gold-d),var(--gold));border-radius:99px;transition:width .3s}
-.q{display:none}.q.active{display:block}
-.qnum{font-size:12px;font-weight:800;letter-spacing:.16em;color:var(--gold);margin-bottom:10px}
-.q h2{font-family:var(--font);font-size:clamp(19px,2.2vw,22px);font-weight:800;letter-spacing:-.01em;line-height:1.2}
-.q p{color:var(--muted);margin:6px 0 14px;font-size:14px}
-.options{display:flex;flex-direction:column;gap:8px}
-.option{display:flex;align-items:center;gap:12px;text-align:left;font:inherit;font-size:15px;color:var(--text);background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:11px 14px;cursor:pointer;transition:border-color .15s,background .15s}
-.option:hover{border-color:#5A4636}
-.option .dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--dim);flex:none}
-.option.selected{border-color:var(--gold);background:var(--gold-bg)}
-.option.selected .dot{border-color:var(--gold);background:radial-gradient(circle,var(--gold) 45%,transparent 50%)}
-.hint{font-size:12px;color:var(--dim);margin:0;padding-top:12px}
-#leadForm{display:none}#leadForm.active{display:flex;flex-direction:column;gap:14px}
-#leadForm h2{font-size:32px}
-#leadForm>p{color:var(--muted);margin:0 0 6px}
-.field{display:flex;flex-direction:column;gap:6px}
-.field label{font-size:14px;font-weight:700}
-.field input{font:inherit;color:var(--text);background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
-.field input::placeholder{color:var(--dim)}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.form-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
-.form-actions .btn-primary{flex:1}
-#formError{color:var(--red);font-size:14px;min-height:20px;margin:0}
-.privacy{font-size:12px;color:var(--dim);margin:0}
+/* ===== QUIZ (modelo O Novo Contrato): uma pergunta por tela, barra de % e avanço automático ===== */
+#qz{min-height:100dvh;max-width:480px;margin:0 auto;display:flex;flex-direction:column;background:var(--bg)}
+#qz.hidden{display:none}
+.qz-top{position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--bg)}
+.qz-bar{flex:1;height:5px;background:var(--line);border-radius:5px;overflow:hidden}
+.qz-bar span{display:block;height:100%;width:4%;background:linear-gradient(90deg,var(--gold-d),var(--gold));border-radius:5px;transition:width .35s ease}
+.qz-top b{font-size:13px;font-weight:800;color:var(--muted);min-width:38px;text-align:right;font-variant-numeric:tabular-nums}
+.qz-photo{position:relative;height:200px;margin:0 14px;border-radius:20px;overflow:hidden;transition:height .35s ease}
+.qz-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 4%}
+.qz-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,13,10,0) 30%,rgba(18,13,10,.95) 100%)}
+.qz-photo .hook{position:absolute;z-index:1;left:16px;right:16px;bottom:12px;font-family:var(--serif);font-weight:600;font-size:26px;line-height:1.05;letter-spacing:-.01em}
+.qz-photo .hook em{font-style:italic;font-weight:500;color:var(--gold)}
+#qz.compact .qz-photo{height:96px}
+#qz.compact .qz-photo .hook{display:none}
+.qz-step{display:none;padding:18px 18px 22px}
+.qz-step.on{display:block;animation:qzin .3s ease-out}
+@keyframes qzin{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+.qz-n{margin:0;font-size:12px;font-weight:800;letter-spacing:.18em;color:var(--gold)}
+.qz-step h2{font-family:var(--font);font-weight:800;font-size:22px;line-height:1.22;letter-spacing:-.01em;margin-top:8px}
+.qz-step>p.d{margin:6px 0 0;color:var(--muted);font-size:14.5px}
+.qz-opts{display:flex;flex-direction:column;gap:9px;margin-top:16px}
+.qz-opt{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:52px;text-align:left;font:inherit;font-size:15.5px;font-weight:600;color:var(--text);background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:12px 16px;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.qz-opt::after{content:"›";font-size:24px;line-height:1;color:var(--gold);flex:none}
+.qz-opt:hover{border-color:#5A4636}
+.qz-opt:active{transform:scale(.99)}
+.qz-opt.sel{border-color:var(--gold);background:var(--gold-bg)}
+.qz-opt:focus-visible,.qz-back:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.qz-back{align-self:flex-start;margin:0 18px 18px;background:none;border:0;color:var(--dim);font:inherit;font-size:14px;font-weight:700;cursor:pointer;padding:6px 0}
+.qz-back[hidden]{display:none}
+#qzForm h2{font-family:var(--serif);font-weight:600;font-size:30px;line-height:1.05;letter-spacing:-.01em}
+#qzForm h2 em{font-style:italic;font-weight:500;color:var(--gold)}
+#qzForm .fields{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+#qzForm label{display:block;font-size:13.5px;font-weight:700;margin-bottom:5px}
+#qzForm input{width:100%;font:inherit;font-size:16px;color:var(--text);background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:13px 14px}
+#qzForm input::placeholder{color:var(--dim)}
+#qzForm input:focus{outline:none;border-color:var(--gold)}
+#qzForm .btn{width:100%;margin-top:16px;padding:17px 20px;font-size:16px}
+#formError{color:var(--red);font-size:14px;min-height:20px;margin:10px 0 0}
+.privacy{font-size:12px;color:var(--dim);margin:8px 0 0}
+@media (max-height:700px){.qz-photo{height:170px}.qz-photo .hook{font-size:23px}.qz-step{padding-top:12px}.qz-step h2{font-size:19px}.qz-step>p.d{display:none}.qz-opts{gap:7px;margin-top:12px}.qz-opt{min-height:46px;padding:9px 14px;font-size:14.5px}.qz-top{padding:10px 18px}}
+@media (min-width:600px){#qz{padding-top:20px}.qz-photo{height:260px}}
 
 /* ===== PÁGINA DO EVENTO ===== */
 header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(18,13,10,.86);backdrop-filter:blur(12px);border-bottom:1px solid rgba(58,45,35,.6)}
@@ -275,31 +264,7 @@ footer img{width:220px;height:auto;margin:0 auto 18px}
   section{padding-block:72px}
 }
 @media (max-width:600px){
-  .two{grid-template-columns:1fr}
-  .quiz-card{padding:14px 14px 12px}
-  .progress{margin:10px 0 16px}
-  .q h2{font-size:18px}
-  .q p{margin:6px 0 12px;font-size:14px}
-  .option{padding:9px 12px;font-size:14px}
-  .hint{display:none}
-  #quizScreen{padding-block:0 24px}
-  #quizScreen>.wrap{padding-left:0;padding-right:0}
-  .quiz-col{gap:0}
-  .quiz-visual{height:270px;border-radius:0 0 22px 22px;border:0}
-  .quiz-card{margin:-8px 14px 0;position:relative}
-  #leadForm.active{gap:10px}
-  #leadForm h2{font-size:24px}
-  #leadForm>p{display:none}
-  .field{gap:4px}
-  .field label{font-size:13px}
-  .field input{padding:11px 13px}
-  .form-actions .btn{padding:13px 16px}
   .privacy{font-size:11px}
-  .quiz-visual .brand{top:12px;left:16px}
-  .quiz-visual .brand img{width:34px;height:34px}
-  .quiz-visual .vc{left:16px;right:16px;bottom:14px}
-  .quiz-visual .eyebrow{display:none}
-  .quiz-visual h1{font-size:27px}
   .hero h1{font-size:34px;margin-top:6px}
   .hero .lead{font-size:15px;margin-top:10px;line-height:1.45}
   .hero-cta{margin-top:16px;padding:15px 20px}
@@ -359,15 +324,6 @@ footer img{width:220px;height:auto;margin:0 auto 18px}
 }
 /* Celulares baixos (ex.: 360×640, 375×667): mantém a primeira dobra sem rolar */
 @media (max-width:600px) and (max-height:700px){
-  .quiz-visual{height:230px}
-  .quiz-visual h1{font-size:23px}
-  .quiz-card{padding:12px 14px}
-  .progress{margin:8px 0 12px}
-  .qnum{margin-bottom:6px}
-  .q h2{font-size:17px;margin-bottom:12px}
-  .q p{display:none}
-  .options{gap:6px}
-  .option{padding:8px 12px;font-size:13.5px}
   .hero-photo{height:max(250px,calc(100% - 320px))}
   .hero-txt{padding-top:150px}
   .hero h1{font-size:30px}
@@ -376,163 +332,86 @@ footer img{width:220px;height:auto;margin:0 auto 18px}
   .price-line{margin-top:6px}
   .meta{margin-top:10px;gap:4px;font-size:13.5px}
 }
+@media (max-width:600px) and (max-height:700px){
+  .hero .eyebrow{display:block;margin-top:0}
+  .hero h1{font-size:27px}
+  .hero .lead{font-size:13.5px;line-height:1.4}
+  .hero-cta{padding:13px 16px;font-size:15px}
+  .price-line{font-size:13px}
+  .meta{font-size:13px;gap:3px}
+}
 @media (max-width:380px) and (max-height:650px){
   .hero-photo{height:230px}
   .hero-txt{padding-top:132px}
   .hero h1{font-size:28px}
 }
-/* ===== HERO no estilo da referência ===== */
-.hx{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:var(--bg)}
-.hx-photo{position:absolute;left:0;right:0;top:0;height:60%}
-.hx-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 4%}
-.hx-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,13,10,.45) 0%,rgba(18,13,10,0) 20%,rgba(18,13,10,.15) 55%,var(--bg) 96%)}
-.hx-logo{position:absolute;z-index:2;top:calc(18px + env(safe-area-inset-top,0px));left:18px;width:188px;height:auto}
-.hx-in{position:relative;z-index:1;width:100%;max-width:560px;margin:0 auto;padding:0 20px 22px;display:flex;flex-direction:column}
-.hx-h1{font-family:var(--serif);font-weight:500;font-size:31px;line-height:1.14;letter-spacing:0;color:var(--text);text-wrap:balance}
-.hx-em{margin:6px 0 0;font-family:var(--serif);font-style:italic;font-weight:500;font-size:29px;line-height:1.15;color:var(--gold)}
-.hx-rule{display:block;width:62%;height:1px;margin:14px 0 16px;background:linear-gradient(90deg,var(--gold),rgba(217,176,122,0))}
-.hx-name{margin:0;text-align:center;font-family:var(--serif);font-weight:500;font-size:40px;line-height:1;letter-spacing:.06em;color:var(--text)}
-.hx-name span{color:var(--gold)}
-.hx-sub{margin:12px auto 0;text-align:center;font-size:15px;line-height:1.5;color:var(--muted);max-width:440px}
-.hx-date{display:flex;align-items:center;gap:14px;justify-content:center;margin:14px 0 0;font-weight:800;font-size:14px;letter-spacing:.2em;color:var(--gold)}
-.hx-date::before,.hx-date::after{content:"";width:34px;height:1px;background:rgba(217,176,122,.6)}
-.hx-icons{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr)}
-.hx-icons li{display:flex;align-items:center;justify-content:center;gap:8px;font-size:12px;line-height:1.3;color:var(--muted);padding:0 4px}
-.hx-icons li+li{border-left:1px solid var(--line)}
-.hx-icons svg{width:18px;height:18px;flex:none;fill:none;stroke:var(--gold);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.hx-btn{margin-top:18px;display:flex;align-items:center;justify-content:center;gap:14px;height:60px;border-radius:999px;text-decoration:none;font-weight:800;font-size:16px;letter-spacing:.16em;text-transform:uppercase;color:#1A100A;background:linear-gradient(135deg,#F0D4A8,#D2A26C 55%,#B47A48);box-shadow:0 14px 34px -14px rgba(217,176,122,.75);transition:filter .15s,transform .15s}
-.hx-btn:hover{filter:brightness(1.06);transform:translateY(-1px)}
-.hx-btn:focus-visible,.fbar a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-.hx-price{margin:10px 0 0;text-align:center;font-size:16px;color:var(--muted)}
-.hx-price b{color:var(--text)}
-@media (min-width:961px){
-  .hx{justify-content:center;min-height:min(100vh,900px)}
-  .hx-photo{left:auto;width:52%;height:100%}
-  .hx-photo::after{background:linear-gradient(90deg,var(--bg) 0%,rgba(18,13,10,0) 35%),linear-gradient(0deg,var(--bg) 0%,rgba(18,13,10,0) 25%)}
-  .hx-logo{top:36px;left:max(40px,calc(50% - 540px));width:220px}
-  .hx-in{margin:0;margin-left:max(40px,calc(50% - 540px));padding:124px 0 44px;max-width:520px}
-  .hx-h1{font-size:46px}.hx-em{font-size:40px}
-  .hx-name{font-size:54px}
-  .hx-sub{font-size:17px}
-  .hx-icons li{font-size:13.5px}
-}
-/* telas baixas: mantém tudo na primeira dobra */
-@media (max-width:600px) and (max-height:700px){
-  .hx-photo{height:56%}
-  .hx-logo{width:150px;top:12px}
-  .hx-in{padding-bottom:14px}
-  .hx-h1{font-size:25px}.hx-em{font-size:23px;margin-top:4px}
-  .hx-rule{margin:9px 0 10px}
-  .hx-name{font-size:31px}
-  .hx-sub{font-size:13px;margin-top:8px;line-height:1.4}
-  .hx-date{margin-top:9px;font-size:12.5px}
-  .hx-icons{margin-top:9px}.hx-icons li{font-size:11px;gap:6px}.hx-icons svg{width:16px;height:16px}
-  .hx-btn{margin-top:12px;height:50px;font-size:14px}
-  .hx-price{margin-top:7px;font-size:14px}
-}
-@media (max-width:600px) and (min-height:701px) and (max-height:730px){
-  .hx-h1{font-size:28px}.hx-em{font-size:26px}.hx-name{font-size:36px}.hx-sub{font-size:14px}
-}
-
-/* ===== Barra flutuante com o botão (aparece ao rolar) ===== */
-.fbar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(18,13,10,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(217,176,122,.28);padding:10px max(16px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px));transform:translateY(115%);transition:transform .3s ease;box-shadow:0 -12px 30px rgba(0,0,0,.45)}
+/* Barra flutuante com o botão (aparece ao rolar) */
+.fbar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(18,13,10,.95);border-top:1px solid rgba(217,176,122,.3);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));transform:translateY(115%);transition:transform .3s ease;box-shadow:0 -12px 30px rgba(0,0,0,.45)}
 .fbar.on{transform:none}
-.fbar .in{max-width:var(--max);margin:0 auto;display:flex;align-items:center;gap:14px}
+.fbar .in{max-width:var(--max);margin:0 auto;display:flex;align-items:center;gap:12px}
 .fbar .info{flex:1;min-width:0;line-height:1.25}
-.fbar .info b{display:block;font-family:var(--serif);font-style:italic;font-weight:600;font-size:20px;color:var(--gold2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.fbar .info small{display:block;font-size:12.5px;color:var(--muted);white-space:nowrap}
-.fbar .info small b{display:inline;font-family:var(--font);font-style:normal;font-size:12.5px;color:var(--text)}
-.fbar a{flex:none;display:inline-flex;align-items:center;gap:8px;height:50px;padding:0 24px;border-radius:999px;text-decoration:none;font-weight:800;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:#1A100A;background:linear-gradient(135deg,#F0D4A8,#D2A26C 55%,#B47A48)}
+.fbar .info>b{display:block;font-size:14px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fbar .info small{display:block;font-size:12.5px;color:var(--gold);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fbar .info small b{color:var(--text)}
+.fbar a{flex:none;display:inline-flex;align-items:center;height:50px;padding:0 22px;border-radius:999px;text-decoration:none;font-weight:800;font-size:15px;color:#1A100A;background:linear-gradient(135deg,#F0D4A8,#D2A26C 55%,#B47A48);box-shadow:0 8px 24px -10px rgba(217,176,122,.8)}
+.fbar a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 body.fbar-on footer{padding-bottom:96px}
-@media (max-width:380px){.fbar a{padding:0 16px;font-size:13px;letter-spacing:.08em}.fbar .info b{font-size:18px}}
-
-/* quiz: transição suave de uma pergunta para a próxima */
-.q.active{animation:qin .28s ease-out}
-@keyframes qin{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media (max-width:400px){.hm{display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-<!-- ABERTURA: anel + símbolo CR + nome do evento (toque para pular) -->
-<div id="pre" role="presentation" aria-hidden="true">
-  <div class="sym">
-    <svg class="ring" viewBox="0 0 200 200"><defs><linearGradient id="preG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9C6A43"/><stop offset=".5" stop-color="#F3DDBA"/><stop offset="1" stop-color="#C9945C"/></linearGradient></defs><circle cx="100" cy="100" r="96" transform="rotate(-90 100 100)"/></svg>
-    <img src="img/simbolo-creme.svg" alt="">
+<!-- ================= QUIZ: uma pergunta por tela, avança sozinho ================= -->
+<main id="qz">
+  <div class="qz-top"><div class="qz-bar"><span id="qzBar"></span></div><b id="qzPct">0%</b></div>
+  <div class="qz-photo">
+    <img src="img/carine-sorriso-bronze-640.webp" srcset="img/carine-sorriso-bronze-640.webp 640w, img/carine-sorriso-bronze-1000.webp 1000w" sizes="(max-width:600px) 100vw, 480px" width="640" height="960" alt="Carine Rodrigues, naturopata" fetchpriority="high">
+    <p class="hook">Cansada e sem energia? <em>Descubra o que o seu corpo pede.</em></p>
   </div>
-  <div class="word"><b>O Corpo Fala</b><small>IMERSÃO ONLINE · CARINE RODRIGUES</small></div>
-  <span class="skip">TOQUE PARA PULAR</span>
-</div>
-<script>
-(function(){var pre=document.getElementById('pre');if(!pre)return;
- if(matchMedia('(prefers-reduced-motion:reduce)').matches){pre.remove();return}
- document.body.classList.add('lock');
- var done=function(){if(pre.classList.contains('off'))return;pre.classList.add('off');document.body.classList.remove('lock');setTimeout(function(){pre.remove()},700)};
- setTimeout(done,3300);pre.addEventListener('click',done);})();
-</script>
-
-<!-- ================= QUIZ ================= -->
-<main id="quizScreen">
-  <div class="wrap">
-    <div class="quiz-col">
-      <div class="quiz-visual">
-        <img class="ph" src="img/carine-sorriso-bronze.jpg" alt="Carine Rodrigues sorrindo" fetchpriority="high">
-        <a class="brand" href="#"><img src="img/simbolo-creme.svg" alt=""><span><b>O Corpo Fala</b><small>11 E 12/12 · ONLINE · AO VIVO</small></span></a>
-        <div class="vc">
-          <span class="eyebrow">Diagnóstico rápido · 1 minuto</span>
-          <h1>O seu corpo fala. <span class="g">Você está escutando?</span></h1>
-        </div>
-      </div>
-      <div class="quiz-card">
-        <div id="quizFlow">
-          <div class="qbar"><span>O QUE SEU CORPO DIZ</span><span id="stepLabel">1 DE 5</span></div>
-          <div class="progress"><span id="progressBar"></span></div>
-          <div id="questions"></div>
-          <p class="hint">Escolha uma resposta para avançar automaticamente.</p>
-        </div>
-
-        <form id="leadForm" novalidate>
-          <span class="eyebrow">Última etapa</span>
-          <h2>Seu corpo já deu os sinais. <span class="g">Agora é hora de entender.</span></h2>
-          <p>Informe seus dados para ver a imersão O Corpo Fala, ao vivo em 11 e 12 de dezembro, e garantir sua vaga.</p>
-          <div class="field"><label for="name">Nome completo *</label><input id="name" autocomplete="name" placeholder="Seu nome"></div>
-          <div class="two">
-            <div class="field"><label for="phone">WhatsApp com DDD *</label><input id="phone" inputmode="tel" autocomplete="tel" placeholder="(11) 99999-9999"></div>
-            <div class="field"><label for="insta">Instagram (opcional)</label><input id="insta" autocomplete="off" placeholder="@seuperfil"></div>
-          </div>
-          <div class="field"><label for="email">E-mail (opcional)</label><input id="email" type="email" autocomplete="email" placeholder="voce@email.com"></div>
-          <p id="formError" role="alert"></p>
-          <div class="form-actions">
-            <button type="button" class="btn btn-ghost" id="backToQuiz">Voltar</button>
-            <button type="submit" class="btn btn-primary" id="submitLead">Liberar meu acesso →</button>
-          </div>
-          <p class="privacy">Ao continuar, você recebe contato da equipe da Carine Rodrigues sobre esta imersão. Seus dados não serão usados para outra finalidade.</p>
-        </form>
-      </div>
+  <div id="qzSteps"></div>
+  <form id="qzForm" class="qz-step" novalidate>
+    <p class="qz-n">ÚLTIMA ETAPA</p>
+    <h2 style="margin-top:8px">Seu resultado está pronto. <em>Falta só liberar sua vaga.</em></h2>
+    <div class="fields">
+      <div><label for="name">Nome *</label><input id="name" autocomplete="name" placeholder="Seu nome"></div>
+      <div><label for="phone">WhatsApp com DDD *</label><input id="phone" inputmode="tel" autocomplete="tel" placeholder="(11) 99999-9999"></div>
+      <div><label for="email">E-mail *</label><input id="email" type="email" autocomplete="email" placeholder="voce@email.com"></div>
     </div>
-  </div>
+    <p id="formError" role="alert"></p>
+    <button type="submit" class="btn btn-primary" id="submitLead">Ver a imersão e garantir minha vaga →</button>
+    <p class="privacy">Ao continuar, você recebe contato da equipe da Carine Rodrigues sobre esta imersão. Seus dados não serão usados para outra finalidade.</p>
+  </form>
+  <button type="button" class="qz-back" id="qzBack" hidden>← Voltar</button>
 </main>
 
 <!-- ================= PÁGINA DO EVENTO ================= -->
 <div id="eventPage" class="hidden">
-  <!-- HERO (referência "A Arte de Ser"): logo sobre a foto, headline + frase em itálico dourado,
-       nome do evento, subheadline, data, 3 ícones, botão e valor, tudo na primeira dobra -->
-  <section class="hx" id="topo">
-    <div class="hx-photo"><img src="img/carine-sorriso-branco.jpg" alt="Carine Rodrigues, naturopata" fetchpriority="high"></div>
-    <img class="hx-logo" src="img/logo-vertical-creme.svg" alt="Carine Rodrigues · Naturopatia e Saúde Integrativa">
-    <div class="hx-in">
-      <h1 class="hx-h1">Cansaço não precisa ser o seu normal.</h1>
-      <p class="hx-em">O seu corpo está tentando te dizer algo!</p>
-      <span class="hx-rule" aria-hidden="true"></span>
-      <p class="hx-name">O CORPO <span>FALA</span></p>
-      <p class="hx-sub">Uma imersão online de dois dias, ao vivo, para entender o que o seu corpo está tentando dizer e cuidar da sua saúde de dentro para fora.</p>
-      <p class="hx-date">11 E 12 DE DEZEMBRO</p>
-      <ul class="hx-icons">
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Dois dias<br>de imersão</span></li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span>100% online<br>e ao vivo</span></li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span>Conduzida por<br>Carine Rodrigues</span></li>
-      </ul>
-      <a class="hx-btn" href="#ingresso" data-hero-cta>Garanta seu ingresso <span aria-hidden="true">→</span></a>
-      <p class="hx-price">A partir de <b data-preco="lote1"></b></p>
+  <header class="nav">
+    <div class="wrap">
+      <a class="brand" href="#topo"><img src="img/simbolo-creme.svg" width="40" height="40" alt=""><span><b>Carine Rodrigues</b><small>NATUROPATIA · SAÚDE INTEGRATIVA</small></span></a>
+      <a class="btn btn-primary" href="#ingresso">Garantir <span class="hm">minha </span>vaga</a>
+    </div>
+  </header>
+
+  <!-- HERO: foto, headline, subheadline, botão, valor e data/formato na primeira dobra -->
+  <section class="hero" id="topo">
+    <div class="wrap hero-grid">
+      <div class="hero-txt">
+        <span class="eyebrow">Online e ao vivo · 11 e 12/12</span>
+        <h1>Pare de viver cansada. <span class="g">Descubra em 2 dias o que está travando o seu corpo.</span></h1>
+        <p class="lead">Cansaço, intestino preso e peso que não sai <b>não são normais</b>. Ao vivo, a naturopata <b>Carine Rodrigues</b> mostra a causa e como <b>recuperar a sua energia</b>.</p>
+        <a class="btn btn-primary hero-cta" href="#ingresso" data-hero-cta>Quero recuperar minha energia →</a>
+        <p class="price-line">Lote 01 por apenas <b data-preco="lote1"></b> · <span class="up" data-urg>últimas vagas</span></p>
+        <ul class="meta">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span><b>11 e 12 de dezembro</b> · sexta e sábado</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="13" height="14" rx="2"/><path d="M15.5 10l6-3.5v11l-6-3.5"/></svg><span><b>Online e ao vivo</b> · assista de onde estiver</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span><b>Carine Rodrigues</b> · naturopata há 15+ anos</span></li>
+        </ul>
+      </div>
+      <div class="hero-photo">
+        <img src="img/carine-sorriso-branco-640.webp" srcset="img/carine-sorriso-branco-640.webp 640w, img/carine-sorriso-branco-1000.webp 1000w" sizes="(max-width:960px) 100vw, 540px" width="640" height="960" alt="Carine Rodrigues, naturopata" loading="lazy" decoding="async">
+        <div class="badge"><b>Carine Rodrigues</b>Naturopata · fundadora do Instituto Integrativo Carine Rodrigues</div>
+      </div>
     </div>
   </section>
 
@@ -605,7 +484,7 @@ body.fbar-on footer{padding-bottom:96px}
     <div class="wrap">
       <div class="sec-head">
         <span class="eyebrow">Nos dias 11 e 12 de dezembro</span>
-        <h2>Três momentos para você <span class="g">voltar a confiar no seu corpo</span>.</h2>
+        <h2>Dois dias para você <span class="g">voltar a confiar no seu corpo</span>.</h2>
       </div>
       <div class="steps">
         <div class="step"><i>MOMENTO 1 · ESCUTAR</i><h3>O que seu corpo está dizendo</h3><p>Os sinais mais comuns (cansaço, intestino, sono, peso e hormônios) e o que eles podem estar mostrando sobre o seu terreno.</p></div>
@@ -649,7 +528,7 @@ body.fbar-on footer{padding-bottom:96px}
   <!-- AUTORIDADE -->
   <section class="about">
     <div class="about-grid">
-      <div class="about-photo"><img src="img/carine-bracos-cruzados.jpg" alt="Retrato de Carine Rodrigues"></div>
+      <div class="about-photo"><img src="img/carine-bracos-cruzados-640.webp" srcset="img/carine-bracos-cruzados-640.webp 640w, img/carine-bracos-cruzados-1000.webp 1000w" sizes="(max-width:960px) 100vw, 50vw" width="640" height="960" alt="Retrato de Carine Rodrigues" loading="lazy" decoding="async"></div>
       <div class="about-txt">
         <span class="eyebrow">Quem conduz a imersão</span>
         <h2>Carine Rodrigues</h2>
@@ -717,7 +596,7 @@ body.fbar-on footer{padding-bottom:96px}
           <div><a class="btn btn-primary" href="#ingresso">Quero participar →</a></div>
           <span class="final-meta">11 e 12 de dezembro de 2026 · sexta e sábado · <span data-horario>A confirmar</span> · online e ao vivo</span>
         </div>
-        <div class="final-photo"><img src="img/carine-olhar-acima-bronze.jpg" alt="Carine Rodrigues"></div>
+        <div class="final-photo"><img src="img/carine-olhar-acima-bronze-640.webp" srcset="img/carine-olhar-acima-bronze-640.webp 640w, img/carine-olhar-acima-bronze-1000.webp 1000w" sizes="(max-width:960px) 100vw, 40vw" width="640" height="960" alt="Carine Rodrigues" loading="lazy" decoding="async"></div>
       </div>
     </div>
   </section>
@@ -738,11 +617,11 @@ body.fbar-on footer{padding-bottom:96px}
     </div>
   </section>
 
-  <footer><div class="wrap"><img src="img/logo-vertical-creme.svg" alt="Carine Rodrigues · Naturopatia e Saúde Integrativa">O Corpo Fala · Carine Rodrigues · 11 e 12 de dezembro de 2026 · online e ao vivo</div></footer>
+  <footer><div class="wrap"><img src="img/logo-vertical-creme.svg" width="220" height="186" alt="Carine Rodrigues · Naturopatia e Saúde Integrativa" loading="lazy" decoding="async">O Corpo Fala · Carine Rodrigues · 11 e 12 de dezembro de 2026 · online e ao vivo</div></footer>
 
   <!-- Barra flutuante: aparece quando o botão do topo sai da tela -->
   <div class="fbar" id="fbar" aria-hidden="true">
-    <div class="in"><div class="info"><b>O Corpo Fala</b><small>11 e 12/12 · <b data-preco="lote1"></b></small></div><a href="#ingresso" tabindex="-1">Garantir ingresso <span aria-hidden="true">→</span></a></div>
+    <div class="in"><div class="info"><b>O Corpo Fala · 11 e 12/12</b><small data-urg2>Lote 01 · <b data-preco="lote1"></b></small></div><a href="#ingresso" tabindex="-1">Garantir vaga →</a></div>
   </div>
 </div>
 
@@ -769,65 +648,62 @@ const LEAD_KEY='carine_corpo_fala_lead';
 function loadLead(){try{return JSON.parse(localStorage.getItem(LEAD_KEY)||'null')}catch(e){return null}}
 function saveLead(l){try{localStorage.setItem(LEAD_KEY,JSON.stringify(l))}catch(e){}}
 
-/* Quiz — as chaves batem com as colunas da tabela leads_carine */
+/* Quiz — uma pergunta por tela; ao tocar na resposta, avança sozinho. Chaves = colunas da tabela leads_carine */
 const questions=[
- {key:'perfil',title:"Qual frase descreve melhor o seu momento?",desc:"Vamos começar por você.",options:["Estou no climatério ou na menopausa","Quero emagrecer com acompanhamento","Vivo cansada e sem disposição","Quero prevenir e envelhecer com saúde","Faço um tratamento e quero um cuidado complementar"]},
- {key:'sintoma',title:"Qual sinal do seu corpo mais incomoda hoje?",desc:"Escolha o que mais pesa no dia a dia.",options:["Cansaço que não passa","Intestino preso ou desconforto digestivo","Sono ruim","Peso que não sai","Alterações hormonais ou nos exames"]},
- {key:'tentativas',title:"O que você já tentou para melhorar?",desc:"Não existe resposta certa ou errada.",options:["Dietas e restrições","Suplementos por conta própria","Consultas, mas recebi orientações genéricas","Ainda não tentei nada","Já tentei de tudo e nada resolveu"]},
+ {key:'perfil',title:"Qual frase descreve melhor o seu momento?",desc:"Toque na resposta para continuar.",options:["Vivo cansada e sem disposição","Quero emagrecer e o peso não sai","Estou no climatério ou na menopausa","Quero prevenir e envelhecer com saúde","Quero cuidar junto com meu tratamento"]},
+ {key:'sintoma',title:"Qual sinal do seu corpo mais incomoda hoje?",desc:"Escolha o que mais pesa no dia a dia.",options:["Cansaço que não passa","Intestino preso ou desconforto digestivo","Sono ruim","Inchaço e peso que não sai","Alterações hormonais ou nos exames"]},
+ {key:'tentativas',title:"O que você já tentou para melhorar?",desc:"Não existe resposta certa ou errada.",options:["Dietas e restrições","Suplementos por conta própria","Consultas, mas recebi orientações genéricas","Já tentei de tudo e nada resolveu","Ainda não tentei nada"]},
  {key:'objetivo',title:"O que você mais quer recuperar?",desc:"Pense no que faria diferença na sua rotina.",options:["Energia e disposição","Um intestino que funciona bem","Noites de sono de verdade","Meu peso e minha autoestima","Confiança no meu próprio corpo"]},
  {key:'faixa_etaria',title:"Qual é a sua faixa de idade?",desc:"Isso ajuda a entender sua fase da vida.",options:["Até 34 anos","35 a 44 anos","45 a 54 anos","55 a 64 anos","65 anos ou mais"]}
 ];
-let current=0;const answers=Array(questions.length).fill(null);const qRoot=document.getElementById('questions');
+const N=questions.length,answers=Array(N).fill(null),qz=document.getElementById('qz'),stepsEl=document.getElementById('qzSteps'),form=document.getElementById('qzForm'),backBtn=document.getElementById('qzBack');
+let step=0,busy=false;
 questions.forEach((q,i)=>{
- const section=document.createElement('div');section.className='q'+(i===0?' active':'');section.id='question-'+i;
- section.innerHTML='<div class="qnum">PERGUNTA '+(i+1)+' DE '+questions.length+'</div><h2></h2><p></p><div class="options"></div>';
- section.querySelector('h2').textContent=q.title;section.querySelector('p').textContent=q.desc;
- const opts=section.querySelector('.options');
- q.options.forEach(opt=>{
-  const b=document.createElement('button');b.type='button';b.className='option';b.innerHTML='<span class="dot"></span><span></span>';b.querySelectorAll('span')[1].textContent=opt;
-  b.addEventListener('click',()=>{
-   answers[i]=opt;opts.querySelectorAll('.option').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');
-   track('quiz_resposta',{pergunta:i+1});
-   window.setTimeout(()=>{if(current!==i)return;if(current<questions.length-1){current++;renderQuestion()}else{document.getElementById('quizFlow').classList.add('hidden');const lf=document.getElementById('leadForm');lf.classList.add('active');if(innerWidth<800)lf.scrollIntoView({behavior:'smooth',block:'start'});track('quiz_concluido')}},160);
-  });opts.appendChild(b);
- });qRoot.appendChild(section);
+ const sec=document.createElement('section');sec.className='qz-step';
+ sec.innerHTML='<p class="qz-n">PERGUNTA '+(i+1)+' DE '+N+'</p><h2></h2><p class="d"></p><div class="qz-opts"></div>';
+ sec.querySelector('h2').textContent=q.title;sec.querySelector('.d').textContent=q.desc;
+ const box=sec.querySelector('.qz-opts');
+ q.options.forEach(opt=>{const b=document.createElement('button');b.type='button';b.className='qz-opt';b.textContent=opt;
+  b.addEventListener('click',()=>{if(busy)return;busy=true;answers[i]=opt;box.querySelectorAll('.qz-opt').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');track('quiz_resposta',{pergunta:i+1});
+   setTimeout(()=>{busy=false;go(i+1);if(i+1===N)track('quiz_concluido')},230)});
+  box.appendChild(b)});
+ stepsEl.appendChild(sec);
 });
-function renderQuestion(){document.querySelectorAll('.q').forEach((el,i)=>el.classList.toggle('active',i===current));document.getElementById('stepLabel').textContent=(current+1)+' DE '+questions.length;document.getElementById('progressBar').style.width=((current+1)/questions.length*100)+'%';}
-document.getElementById('backToQuiz').addEventListener('click',()=>{document.getElementById('leadForm').classList.remove('active');document.getElementById('quizFlow').classList.remove('hidden');current=questions.length-1;renderQuestion();window.scrollTo({top:0,behavior:'smooth'});});
+const steps=[...stepsEl.children,form];
+function go(n){step=n;steps.forEach((el,k)=>el.classList.toggle('on',k===n));
+ const pct=Math.max(4,Math.round(n/N*100*0.9));document.getElementById('qzBar').style.width=pct+'%';document.getElementById('qzPct').textContent=pct+'%';
+ qz.classList.toggle('compact',n>0);backBtn.hidden=n===0;window.scrollTo(0,0);
+ if(n===N)setTimeout(()=>{try{document.getElementById('name').focus({preventScroll:true})}catch(_){}},320)}
+backBtn.addEventListener('click',()=>{if(step>0)go(step-1)});
 document.getElementById('phone').addEventListener('input',e=>{let n=e.target.value.replace(/\D/g,'').slice(0,11);if(n.length>10)n=n.replace(/^(\d{2})(\d{5})(\d{4}).*/,'($1) $2-$3');else if(n.length>6)n=n.replace(/^(\d{2})(\d{4})(\d{0,4}).*/,'($1) $2-$3');else if(n.length>2)n=n.replace(/^(\d{2})(\d{0,5}).*/,'($1) $2');e.target.value=n;});
 
-function showEventPage(){
- document.getElementById('quizScreen').classList.add('hidden');
- document.getElementById('eventPage').classList.remove('hidden');
- window.scrollTo({top:0,behavior:'auto'});
-}
-document.getElementById('leadForm').addEventListener('submit',async e=>{
+function showEventPage(){qz.classList.add('hidden');document.getElementById('eventPage').classList.remove('hidden');window.scrollTo({top:0,behavior:'auto'});}
+form.addEventListener('submit',async e=>{
  e.preventDefault();
  const err=document.getElementById('formError'),sb=document.getElementById('submitLead');
- const name=document.getElementById('name').value.trim();
- const phone=document.getElementById('phone').value.trim();
- const insta=document.getElementById('insta').value.trim();
- const email=document.getElementById('email').value.trim();
- if(name.length<2){err.textContent='Informe seu nome completo.';return;}
+ const name=document.getElementById('name').value.trim(),phone=document.getElementById('phone').value.trim(),email=document.getElementById('email').value.trim();
+ if(name.length<2){err.textContent='Informe seu nome.';return;}
  if(phone.replace(/\D/g,'').length<10){err.textContent='Informe um WhatsApp válido com DDD.';return;}
- if(email&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){err.textContent='Confira o e-mail ou deixe em branco.';return;}
- err.textContent='';sb.disabled=true;sb.textContent='Liberando…';
- const row={tipo:'inscricao',nome:name,whatsapp:phone,email:email||null,instagram:insta||null,page:location.pathname,...utm};
+ if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){err.textContent='Informe um e-mail válido.';return;}
+ err.textContent='';sb.disabled=true;const txt=sb.textContent;sb.textContent='Liberando…';
+ const row={tipo:'inscricao',nome:name,whatsapp:phone,email:email,page:location.pathname,...utm};
  questions.forEach((q,i)=>{row[q.key]=answers[i]});
  try{await insertRow(row)}
- catch(_){err.textContent='Não conseguimos enviar agora. Tente de novo em instantes.';sb.disabled=false;sb.textContent='Liberar meu acesso →';track('lp_lead_error');return}
+ catch(_){err.textContent='Não conseguimos enviar agora. Tente de novo em instantes.';sb.disabled=false;sb.textContent=txt;track('lp_lead_error');return}
  track('lp_lead',{perfil:row.perfil,sintoma:row.sintoma});try{window.fbq&&fbq('track','Lead')}catch(_){}
- saveLead({nome:name,whatsapp:phone,email:email||null});
+ saveLead({nome:name,whatsapp:phone,email:email});
  showEventPage();
 });
 
 /* Quem já se cadastrou neste navegador vai direto para a página; ?quiz na URL sempre mostra o quiz */
-if(qs.has('quiz')){try{localStorage.removeItem(LEAD_KEY)}catch(e){}}
+if(qs.has('quiz')){try{localStorage.removeItem(LEAD_KEY)}catch(e){}go(0)}
 else if(loadLead())showEventPage();
+else go(0);
 
 /* Dados dinâmicos a partir do CONFIG */
 document.querySelectorAll('[data-horario]').forEach(el=>el.textContent=CONFIG.horario||'A confirmar');
 document.querySelectorAll('[data-preco]').forEach(el=>el.textContent='R$ '+CONFIG.precos[el.dataset.preco]);
+document.querySelectorAll('[data-preco-n]').forEach(el=>el.textContent=CONFIG.precos[el.dataset.precoN]);
 document.querySelectorAll('[data-preco-v]').forEach(el=>{const [r,c]=CONFIG.precos[el.dataset.precoV].split(',');el.innerHTML='<sup>R$</sup>'+r+(c&&c!=='00'?'<sup style="top:6px;margin-left:2px">,'+c+'</sup>':'')});
 Object.keys(CONFIG.parcelas).forEach(k=>{const el=document.querySelector('[data-parcelas="'+k+'"]');if(el&&CONFIG.parcelas[k]){el.textContent=CONFIG.parcelas[k];el.hidden=false}});
 if(CONFIG.whatsapp){
@@ -843,6 +719,8 @@ function paintLotes(L){const T=L.lote1_total||50,V=Math.min(L.lote1_vendidas||0,
  document.querySelectorAll('[data-vagas]').forEach(el=>el.classList.remove('hide'));
  document.querySelectorAll('[data-vagas-txt]').forEach(el=>el.textContent=LOTE_ESGOTADO?'Lote 01 esgotado':'Restam '+pad(left)+' de '+T+' vagas');
  document.querySelectorAll('[data-vagas-bar]').forEach(el=>el.style.width=Math.max(4,V/T*100)+'%');
+ document.querySelectorAll('[data-urg]').forEach(el=>el.textContent=LOTE_ESGOTADO?'lote 01 esgotado':'restam só '+pad(left)+' vagas');
+ document.querySelectorAll('[data-urg2]').forEach(el=>el.innerHTML=LOTE_ESGOTADO?'Lote 02 · <b>R$ '+CONFIG.precos.lote2+'</b>':'Restam '+pad(left)+' vagas · <b>R$ '+CONFIG.precos.lote1+'</b>');
  if(LOTE_ESGOTADO){document.querySelectorAll('.tag').forEach(t=>t.textContent='Lote 02');document.querySelectorAll('[data-preco-v]').forEach(el=>{el.dataset.precoV='lote2'});document.querySelectorAll('[data-preco-v]').forEach(el=>{const [r,c]=CONFIG.precos.lote2.split(',');el.innerHTML='<sup>R$</sup>'+r+(c&&c!=='00'?'<sup style="top:6px;margin-left:2px">,'+c+'</sup>':'')});document.querySelectorAll('.price>small:first-child').forEach(s=>s.textContent='LOTE 02 · por pessoa');document.querySelectorAll('.nx').forEach(s=>s.hidden=true)}}
 function loadLotes(){fetch(SUPABASE_URL+'/rest/v1/carine_lotes?select=lote1_total,lote1_vendidas&id=eq.1',{headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}}).then(r=>r.ok?r.json():null).then(d=>{if(d&&d[0])paintLotes(d[0])}).catch(()=>{})}
 loadLotes();setInterval(()=>{if(!document.hidden)loadLotes()},60000);
@@ -860,14 +738,12 @@ document.querySelectorAll('[data-ticket]').forEach(btn=>{
  });
 });
 
-/* Barra flutuante: aparece quando o botão do topo sai da tela e some quando o ingresso está visível */
+/* Barra flutuante: aparece quando o botão do topo sai da tela e some no topo e na seção do ingresso */
 (function(){const bar=document.getElementById('fbar'),hero=document.querySelector('[data-hero-cta]'),tk=document.getElementById('ingresso');if(!bar||!hero||!('IntersectionObserver' in window))return;
  let heroVis=true,tkVis=false;const paint=()=>{const on=!heroVis&&!tkVis&&!document.getElementById('eventPage').classList.contains('hidden');bar.classList.toggle('on',on);bar.setAttribute('aria-hidden',on?'false':'true');bar.querySelector('a').tabIndex=on?0:-1;document.body.classList.toggle('fbar-on',on)};
  new IntersectionObserver(e=>{heroVis=e[0].isIntersecting;paint()}).observe(hero);
- new IntersectionObserver(e=>{tkVis=e[0].isIntersecting;paint()},{threshold:.25}).observe(tk);
+ new IntersectionObserver(e=>{tkVis=e[0].isIntersecting;paint()},{threshold:.2}).observe(tk.querySelector('.ticket')||tk);
  bar.querySelector('a').addEventListener('click',()=>track('clique_barra_flutuante'));})();
-
-renderQuestion();
 </script>
 </body>
 </html>
