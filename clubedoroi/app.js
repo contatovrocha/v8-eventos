@@ -82,6 +82,7 @@ const P = {
   ticket: '<path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"/><path d="M13 6v12" stroke-dasharray="2 2"/>',
   download: '<path d="M12 4v11M7 10.5l5 5 5-5M4 20h16"/>',
   camera: '<path d="M4 8h3l2-2.5h6L17 8h3a1 1 0 0 1 1 1v9.5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.7"/>',
+  volume: '<path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/>',
   music: '<path d="M9 18V6l11-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/>',
   type: '<path d="M5 6V4.5h14V6M12 4.5V20M9 20h6"/>',
 };
@@ -220,7 +221,7 @@ function shell(title, body, opts = {}) {
       <a class="nav-logo dk" href="#/feed" aria-label="Início">${LOGO()}</a>
       ${tab('feed', 'home', 'Início', ['feed', 'post'])}
       ${tab('membros', 'users', 'Membros', ['membros'])}
-      <a class="plus" href="#/novo" aria-label="Publicar">${I('plus')}<span class="dk">Publicar</span></a>
+      <a class="plus" href="#/novo" onclick="event.preventDefault();composer()" aria-label="Publicar">${I('plus')}<span class="dk">Publicar</span></a>
       ${tab('eventos', 'cal', 'Eventos', ['eventos', 'evento', 'meus-eventos'])}
       ${tab('eu', 'user', 'Perfil', ['eu', 'u'])}
       <div class="nav-sep dk"></div>
@@ -406,7 +407,7 @@ function consentScreen() {
 
 /* ---------- router ---------- */
 const ROUTES = {
-  feed: () => viewFeed(), post: (id) => viewPost(id), novo: () => { history.replaceState(null, '', '#/feed'); viewFeed().then(() => composer()); },
+  feed: () => viewFeed(), post: (id) => viewPost(id), tag: (t) => viewTag(t), novo: () => { history.replaceState(null, '', '#/feed'); viewFeed().then(() => composer()); },
   membros: () => viewMembers(), u: (id) => viewProfile(id), eu: () => viewMe(),
   negocios: () => viewDeals(), oportunidades: () => viewIntents(), rede: (t) => viewNetwork(t), notificacoes: () => viewNotifications(),
   pesquisa: () => { history.replaceState(null, '', '#/feed'); viewFeed().then(() => surveyPopup(true)); },
@@ -496,6 +497,10 @@ async function loadStories() {
   loadMemberBanners(data || []);
 }
 function musicChip(o, cls = '') { if (!o.music_title) return ''; const u = o.music_url ? safeUrl(o.music_url) : ''; return `<${u ? `a href="${h(u)}" target="_blank" rel="noopener"` : 'span'} class="music ${cls}">${I('music', 14)}<span class="ell">${h(o.music_title)}</span></${u ? 'a' : 'span'}>`; }
+function storyOverlayHtml(o) {
+  if (!o || !Array.isArray(o.items)) return '';
+  return o.items.map((it) => `<div class="sov ${it.kind === 'emoji' ? 'emo' : 'txt'} ${it.style === 'box' ? 'box' : ''}" style="left:${(it.x || 0.5) * 100}%;top:${(it.y || 0.5) * 100}%;--fs:${(it.size || 0.08) * 100};color:${h(it.color || '#fff')};${it.style === 'box' ? `--bx:${h(it.box || 'rgba(0,0,0,.6)')}` : ''}">${h(it.text || '')}</div>`).join('');
+}
 function openStories(authors, ai = 0) {
   if (!authors.length || ai < 0) return;
   let si = 0, timer = null, t0 = 0, left = 0, paused = false;
@@ -514,7 +519,7 @@ function openStories(authors, ai = 0) {
       <div class="sv-bars">${list().map((_, k) => `<i class="${k < si ? 'done' : k === si ? 'cur' : ''}"><b></b></i>`).join('')}</div>
       <div class="sv-head"><a href="#/u/${st.author_id}" class="row grow" style="gap:10px;min-width:0" data-go>${av(p, 'sm')}<span style="min-width:0"><b class="ell" style="display:block;font-size:13.5px">${h(p.full_name)}</b><small class="ell" style="display:block;color:rgba(255,255,255,.75);font-size:11.5px">${ago(st.created_at)}${st.location ? ' · ' + h(st.location) : ''}</small></span></a>
         ${mine ? `<button class="icon-btn" data-del aria-label="Excluir story">${I('trash', 17)}</button>` : ''}<button class="icon-btn" data-x aria-label="Fechar">${I('x', 18)}</button></div>
-      <div class="sv-media">${st.media_type === 'video' ? `<video src="${h(st.media_url)}" playsinline autoplay></video>` : st.media_type === 'image' ? `<img src="${h(st.media_url)}" alt="">` : `<div class="sv-text bg-${h(st.bg || 'noir')}"><p>${h(st.content)}</p></div>`}</div>
+      <div class="sv-media">${st.media_type === 'video' ? `<div class="sv-stage"><video src="${h(st.media_url)}"${st.poster_url ? ` poster="${h(st.poster_url)}"` : ''} playsinline autoplay class="${st.overlays ? 'fr' : ''}"${st.overlays && st.overlays.frame ? ` style="transform:translate(${(st.overlays.frame.x || 0) * 100}%,${(st.overlays.frame.y || 0) * 100}%) scale(${st.overlays.frame.s || 1})"` : ''}></video>${storyOverlayHtml(st.overlays)}</div>` : st.media_type === 'image' ? `<img src="${h(st.media_url)}" alt="">` : `<div class="sv-text bg-${h(st.bg || 'noir')}"><p>${h(st.content)}</p></div>`}</div>
       ${st.media_type !== 'text' && st.content ? `<div class="sv-cap">${h(st.content)}</div>` : ''}
       <div class="sv-foot">${musicChip(st)}</div>
       <button class="sv-tap l" aria-label="Anterior"></button><button class="sv-tap r" aria-label="Próximo"></button></div>`;
@@ -590,13 +595,51 @@ async function hydratePosts(posts) {
     sb.from('post_comments').select('post_id').in('post_id', ids),
     sharedIds.length ? sb.from('social_posts').select('*').in('id', sharedIds) : { data: [] },
   ]);
-  const get = await loadProfiles([...posts.map((p) => p.author_id), ...(shared.data || []).map((p) => p.author_id)]);
+  const get = await loadProfiles([...posts.map((p) => p.author_id), ...(shared.data || []).map((p) => p.author_id), ...posts.flatMap((p) => p.mentions || [])]);
   const sh = new Map((shared.data || []).map((p) => [p.id, p]));
-  return posts.map((p) => ({ ...p, author: get(p.author_id), likes: (likes.data || []).filter((l) => l.post_id === p.id),
+  return posts.map((p) => ({ ...p, author: get(p.author_id), tagged: (p.mentions || []).map(get), likes: (likes.data || []).filter((l) => l.post_id === p.id),
     ncom: (comments.data || []).filter((c) => c.post_id === p.id).length, shared: p.shared_post_id ? sh.get(p.shared_post_id) : null, sharedAuthor: p.shared_post_id && sh.get(p.shared_post_id) ? get(sh.get(p.shared_post_id).author_id) : null }));
 }
 const KIND = { post: '', conquista: 'Conquista', novidade: 'Novidade', projeto: 'Projeto', case: 'Case', oportunidade: 'Oportunidade', evento: 'Evento' };
-function mediaHtml(p) { if (!p.media_url) return ''; return `<div class="media">${p.media_type === 'video' ? `<video src="${h(p.media_url)}" controls playsinline preload="metadata"></video>` : `<img src="${h(p.media_url)}" loading="lazy" alt="">`}</div>`; }
+const ASPECT = { '1:1': '1 / 1', '4:5': '4 / 5', '1.91:1': '1.91 / 1', '9:16': '9 / 16' };
+function mediaItemHtml(m, i) {
+  const fr = m.frame || {}; const tf = fr.s ? ` style="transform:translate(${(fr.x || 0) * 100}%,${(fr.y || 0) * 100}%) scale(${fr.s})"` : '';
+  if (m.type === 'video') return `<div class="mi"><video src="${h(m.url)}"${m.poster ? ` poster="${h(m.poster)}"` : ''} playsinline preload="metadata" muted loop data-start="${Number(m.start) || 0}" data-end="${Number(m.end) || 0}"${tf}></video><button class="vsound" aria-label="Ativar som">${I('volume', 16)}</button></div>`;
+  return `<div class="mi"><img src="${h(m.url)}" loading="${i ? 'lazy' : 'eager'}" alt=""></div>`;
+}
+function mediaHtml(p) {
+  const list = Array.isArray(p.media) && p.media.length ? p.media : p.media_url ? [{ url: p.media_url, type: p.media_type === 'video' ? 'video' : 'image' }] : [];
+  if (!list.length) return '';
+  const ar = ASPECT[p.aspect] ? ` style="aspect-ratio:${ASPECT[p.aspect]}"` : '';
+  if (list.length === 1 && !ar) return `<div class="media single">${mediaItemHtml(list[0], 0).replace('<div class="mi">', '<div class="mi free">')}<i class="dheart">${I('heart', 72)}</i></div>`;
+  return `<div class="media car"${ar}><div class="car-track">${list.map(mediaItemHtml).join('')}</div>
+    ${list.length > 1 ? `<span class="car-n">1/${list.length}</span><button class="car-a l" aria-label="Anterior">${I('back', 16)}</button><button class="car-a r" aria-label="Próxima">${I('next', 16)}</button>` : ''}<i class="dheart">${I('heart', 72)}</i></div>
+    ${list.length > 1 ? `<div class="car-dots">${list.map((_, k) => `<i class="${k ? '' : 'on'}"></i>`).join('')}</div>` : ''}`;
+}
+/* legenda: #hashtags viram links */
+function capHtml(t) { return h(t).replace(/(^|\s)#([\p{L}\p{N}_]{2,40})/gu, (m, sp, tag) => `${sp}<a class="tag" href="#/tag/${encodeURIComponent(tag.toLowerCase())}">#${tag}</a>`); }
+/* comportamento da mídia no post: carrossel, vídeo com corte, dois toques para curtir */
+function initPostMedia(el) {
+  const car = $('.media.car', el);
+  if (car) {
+    const tr = $('.car-track', car), n = tr.children.length, dots = $$('.car-dots i', el), cnt = $('.car-n', car);
+    const sync = () => { const i = Math.round(tr.scrollLeft / tr.clientWidth); dots.forEach((d, k) => d.classList.toggle('on', k === i)); if (cnt) cnt.textContent = `${i + 1}/${n}`;
+      $$('video', tr).forEach((v, k) => { if (v.closest('.mi') === tr.children[i]) v.play().catch(() => {}); else v.pause(); }); };
+    tr.addEventListener('scroll', debounce(sync, 60), { passive: true });
+    const go = (d) => tr.scrollTo({ left: (Math.round(tr.scrollLeft / tr.clientWidth) + d) * tr.clientWidth, behavior: 'smooth' });
+    const l = $('.car-a.l', car), r = $('.car-a.r', car); if (l) l.onclick = (e) => { e.stopPropagation(); go(-1); }; if (r) r.onclick = (e) => { e.stopPropagation(); go(1); };
+  }
+  $$('video', el).forEach((v) => {
+    const st = Number(v.dataset.start) || 0, en = Number(v.dataset.end) || 0;
+    v.addEventListener('loadedmetadata', () => { if (st) v.currentTime = st; });
+    v.addEventListener('timeupdate', () => { if (en && v.currentTime >= en) v.currentTime = st; else if (st && v.currentTime < st - 0.3) v.currentTime = st; });
+    const b = v.parentElement.querySelector('.vsound'); if (b) b.onclick = (e) => { e.stopPropagation(); v.muted = !v.muted; b.classList.toggle('on', !v.muted); if (!v.muted) v.play().catch(() => {}); };
+    v.addEventListener('click', () => { if (v.paused) v.play().catch(() => {}); else v.pause(); });
+    if ('IntersectionObserver' in window) new IntersectionObserver((es) => es.forEach((x) => { if (x.isIntersecting && x.intersectionRatio > 0.6) { if (!car || v.closest('.mi') === $('.car-track', car).children[Math.round($('.car-track', car).scrollLeft / $('.car-track', car).clientWidth)]) v.play().catch(() => {}); } else v.pause(); }), { threshold: [0, 0.6] }).observe(v);
+  });
+  const media = $('.media', el); const like = $('[data-like]', el);
+  if (media && like) { let last = 0; media.addEventListener('pointerup', (e) => { if (e.target.closest('button,a,video')) return; const t = Date.now(); if (t - last < 320) { const hrt = $('.dheart', media); hrt.classList.remove('pop'); void hrt.offsetWidth; hrt.classList.add('pop'); if (!like.classList.contains('on')) like.click(); } last = t; }); }
+}
 async function renderPosts(list) {
   const posts = await hydratePosts(list);
   return posts.map((p) => { const liked = p.likes.some((l) => l.user_id === S.user.id); const mine = p.author_id === S.user.id;
@@ -604,7 +647,8 @@ async function renderPosts(list) {
       <div class="head"><a href="#/u/${p.author_id}">${av(p.author)}</a><a class="grow" href="#/u/${p.author_id}"><b class="ell" style="display:block">${h(p.author.full_name)}</b><span class="small muted ell" style="display:block">${h(coName(p.author))} · ${ago(p.created_at)}${p.updated_at > p.created_at && new Date(p.updated_at) - new Date(p.created_at) > 60000 ? ' · editado' : ''}</span>${p.location ? `<span class="small muted ell" style="display:flex;align-items:center;gap:4px">${I('pin', 12)}${h(p.location)}</span>` : ''}</a>
         ${KIND[p.kind] ? `<span class="badge gold">${KIND[p.kind]}</span>` : ''}${mine || can('content') ? `<button class="icon-btn" style="width:34px;height:34px" data-more>${I('more')}</button>` : ''}</div>
       ${p.hidden ? '<div class="badge bad" style="margin-top:8px">Oculto pela moderação</div>' : ''}
-      ${p.content ? (p.bg && !p.media_url && !p.shared_post_id ? `<div class="tpost bg-${h(p.bg)}"><p>${h(p.content)}</p></div>` : `<div class="body">${h(p.content)}</div>`) : ''}${mediaHtml(p)}${musicChip(p, 'inpost')}
+      ${p.media_url || (p.media && p.media.length) ? `${mediaHtml(p)}${p.content ? `<div class="body">${capHtml(p.content)}</div>` : ''}` : p.content ? (p.bg && !p.shared_post_id ? `<div class="tpost bg-${h(p.bg)}"><p>${h(p.content)}</p></div>` : `<div class="body">${capHtml(p.content)}</div>`) : ''}
+      ${p.tagged && p.tagged.length ? `<div class="tagged small">${I('user', 13)} com ${p.tagged.slice(0, 3).map((t) => `<a href="#/u/${t.id}">${h((t.full_name || '').split(' ').slice(0, 2).join(' '))}</a>`).join(', ')}${p.tagged.length > 3 ? ` e mais ${p.tagged.length - 3}` : ''}</div>` : ''}${musicChip(p, 'inpost')}
       ${p.shared ? `<a class="shared" href="#/post/${p.shared.id}" style="display:block"><div class="row">${av(p.sharedAuthor, 'sm')}<b class="small">${h(p.sharedAuthor.full_name)}</b></div>${p.shared.content ? `<div class="body small">${h(p.shared.content.slice(0, 280))}</div>` : ''}${mediaHtml(p.shared)}</a>` : (p.shared_post_id ? '<div class="shared small muted">Publicação original removida</div>' : '')}
       <div class="acts"><button data-like class="${liked ? 'on' : ''}">${I('heart')}<span>${p.likes.length || ''}</span></button>
         <button data-com>${I('msg')}<span>${p.ncom || ''}</span></button><button data-share>${I('repost')}</button></div></article>`; }).join('');
@@ -617,6 +661,7 @@ function bindPosts(box) {
     $('[data-com]', el).onclick = () => commentsSheet(id, el);
     $('[data-share]', el).onclick = () => composer({ shared_post_id: id });
     const m = $('[data-more]', el); if (m) m.onclick = () => postMenu(id, el);
+    initPostMedia(el);
   });
 }
 async function postMenu(id, el) {
@@ -661,7 +706,7 @@ function composer(existing = {}) {
       withBtn($('button.btn-gold', f), async () => {
         const row = { kind: f.kind.value, content: f.content.value.trim() };
         if (!shared) { row.location = f.location.value.trim() || null; row.music_title = f.music_title.value.trim() || null; row.music_url = f.music_url.value.trim() || null; }
-        if (file) { row.media_url = await upload(file, 'posts'); row.media_type = file.type.startsWith('video/') ? 'video' : 'image'; }
+        if (file) { row.media_url = await upload(file, 'posts'); row.media_type = file.type.startsWith('video/') ? 'video' : 'image'; row.media = []; row.aspect = null; }
         if (!shared) row.bg = !file && !existing.media_url && bg ? bg : null;
         const { error } = editing ? await sb.from('social_posts').update(row).eq('id', existing.id) : await sb.from('social_posts').insert({ ...row, author_id: S.user.id, shared_post_id: existing.shared_post_id || null });
         if (error) throw error; close(); toast(editing ? 'Publicação atualizada' : 'Publicado'); if ((location.hash.split('/')[1] || 'feed') === 'feed') loadPosts(); else route();
@@ -679,6 +724,15 @@ async function commentsSheet(postId, postEl) {
   load();
   const f = $('form', s.el); f.onsubmit = async (e) => { e.preventDefault(); const c = f.c.value.trim(); if (!c) return; f.c.value = '';
     const { error } = await sb.from('post_comments').insert({ post_id: postId, author_id: S.user.id, content: c }); if (error) return toast(errMsg(error), true); load(); };
+}
+async function viewTag(t) {
+  const tag = decodeURIComponent(t || '').toLowerCase().replace(/[^\p{L}\p{N}_]/gu, '');
+  const v = shell('#' + tag, spinner(), { back: true });
+  const { data, error } = await sb.from('social_posts').select('*').ilike('content', `%#${tag}%`).order('created_at', { ascending: false }).limit(60);
+  if (error) throw error;
+  const list = (data || []).filter((p) => new RegExp(`#${tag}(?![\\p{L}\\p{N}_])`, 'iu').test(p.content || ''));
+  v.innerHTML = `<h1 class="hd lg" style="margin:4px 0 14px">#${h(tag)}</h1><p class="small muted" style="margin-bottom:12px">${list.length} ${list.length === 1 ? 'publicação' : 'publicações'}</p><div id="posts">${list.length ? await renderPosts(list) : empty('search', 'Nenhuma publicação com essa hashtag.')}</div>`;
+  bindPosts(v);
 }
 async function viewPost(id) {
   const v = shell('Publicação', spinner(), { back: true });

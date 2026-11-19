@@ -1,7 +1,7 @@
 // Service worker: deixa o app instalável e abre a casca sem internet.
 // O Supabase (outro domínio) e as fontes vão sempre direto para a rede.
-const CACHE = 'cdr-net-v11';
-const SHELL = ['./', 'index.html', 'app.css?v=11', 'app.js?v=11', 'vendor/supabase-2.65.0.js', 'manifest.webmanifest',
+const CACHE = 'cdr-net-v12';
+const SHELL = ['./', 'index.html', 'app.css?v=12', 'app.js?v=12', 'publish.js?v=12', 'vendor/supabase-2.65.0.js', 'manifest.webmanifest',
   'icons/icon.svg', 'icons/icon-192.png', 'img/hero.jpg', 'sounds/clube-do-roi.mp3', 'sounds/clube-do-roi.m4a'];
 
 self.addEventListener('install', e => {
